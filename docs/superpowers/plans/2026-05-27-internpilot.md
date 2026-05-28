@@ -1002,7 +1002,8 @@ export function createResume(db: DB, input: CreateInput): Resume {
 }
 
 export function listResumes(db: DB): Resume[] {
-  return db.select().from(resumes).orderBy(desc(resumes.uploadedAt)).all();
+  // id is a deterministic tiebreaker for resumes uploaded in the same second
+  return db.select().from(resumes).orderBy(desc(resumes.uploadedAt), desc(resumes.id)).all();
 }
 
 export function getResume(db: DB, id: number): Resume | null {
