@@ -1,8 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // instrumentationHook is enabled by default in Next 15 (no longer in experimental).
-  serverExternalPackages: ["better-sqlite3"],
+  serverExternalPackages: [
+    "better-sqlite3",
+    "bindings",
+    "node-gyp-build",
+    "googleapis",
+    "google-auth-library",
+    "gaxios",
+    "gtoken",
+    "https-proxy-agent",
+    "agent-base",
+    "node-cron",
+    "@anthropic-ai/sdk",
+  ],
 };
 
 export default nextConfig;
