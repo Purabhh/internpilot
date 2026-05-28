@@ -1,0 +1,50 @@
+[
+  {
+    "company_name": "Citadel",
+    "title": "Quant Research Intern",
+    "locations": ["New York, NY"],
+    "url": "https://example.com/citadel-qr",
+    "active": true,
+    "is_visible": true,
+    "season": "Fall",
+    "terms": ["Fall 2026"],
+    "date_posted": 1716700000,
+    "id": "citadel-qr-001"
+  },
+  {
+    "company_name": "Jane Street",
+    "title": "SWE Intern",
+    "locations": ["Remote"],
+    "url": "https://example.com/jane-swe",
+    "active": true,
+    "is_visible": true,
+    "season": "Summer",
+    "terms": ["Summer 2026"],
+    "date_posted": 1716600000,
+    "id": "jane-swe-001"
+  },
+  {
+    "company_name": "DRW",
+    "title": "Quant Trader",
+    "locations": ["Chicago, IL"],
+    "url": "https://example.com/drw-qt",
+    "active": false,
+    "is_visible": true,
+    "season": "Fall",
+    "terms": ["Fall 2026"],
+    "date_posted": 1716500000,
+    "id": "drw-qt-001"
+  },
+  {
+    "company_name": "Hidden Co",
+    "title": "Ghost Role",
+    "locations": [],
+    "url": "https://example.com/x",
+    "active": true,
+    "is_visible": false,
+    "season": "Summer",
+    "terms": ["Summer 2026"],
+    "date_posted": 1716400000,
+    "id": "hidden-001"
+  }
+]
