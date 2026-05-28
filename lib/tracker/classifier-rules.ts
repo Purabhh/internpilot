@@ -59,8 +59,19 @@ export function classifyByRules(email: EmailInput): RuleResult {
   return { status: null, confidence: 0, company: null, reason: "no rule matched" };
 }
 
+const STOP_WORDS = new Set([
+  "unfortunately", "hi", "hello", "thank", "thanks", "dear", "we", "sincerely",
+  "best", "regards", "your", "an", "the", "update",
+]);
+
 function extractCompany(body: string): string | null {
-  // Best-effort: brand-like token after a preposition. The matcher does the real work.
-  const match = body.match(/(?:from|at|with|to)\s+([A-Z][A-Za-z0-9& ]{1,30})/);
-  return match?.[1]?.trim() ?? null;
+  // Capture 1-3 capitalized tokens after preposition, then trim trailing
+  // sentence-starting words ("Citadel Unfortunately" -> "Citadel").
+  const match = body.match(/(?:from|at|with|to)\s+([A-Z][A-Za-z0-9&]+(?:\s+[A-Z][A-Za-z0-9&]+){0,2})/);
+  if (!match) return null;
+  const words = match[1].trim().split(/\s+/);
+  while (words.length > 0 && STOP_WORDS.has(words[words.length - 1]!.toLowerCase())) {
+    words.pop();
+  }
+  return words.length > 0 ? words.join(" ") : null;
 }
