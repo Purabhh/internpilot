@@ -102,7 +102,7 @@ git init
     "next": "15.0.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "better-sqlite3": "11.5.0",
+    "better-sqlite3": "12.2.0",
     "drizzle-orm": "0.36.0",
     "node-cron": "3.0.3",
     "googleapis": "144.0.0",
@@ -113,7 +113,7 @@ git init
     "@types/node": "22.9.0",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
-    "@types/better-sqlite3": "7.6.11",
+    "@types/better-sqlite3": "7.6.12",
     "@types/node-cron": "3.0.11",
     "typescript": "5.6.3",
     "vitest": "2.1.5",
@@ -154,12 +154,14 @@ git init
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: { instrumentationHook: true },
+  // instrumentationHook is enabled by default in Next 15 (no longer in experimental).
   serverExternalPackages: ["better-sqlite3"],
 };
 
 export default nextConfig;
 ```
+
+(Note: `experimental.instrumentationHook` was removed from Next 15's config type because the feature is now on by default. The `instrumentation.ts` file we add in Task 22 still works — no opt-in flag needed.)
 
 - [ ] **Step 5: Create `.gitignore`**
 
@@ -175,6 +177,14 @@ out/
 next-env.d.ts
 ```
 
+- [ ] **Step 5b: Create `.npmrc`** (in project root, alongside `package.json`)
+
+```
+legacy-peer-deps=true
+```
+
+(Reason: Next 15.0 declares its peerDep for React as `^18.2.0 || 19.0.0-rc-...`, but we pin React `19.0.0` stable. The `.npmrc` makes the `--legacy-peer-deps` flag implicit for all installs.)
+
 - [ ] **Step 6: Create `.env.example`**
 
 ```
@@ -185,7 +195,7 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 ```tsx
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html><body>{children}</body></html>;
+  return <html lang="en"><body>{children}</body></html>;
 }
 ```
 
@@ -3083,6 +3093,14 @@ interface GoogleCredentials {
   installed: { client_id: string; client_secret: string; redirect_uris: string[] };
 }
 
+// Hardcoded — must match where Next.js serves the OAuth callback route. For
+// Desktop-type OAuth clients, Google auto-allows any http://localhost:*/ path,
+// so this does NOT need to be explicitly added to "Authorized redirect URIs"
+// in the Google Cloud Console. The `redirect_uris` field in credentials.json
+// is intentionally ignored (it's typically just "http://localhost" with no
+// port/path, which we can't actually serve a callback on).
+const OAUTH_REDIRECT_URI = "http://localhost:3000/api/auth/gmail/callback";
+
 export function readToken(p: string): Credentials | null {
   if (!existsSync(p)) return null;
   return JSON.parse(readFileSync(p, "utf-8")) as Credentials;
@@ -3095,9 +3113,8 @@ export function writeToken(p: string, creds: Credentials): void {
 
 export function loadOAuthClient(): OAuth2Client {
   const credsJson = JSON.parse(readFileSync(credentialsPath(), "utf-8")) as GoogleCredentials;
-  const { client_id, client_secret, redirect_uris } = credsJson.installed;
-  const redirect = redirect_uris[0] ?? "http://127.0.0.1:3000/api/auth/gmail/callback";
-  const client = new google.auth.OAuth2(client_id, client_secret, redirect);
+  const { client_id, client_secret } = credsJson.installed;
+  const client = new google.auth.OAuth2(client_id, client_secret, OAUTH_REDIRECT_URI);
   const existing = readToken(gmailTokenPath());
   if (existing) client.setCredentials(existing);
   client.on("tokens", (newCreds: Credentials) => {
