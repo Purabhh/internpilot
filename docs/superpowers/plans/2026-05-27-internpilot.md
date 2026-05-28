@@ -647,10 +647,9 @@ Expected: FAIL — module not found.
 
 ```typescript
 import Database from "better-sqlite3";
-import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
+import { drizzle, type BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { sql } from "drizzle-orm";
 import * as schema from "./schema";
 import { settings, sources } from "./schema";
 
