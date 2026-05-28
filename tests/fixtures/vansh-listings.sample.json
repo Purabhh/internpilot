@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rip-fe-winter",
+    "company_name": "Rippling",
+    "title": "Frontend SWE Intern",
+    "locations": ["New York, NY", "San Francisco, CA"],
+    "url": "https://example.com/rip",
+    "active": true,
+    "season": "Winter",
+    "date_posted": 1749260792
+  },
+  {
+    "id": "jane-summer",
+    "company_name": "Jane Street",
+    "title": "Quant Intern",
+    "locations": ["Remote"],
+    "url": "https://example.com/jane",
+    "active": true,
+    "season": "Summer",
+    "date_posted": 1716600000
+  },
+  {
+    "id": "drw-inactive",
+    "company_name": "DRW",
+    "title": "Trader",
+    "locations": ["Chicago, IL"],
+    "url": "https://example.com/drw",
+    "active": false,
+    "season": "Fall",
+    "date_posted": 1716500000
+  },
+  {
+    "id": "noloc-fall",
+    "company_name": "RemoteFirst",
+    "title": "Engineer",
+    "locations": [],
+    "url": "https://example.com/rf",
+    "active": true,
+    "season": "Fall",
+    "date_posted": 1716400000
+  }
+]

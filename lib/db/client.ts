@@ -10,21 +10,27 @@ const SEED_SOURCES = [
     name: "simplify_summer26_offseason",
     url: "https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/.github/scripts/listings.json",
     type: "github_json" as const,
+    enabled: 1,
   },
   {
     name: "simplify_newgrad",
     url: "https://raw.githubusercontent.com/SimplifyJobs/New-Grad-Positions/dev/.github/scripts/listings.json",
     type: "github_json" as const,
+    enabled: 1,
   },
   {
     name: "vansh_summer27_offseason",
     url: "https://raw.githubusercontent.com/vanshb03/Summer2027-Internships/dev/.github/scripts/listings.json",
     type: "github_json" as const,
+    enabled: 1,
   },
   {
+    // speedyapply only ships markdown tables, no JSON. Disabled until we add a
+    // markdown-table parser. The scraper class is a stub that returns [].
     name: "speedyapply_swe26",
-    url: "https://raw.githubusercontent.com/speedyapply/2026-SWE-College-Jobs/main/listings.json",
-    type: "github_json" as const,
+    url: "https://github.com/speedyapply/2026-SWE-College-Jobs",
+    type: "github_md_table" as const,
+    enabled: 0,
   },
 ];
 
