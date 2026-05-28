@@ -3359,7 +3359,7 @@ export function stopSchedulers(): void {
 }
 ```
 
-- [ ] **Step 5: Implement `app/instrumentation.ts`**
+- [ ] **Step 5: Implement `instrumentation.ts`** (at project root — Next.js convention, NOT inside app/)
 
 ```typescript
 export async function register() {
