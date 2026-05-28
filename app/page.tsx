@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <main>intern.pilot API · UI lives in a separate project</main>;
+  redirect("/overview");
 }
