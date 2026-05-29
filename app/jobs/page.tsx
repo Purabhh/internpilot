@@ -94,10 +94,11 @@ export default function JobsPage() {
 
         {/* Table */}
         <Card className="!p-0 overflow-hidden">
-          <div className="grid grid-cols-[2.5fr_1.2fr_60px_120px] mono text-[10px] uppercase tracking-wider text-[var(--color-ink-mute)] px-5 py-3 border-b-2 border-[var(--color-ink)]">
+          <div className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] mono text-[10px] uppercase tracking-wider text-[var(--color-ink-mute)] px-5 py-3 border-b-2 border-[var(--color-ink)]">
             <div>Company / Role</div>
             <div>Location</div>
-            <div>ATS</div>
+            <div title="Applicant Tracking System">ATS</div>
+            <div>Posted</div>
             <div className="text-right">Actions</div>
           </div>
           {jobsQ.isLoading && (
@@ -113,7 +114,7 @@ export default function JobsPage() {
             return (
               <div
                 key={j.id}
-                className="grid grid-cols-[2.5fr_1.2fr_60px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)]"
+                className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)]"
               >
                 <div className="min-w-0">
                   <div className="font-bold truncate">{j.company}</div>
@@ -122,6 +123,9 @@ export default function JobsPage() {
                 <div className="mono text-xs text-[var(--color-ink-mute)] truncate">{j.location ?? "—"}</div>
                 <div>
                   <MonoBadge variant={atsVariant(ats.code)}>{ats.code}</MonoBadge>
+                </div>
+                <div className="mono text-xs text-[var(--color-ink-mute)]" title={j.postedAt ? new Date(j.postedAt * 1000).toLocaleString() : "Posted date unknown — using scrape time"}>
+                  {relativeTime(j.postedAt ?? j.scrapedAt)}
                 </div>
                 <div className="flex items-center justify-end gap-1.5">
                   <button
