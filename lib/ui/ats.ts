@@ -21,7 +21,9 @@ export function relativeTime(unixSec: number | null | undefined): string {
   const diff = Math.floor(Date.now() / 1000) - unixSec;
   if (diff < 60) return "just now";
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  // Keep hour granularity up to 72h — the first 1-2 days of a posting matter
+  // a lot when timing your application, so "30h ago" beats "1d ago".
+  if (diff < 86400 * 3) return `${Math.floor(diff / 3600)}h ago`;
   if (diff < 86400 * 30) return `${Math.floor(diff / 86400)}d ago`;
   return `${Math.floor(diff / (86400 * 30))}mo ago`;
 }
