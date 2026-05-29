@@ -22,15 +22,31 @@ function atsVariant(code: string): "pink" | "blue" | "black" | "default" {
   return "default";
 }
 
+const AGE_CHIPS: Array<{ label: string; days: number | null }> = [
+  { label: "30d", days: 30 },
+  { label: "90d", days: 90 },
+  { label: "6mo", days: 180 },
+  { label: "1y", days: 365 },
+  { label: "all", days: null },
+];
+
 export default function JobsPage() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
+  const [maxAgeDays, setMaxAgeDays] = useState<number | null>(90); // default 90d
   const PER_PAGE = 30;
 
   const jobsQ = useQuery({
-    queryKey: ["jobs", page],
-    queryFn: () => fetchJson<Job[]>(`/api/jobs?limit=${PER_PAGE}&offset=${page * PER_PAGE}`),
+    queryKey: ["jobs", page, maxAgeDays],
+    queryFn: () => {
+      const params = new URLSearchParams({
+        limit: String(PER_PAGE),
+        offset: String(page * PER_PAGE),
+      });
+      if (maxAgeDays != null) params.set("maxAgeDays", String(maxAgeDays));
+      return fetchJson<Job[]>(`/api/jobs?${params.toString()}`);
+    },
   });
   const sourcesQ = useQuery({
     queryKey: ["sources"],
@@ -79,8 +95,8 @@ export default function JobsPage() {
         </div>
 
         {/* Filter row */}
-        <div className="flex items-center gap-3">
-          <div className="card-hard flex items-center gap-2 px-3 py-2 flex-1 max-w-md !p-2 !pl-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="card-hard flex items-center gap-2 px-3 py-2 flex-1 min-w-[280px] max-w-md !p-2 !pl-3">
             <Search className="w-4 h-4 opacity-60" />
             <input
               value={search}
@@ -88,6 +104,25 @@ export default function JobsPage() {
               placeholder="search company, role, location…"
               className="bg-transparent outline-none flex-1 text-sm mono"
             />
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">posted</span>
+            {AGE_CHIPS.map((chip) => {
+              const active = maxAgeDays === chip.days;
+              return (
+                <button
+                  key={chip.label}
+                  onClick={() => { setMaxAgeDays(chip.days); setPage(0); }}
+                  className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
+                    active
+                      ? "bg-[var(--color-pink)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                      : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+                  }`}
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
           </div>
           <MonoBadge>{filtered.length} matching</MonoBadge>
         </div>

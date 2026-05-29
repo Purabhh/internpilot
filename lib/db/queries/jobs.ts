@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
 import type { DB } from "@/lib/db/client";
 import { jobs, type Job, type NewJob } from "@/lib/db/schema";
 import type { NormalizedJob } from "@/lib/scrapers/base";
@@ -29,16 +29,25 @@ export interface JobFilters {
   search?: string;
   limit?: number;
   offset?: number;
+  /** Filter to jobs with COALESCE(postedAt, scrapedAt) >= this unix-seconds timestamp. */
+  postedAfter?: number;
 }
 
 export function listJobs(db: DB, f: JobFilters = {}): Job[] {
   const conditions = [];
   if (!f.includeDismissed) conditions.push(isNull(jobs.dismissedAt));
   if (f.source) conditions.push(eq(jobs.source, f.source));
+  if (typeof f.postedAfter === "number") {
+    // Use COALESCE so jobs missing postedAt are kept (fall back to scrapedAt).
+    conditions.push(gte(sql`COALESCE(${jobs.postedAt}, ${jobs.scrapedAt})`, f.postedAfter));
+  }
   const where = conditions.length > 0 ? and(...conditions) : undefined;
   let q = db.select().from(jobs).$dynamic();
   if (where) q = q.where(where);
-  q = q.orderBy(desc(jobs.scrapedAt), desc(jobs.id));
+  q = q.orderBy(
+    desc(sql`COALESCE(${jobs.postedAt}, ${jobs.scrapedAt})`),
+    desc(jobs.id),
+  );
   if (f.limit) q = q.limit(f.limit);
   if (f.offset) q = q.offset(f.offset);
   return q.all();

@@ -18,8 +18,13 @@ export async function GET(req: Request) {
   const source = url.searchParams.get("source") ?? undefined;
   const limit = Number(url.searchParams.get("limit")) || 100;
   const offset = Number(url.searchParams.get("offset")) || 0;
+  const maxAgeDaysRaw = url.searchParams.get("maxAgeDays");
+  const maxAgeDays = maxAgeDaysRaw ? Number(maxAgeDaysRaw) : NaN;
+  const postedAfter = Number.isFinite(maxAgeDays) && maxAgeDays > 0
+    ? Math.floor(Date.now() / 1000) - maxAgeDays * 86400
+    : undefined;
   const db = openDb(dbPath());
-  return NextResponse.json(listJobs(db, { includeDismissed, source, limit, offset }));
+  return NextResponse.json(listJobs(db, { includeDismissed, source, limit, offset, postedAfter }));
 }
 
 export async function POST(req: Request) {
