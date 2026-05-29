@@ -197,13 +197,17 @@ export default function JobsPage() {
           {filtered.map((j) => {
             const ats = atsFromUrl(j.url);
             const terms = parseTerms(j.terms);
-            const fresh = isFresh(j.postedAt ?? j.scrapedAt, 6);
+            // "Fresh" means newly-discovered by our scraper, so the user can be among
+            // the first to apply once we surface it. We use scrapedAt (not postedAt)
+            // because aggregator postedAt is when SimplifyJobs/Vansh added the row,
+            // not when the company posted — scrapedAt is "new to me" which matches
+            // the recent-jobs panel on the overview.
+            const fresh = isFresh(j.scrapedAt, 6);
             return (
               <div
                 key={j.id}
-                className={`grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)] ${
-                  fresh ? "bg-[var(--color-pink)]/5" : ""
-                }`}
+                className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)]"
+                style={fresh ? { backgroundColor: "rgba(255, 31, 110, 0.08)" } : undefined}
               >
                 <div className="min-w-0">
                   <div className="font-bold truncate flex items-center gap-2">
@@ -229,7 +233,13 @@ export default function JobsPage() {
                 <div>
                   <MonoBadge variant={atsVariant(ats.code)}>{ats.code}</MonoBadge>
                 </div>
-                <div className="mono text-xs text-[var(--color-ink-mute)]" title={j.postedAt ? new Date(j.postedAt * 1000).toLocaleString() : "Posted date unknown — using scrape time"}>
+                <div
+                  className="mono text-xs text-[var(--color-ink-mute)]"
+                  title={[
+                    j.postedAt ? `Posted: ${new Date(j.postedAt * 1000).toLocaleString()}` : "Posted: unknown",
+                    `Discovered: ${new Date(j.scrapedAt * 1000).toLocaleString()}`,
+                  ].join("\n")}
+                >
                   {relativeTime(j.postedAt ?? j.scrapedAt)}
                 </div>
                 <div className="flex items-center justify-end gap-1.5">
