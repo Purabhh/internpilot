@@ -11,6 +11,8 @@ export const jobs = sqliteTable("jobs", {
   postedAt: integer("posted_at"),
   scrapedAt: integer("scraped_at").notNull(),
   dismissedAt: integer("dismissed_at"),
+  // JSON-encoded array of term strings, e.g. '["Fall 2026","Winter 2027"]' or '["New Grad"]'.
+  terms: text("terms"),
 }, (t) => ({
   sourceUnique: unique().on(t.source, t.sourceId),
 }));

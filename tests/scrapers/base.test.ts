@@ -10,6 +10,7 @@ describe("scraper base", () => {
       location: null,
       url: "https://x",
       postedAt: 1,
+      terms: null,
     };
     expect(j.company).toBe("C");
   });

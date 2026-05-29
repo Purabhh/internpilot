@@ -5,6 +5,8 @@ export interface NormalizedJob {
   location: string | null;
   url: string;
   postedAt: number | null;
+  /** Term strings such as ["Fall 2026", "Winter 2027"] or ["New Grad"]. Null when unknown. */
+  terms: string[] | null;
 }
 
 export interface Scraper {

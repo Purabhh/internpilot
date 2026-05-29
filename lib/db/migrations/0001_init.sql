@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS jobs (
   posted_at INTEGER,
   scraped_at INTEGER NOT NULL,
   dismissed_at INTEGER,
+  terms TEXT,
   UNIQUE(source, source_id)
 );
 

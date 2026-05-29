@@ -11,6 +11,8 @@ export interface Job {
   postedAt: number | null;
   scrapedAt: number;
   dismissedAt: number | null;
+  /** JSON-encoded array of term strings — parse with `parseTerms(job.terms)`. */
+  terms: string | null;
 }
 
 export interface Application {

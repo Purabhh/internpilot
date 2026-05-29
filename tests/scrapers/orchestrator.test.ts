@@ -19,10 +19,10 @@ describe("runScrapers", () => {
     db.update(sources).set({ enabled: 0 }).where(eq(sources.name, "simplify_newgrad")).run();
     const fakes = [
       new FakeScraper("simplify_summer26_offseason", [
-        { sourceId: "a", company: "Co", role: "R", location: null, url: "u", postedAt: null },
+        { sourceId: "a", company: "Co", role: "R", location: null, url: "u", postedAt: null, terms: null },
       ]),
       new FakeScraper("simplify_newgrad", [
-        { sourceId: "b", company: "Co2", role: "R", location: null, url: "u", postedAt: null },
+        { sourceId: "b", company: "Co2", role: "R", location: null, url: "u", postedAt: null, terms: null },
       ]),
     ];
     await runScrapers(db, fakes);
@@ -34,7 +34,7 @@ describe("runScrapers", () => {
   it("upserts on (source, sourceId) — running twice produces no duplicates", async () => {
     const db = freshDb();
     const fake = new FakeScraper("simplify_newgrad", [
-      { sourceId: "x", company: "C", role: "R", location: null, url: "u", postedAt: null },
+      { sourceId: "x", company: "C", role: "R", location: null, url: "u", postedAt: null, terms: null },
     ]);
     await runScrapers(db, [fake]);
     await runScrapers(db, [fake]);
@@ -46,8 +46,8 @@ describe("runScrapers", () => {
     const db = freshDb();
     const before = Math.floor(Date.now() / 1000) - 1;
     const fake = new FakeScraper("simplify_newgrad", [
-      { sourceId: "x", company: "C", role: "R", location: null, url: "u", postedAt: null },
-      { sourceId: "y", company: "C2", role: "R", location: null, url: "u", postedAt: null },
+      { sourceId: "x", company: "C", role: "R", location: null, url: "u", postedAt: null, terms: null },
+      { sourceId: "y", company: "C2", role: "R", location: null, url: "u", postedAt: null, terms: null },
     ]);
     await runScrapers(db, [fake]);
     const row = db.select().from(sources).where(eq(sources.name, "simplify_newgrad")).get();
@@ -61,7 +61,7 @@ describe("runScrapers", () => {
     const fakes = [
       new FakeScraper("simplify_summer26_offseason", [], new Error("boom")),
       new FakeScraper("simplify_newgrad", [
-        { sourceId: "a", company: "C", role: "R", location: null, url: "u", postedAt: null },
+        { sourceId: "a", company: "C", role: "R", location: null, url: "u", postedAt: null, terms: null },
       ]),
     ];
     await runScrapers(db, fakes);

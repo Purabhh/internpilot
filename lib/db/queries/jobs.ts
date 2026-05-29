@@ -7,6 +7,7 @@ export function upsertJobs(db: DB, sourceName: string, items: NormalizedJob[]): 
   const now = Math.floor(Date.now() / 1000);
   let inserted = 0;
   for (const item of items) {
+    const termsJson = item.terms && item.terms.length > 0 ? JSON.stringify(item.terms) : null;
     const row: NewJob = {
       source: sourceName,
       sourceId: item.sourceId,
@@ -16,8 +17,19 @@ export function upsertJobs(db: DB, sourceName: string, items: NormalizedJob[]): 
       url: item.url,
       postedAt: item.postedAt,
       scrapedAt: now,
+      terms: termsJson,
     };
-    const result = db.insert(jobs).values(row).onConflictDoNothing().run();
+    // Update terms on existing rows so existing data backfills as we rescrape.
+    // Other fields stay frozen at their original scrape values (we don't want
+    // role/location/url to silently change underneath the user).
+    const result = db
+      .insert(jobs)
+      .values(row)
+      .onConflictDoUpdate({
+        target: [jobs.source, jobs.sourceId],
+        set: { terms: termsJson },
+      })
+      .run();
     if (result.changes > 0) inserted += 1;
   }
   return inserted;

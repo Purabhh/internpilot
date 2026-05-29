@@ -31,3 +31,36 @@ export function daysSince(unixSec: number | null | undefined): string {
   const days = Math.floor((Date.now() / 1000 - unixSec) / 86400);
   return days === 0 ? "today" : `${days}d`;
 }
+
+export function parseTerms(termsJson: string | null | undefined): string[] {
+  if (!termsJson) return [];
+  try {
+    const parsed = JSON.parse(termsJson) as unknown;
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Categorize a term string into a coarse bucket the UI can color/filter by.
+ * "Summer 2026" → "summer", "Fall 2026" → "fall", "New Grad" → "newgrad", etc.
+ */
+export function termBucket(term: string): "summer" | "fall" | "winter" | "spring" | "newgrad" | "other" {
+  const t = term.toLowerCase();
+  if (t.includes("new grad")) return "newgrad";
+  if (t.includes("summer")) return "summer";
+  if (t.includes("fall") || t.includes("autumn")) return "fall";
+  if (t.includes("winter")) return "winter";
+  if (t.includes("spring")) return "spring";
+  return "other";
+}
+
+/**
+ * True when the timestamp is within the last 6 hours — used to surface a "NEW"
+ * badge in the jobs list so the user can hit fresh postings before everyone else.
+ */
+export function isFresh(unixSec: number | null | undefined, withinHours = 6): boolean {
+  if (!unixSec) return false;
+  return Date.now() / 1000 - unixSec < withinHours * 3600;
+}

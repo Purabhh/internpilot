@@ -6,7 +6,7 @@ import { Check, X, ArrowUpRight, Search, Plus } from "lucide-react";
 import { fetchJson, patchJson, postJson } from "@/lib/ui/fetcher";
 import type { Job, Source } from "@/lib/ui/types";
 import { Card, MonoBadge, DashedDivider, Switch, WavyUnderline } from "../_components/ui";
-import { atsFromUrl, relativeTime } from "@/lib/ui/ats";
+import { atsFromUrl, relativeTime, parseTerms, termBucket, isFresh } from "@/lib/ui/ats";
 
 const SOURCE_DISPLAY: Record<string, { name: string; sub: string }> = {
   simplify_summer26_offseason: { name: "Simplify", sub: "Off-Season Internships" },
@@ -30,11 +30,29 @@ const AGE_CHIPS: Array<{ label: string; days: number | null }> = [
   { label: "all", days: null },
 ];
 
+type TermFilter = "all" | "summer" | "fall" | "winter" | "spring" | "newgrad";
+const TERM_CHIPS: Array<{ label: string; key: TermFilter }> = [
+  { label: "all", key: "all" },
+  { label: "fall", key: "fall" },
+  { label: "winter", key: "winter" },
+  { label: "spring", key: "spring" },
+  { label: "summer", key: "summer" },
+  { label: "new grad", key: "newgrad" },
+];
+
+function termColor(bucket: ReturnType<typeof termBucket>): "pink" | "blue" | "black" | "default" {
+  if (bucket === "fall" || bucket === "winter" || bucket === "spring") return "pink";
+  if (bucket === "newgrad") return "blue";
+  if (bucket === "summer") return "black";
+  return "default";
+}
+
 export default function JobsPage() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [maxAgeDays, setMaxAgeDays] = useState<number | null>(90); // default 90d
+  const [termFilter, setTermFilter] = useState<TermFilter>("all");
   const PER_PAGE = 30;
 
   const jobsQ = useQuery({
@@ -71,14 +89,25 @@ export default function JobsPage() {
   const filtered = useMemo(() => {
     if (!jobsQ.data) return [];
     const q = search.trim().toLowerCase();
-    if (!q) return jobsQ.data;
-    return jobsQ.data.filter(
-      (j) =>
-        j.company.toLowerCase().includes(q) ||
-        j.role.toLowerCase().includes(q) ||
-        (j.location ?? "").toLowerCase().includes(q),
-    );
-  }, [jobsQ.data, search]);
+    return jobsQ.data.filter((j) => {
+      // term filter
+      if (termFilter !== "all") {
+        const terms = parseTerms(j.terms);
+        if (!terms.some((t) => termBucket(t) === termFilter)) return false;
+      }
+      // search filter
+      if (q) {
+        if (
+          !j.company.toLowerCase().includes(q) &&
+          !j.role.toLowerCase().includes(q) &&
+          !(j.location ?? "").toLowerCase().includes(q)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [jobsQ.data, search, termFilter]);
 
   return (
     <div className="mt-4 grid grid-cols-12 gap-6">
@@ -127,6 +156,27 @@ export default function JobsPage() {
           <MonoBadge>{filtered.length} matching</MonoBadge>
         </div>
 
+        {/* Term filter row */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">term</span>
+          {TERM_CHIPS.map((chip) => {
+            const active = termFilter === chip.key;
+            return (
+              <button
+                key={chip.key}
+                onClick={() => setTermFilter(chip.key)}
+                className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
+                  active
+                    ? "bg-[var(--color-blue)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                    : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+                }`}
+              >
+                {chip.label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Table */}
         <Card className="!p-0 overflow-hidden">
           <div className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] mono text-[10px] uppercase tracking-wider text-[var(--color-ink-mute)] px-5 py-3 border-b-2 border-[var(--color-ink)]">
@@ -146,14 +196,34 @@ export default function JobsPage() {
           )}
           {filtered.map((j) => {
             const ats = atsFromUrl(j.url);
+            const terms = parseTerms(j.terms);
+            const fresh = isFresh(j.postedAt ?? j.scrapedAt, 6);
             return (
               <div
                 key={j.id}
-                className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)]"
+                className={`grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)] ${
+                  fresh ? "bg-[var(--color-pink)]/5" : ""
+                }`}
               >
                 <div className="min-w-0">
-                  <div className="font-bold truncate">{j.company}</div>
+                  <div className="font-bold truncate flex items-center gap-2">
+                    {j.company}
+                    {fresh && (
+                      <span className="mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-[var(--color-pink)] text-white border-2 border-[var(--color-ink)] shadow-[1.5px_1.5px_0_#0a0a0a]">
+                        NEW
+                      </span>
+                    )}
+                  </div>
                   <div className="mono text-xs text-[var(--color-ink-mute)] uppercase truncate">{j.role}</div>
+                  {terms.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-1.5">
+                      {terms.map((t, i) => (
+                        <MonoBadge key={i} variant={termColor(termBucket(t))} className="!text-[9px] !py-0">
+                          {t}
+                        </MonoBadge>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="mono text-xs text-[var(--color-ink-mute)] truncate">{j.location ?? "—"}</div>
                 <div>

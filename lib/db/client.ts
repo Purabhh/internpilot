@@ -45,6 +45,10 @@ export function openDb(dbPath: string): DB {
   const migrationSql = readFileSync(migrationPath, "utf-8");
   sqlite.exec(migrationSql);
 
+  // Idempotent column additions for existing DBs. SQLite has no IF NOT EXISTS
+  // for ALTER TABLE, so we swallow the "duplicate column" error.
+  try { sqlite.exec("ALTER TABLE jobs ADD COLUMN terms TEXT"); } catch { /* already exists */ }
+
   const db = drizzle(sqlite, { schema });
 
   seedSettings(db);

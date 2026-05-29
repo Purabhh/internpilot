@@ -25,6 +25,7 @@ function normalize(raw: SimplifyListing): NormalizedJob {
     location: raw.locations.length > 0 ? raw.locations.join("; ") : null,
     url: raw.url,
     postedAt: typeof raw.date_posted === "number" ? raw.date_posted : null,
+    terms: raw.terms && raw.terms.length > 0 ? raw.terms : (raw.season ? [raw.season] : null),
   };
 }
 
@@ -55,6 +56,10 @@ export class SimplifyNewGradScraper implements Scraper {
 
   async fetchAndNormalize(httpFetch: typeof fetch = fetch): Promise<NormalizedJob[]> {
     const all = await fetchJson<SimplifyListing[]>(this.url, httpFetch);
-    return all.filter(isActiveVisible).map(normalize);
+    return all.filter(isActiveVisible).map((r) => {
+      const j = normalize(r);
+      // New-grad source has no term info; tag uniformly so the UI can show "New Grad".
+      return { ...j, terms: ["New Grad"] };
+    });
   }
 }

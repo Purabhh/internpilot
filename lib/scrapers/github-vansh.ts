@@ -22,6 +22,7 @@ function normalize(raw: VanshListing): NormalizedJob {
     location: raw.locations.length > 0 ? raw.locations.join("; ") : null,
     url: raw.url,
     postedAt: typeof raw.date_posted === "number" ? raw.date_posted : null,
+    terms: raw.season ? [raw.season] : null,
   };
 }
 
