@@ -18,7 +18,7 @@ $sc  = $wsh.CreateShortcut($shortcut)
 $sc.TargetPath       = $launchBat
 $sc.WorkingDirectory = $projectDir
 $sc.WindowStyle      = 7   # minimized — keeps the console tucked away
-$sc.Description      = "intern.pilot — personal job application tracker"
+$sc.Description      = "intern.pilot - personal job application tracker"
 
 # Use Chrome's icon if available so the shortcut looks like a real app.
 $chrome = "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe"
