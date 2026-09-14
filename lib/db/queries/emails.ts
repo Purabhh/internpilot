@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, count } from "drizzle-orm";
 import type { DB } from "@/lib/db/client";
 import { emails, type Email, type NewEmail } from "@/lib/db/schema";
 
@@ -7,8 +7,25 @@ export function insertEmailIfNew(db: DB, row: NewEmail): Email | null {
   return result ?? null;
 }
 
-export function listEmails(db: DB, limit = 100): Email[] {
-  return db.select().from(emails).orderBy(desc(emails.receivedAt)).limit(limit).all();
+export interface EmailListOpts {
+  limit?: number;
+  offset?: number;
+}
+
+export function listEmails(db: DB, opts: EmailListOpts = {}): Email[] {
+  const { limit = 50, offset = 0 } = opts;
+  let q = db.select().from(emails).orderBy(desc(emails.receivedAt), desc(emails.id)).limit(limit).$dynamic();
+  if (offset > 0) q = q.offset(offset);
+  return q.all();
+}
+
+/** Total emails and how many still need review — powers pagination + badges
+ *  without fetching every row just to call `.length` on it. */
+export function countEmails(db: DB): { total: number; needsReview: number } {
+  const total = db.select({ n: count() }).from(emails).get()?.n ?? 0;
+  const needsReview =
+    db.select({ n: count() }).from(emails).where(eq(emails.needsReview, 1)).get()?.n ?? 0;
+  return { total, needsReview };
 }
 
 export function getEmail(db: DB, id: number): Email | null {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchJson, patchJson } from "@/lib/ui/fetcher";
 import type { OverviewResponse, Settings, Source, Job } from "@/lib/ui/types";
@@ -60,7 +61,14 @@ function FunnelBar({ label, value, max }: { label: string; value: number; max: n
   );
 }
 
-function MasterToggle({ kind }: { kind: "scraper" | "tracker" }) {
+type ToggleKind = "scraper" | "tracker" | "enricher";
+const ENABLED_KEY: Record<ToggleKind, keyof Settings> = {
+  scraper: "scraperEnabled",
+  tracker: "trackerEnabled",
+  enricher: "enrichEnabled",
+};
+
+function MasterToggle({ kind }: { kind: ToggleKind }) {
   const qc = useQueryClient();
   const settings = useQuery({
     queryKey: ["settings"],
@@ -72,28 +80,42 @@ function MasterToggle({ kind }: { kind: "scraper" | "tracker" }) {
   });
   const m = useMutation({
     mutationFn: (enabled: boolean) =>
-      patchJson<Settings>("/api/settings", {
-        [kind === "scraper" ? "scraperEnabled" : "trackerEnabled"]: enabled ? 1 : 0,
-      }),
+      patchJson<Settings>("/api/settings", { [ENABLED_KEY[kind]]: enabled ? 1 : 0 }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["settings"] }),
   });
 
-  const enabled = settings.data
-    ? (kind === "scraper" ? settings.data.scraperEnabled : settings.data.trackerEnabled) === 1
-    : false;
+  const enabled = settings.data ? (settings.data[ENABLED_KEY[kind]] as number) === 1 : false;
   const intervalMin = settings.data
-    ? (kind === "scraper" ? settings.data.scraperIntervalMin : settings.data.trackerIntervalMin)
+    ? kind === "scraper" ? settings.data.scraperIntervalMin
+    : kind === "tracker" ? settings.data.trackerIntervalMin
+    : settings.data.enrichIntervalMin
     : 0;
 
+  // For the scraper, "LAST" is the most recent source.lastRunAt across all
+  // sources. For the tracker, it's settings.trackerLastRunAt — stamped by
+  // tickTracker on every cycle. Earlier this was gmailConnectedAt by mistake,
+  // which showed "51h ago" forever because that's when you first authorized.
   const lastRun =
     kind === "scraper"
       ? sources.data?.reduce<number | null>((acc, s) => (s.lastRunAt && (!acc || s.lastRunAt > acc)) ? s.lastRunAt : acc, null) ?? null
-      : settings.data?.gmailConnectedAt ?? null;
+      : kind === "tracker"
+        ? settings.data?.trackerLastRunAt ?? null
+        : settings.data?.enrichLastRunAt ?? null;
+  const lastInserted =
+    kind === "tracker" ? settings.data?.trackerLastInserted ?? null
+    : kind === "enricher" ? settings.data?.enrichLastCount ?? null
+    : null;
+  const lastError =
+    kind === "tracker" ? settings.data?.trackerLastError ?? null
+    : kind === "enricher" ? settings.data?.enrichLastError ?? null
+    : null;
 
   const subtitle =
     kind === "scraper"
       ? `${sources.data?.filter((s) => s.enabled).length ?? 0}/${sources.data?.length ?? 0} sources · ${intervalMin}m interval`
-      : `gmail · ${intervalMin}m interval`;
+      : kind === "tracker"
+        ? `gmail · ${intervalMin}m interval`
+        : `salary from links · ${intervalMin}m interval`;
 
   return (
     <Card className="flex flex-col gap-3">
@@ -109,15 +131,64 @@ function MasterToggle({ kind }: { kind: "scraper" | "tracker" }) {
       <div className="grid grid-cols-2 gap-3">
         <div>
           <div className="mono text-[10px] uppercase text-[var(--color-ink-mute)]">last</div>
-          <div className="mono text-sm">{relativeTime(lastRun)}</div>
+          <div className="mono text-sm" title={lastError ? `Error: ${lastError}` : undefined}>
+            {lastError
+              ? `err · ${lastError.slice(0, 18)}`
+              : lastInserted != null
+                ? `${relativeTime(lastRun)} · +${lastInserted}`
+                : relativeTime(lastRun)}
+          </div>
         </div>
         <div>
           <div className="mono text-[10px] uppercase text-[var(--color-ink-mute)]">next</div>
-          <div className="mono text-sm">{enabled ? `in ${intervalMin}m` : "—"}</div>
+          {/* Real countdown from the last actual run, not just the configured
+              interval — "in 3m" forever while the timer was dead is how a
+              16-hour tracker outage went unnoticed. "overdue" = the heartbeat
+              should catch it on the next /api/settings poll. */}
+          <div className="mono text-sm">
+            {!enabled || !lastRun
+              ? "—"
+              : (() => {
+                  const dueIn = Math.round((lastRun + intervalMin * 60 - Date.now() / 1000) / 60);
+                  return dueIn > 0 ? `in ${dueIn}m` : "overdue";
+                })()}
+          </div>
         </div>
       </div>
     </Card>
   );
+}
+
+/**
+ * Compose a one-line health blurb per source:
+ *   "err · {first 20 chars}"   — last run threw
+ *   "—"                        — never run
+ *   "2m · +3"                  — last run found 3 new rows
+ *   "2m · +0 · last 3d"        — last run found nothing, but the last successful
+ *                                insert was 3 days ago (helps spot upstream droughts)
+ *   "2m · +0"                  — no inserts ever, last run was 2 min ago
+ * Why this matters: `lastCount` (items returned) is roughly constant across
+ * runs, so it can't tell the user whether the scraper is actually picking up
+ * new postings. `lastInserted` is the true signal.
+ */
+function sourceStatusLine(s: Source): string {
+  if (s.lastError) return `err · ${s.lastError.slice(0, 20)}`;
+  if (!s.lastRunAt) return "—";
+  const ran = relativeTime(s.lastRunAt);
+  if (s.lastInserted == null) return ran;
+  if (s.lastInserted > 0) return `${ran} · +${s.lastInserted}`;
+  if (s.lastInsertedAt) return `${ran} · +0 · last ${relativeTime(s.lastInsertedAt)}`;
+  return `${ran} · +0`;
+}
+
+function sourceTooltip(s: Source): string {
+  const parts: string[] = [];
+  if (s.lastRunAt) parts.push(`Last run: ${new Date(s.lastRunAt * 1000).toLocaleString()}`);
+  if (s.lastCount != null) parts.push(`Items returned: ${s.lastCount}`);
+  if (s.lastInserted != null) parts.push(`New rows this run: ${s.lastInserted}`);
+  if (s.lastInsertedAt) parts.push(`Last successful new row: ${new Date(s.lastInsertedAt * 1000).toLocaleString()}`);
+  if (s.lastError) parts.push(`Error: ${s.lastError}`);
+  return parts.join("\n");
 }
 
 function SourceHealth() {
@@ -136,11 +207,11 @@ function SourceHealth() {
       <DashedDivider />
       <div className="mt-3 space-y-2">
         {sources.data?.map((s) => (
-          <div key={s.id} className="flex items-center gap-3 py-1">
+          <div key={s.id} className="flex items-center gap-3 py-1" title={sourceTooltip(s)}>
             <span className={`w-2 h-2 rounded-full ${s.enabled ? "bg-[var(--color-pink)]" : "bg-[var(--color-ink-mute)]"}`} />
             <span className="mono text-sm flex-1 truncate">{s.name}</span>
             <span className="mono text-xs text-[var(--color-ink-mute)]">
-              {s.lastError ? `err · ${s.lastError.slice(0, 20)}` : s.lastRunAt ? relativeTime(s.lastRunAt) : "—"}
+              {sourceStatusLine(s)}
             </span>
           </div>
         ))}
@@ -179,7 +250,7 @@ function RecentJobs() {
                 <div className="font-bold text-sm truncate">{j.company}</div>
                 <div className="mono text-xs text-[var(--color-ink-mute)] truncate uppercase">{j.role}</div>
               </div>
-              <span className="mono text-xs text-[var(--color-ink-mute)]">{relativeTime(j.scrapedAt)}</span>
+              <span className="mono text-xs text-[var(--color-ink-mute)]">{relativeTime(j.postedAt ?? j.scrapedAt)}</span>
             </a>
           );
         }) ?? (
@@ -202,6 +273,14 @@ export default function OverviewPage() {
     queryFn: () => fetchJson<Settings>("/api/settings"),
   });
 
+  // Run number is set in an effect so SSR and first client render both show
+  // "—". Computing Date.now() during render hydration-mismatches whenever the
+  // minute ticks over between server render and client hydrate.
+  const [runNo, setRunNo] = useState<number | null>(null);
+  useEffect(() => {
+    setRunNo(Math.floor(Date.now() / 60000) % 1000);
+  }, []);
+
   const counts = overview.data?.statusCounts;
   const appliedTotal = counts ? counts.applied + counts.screen + counts.interview + counts.offer + counts.rejected : 0;
   const maxFunnel = counts ? Math.max(counts.applied, counts.screen, counts.interview, counts.offer, 1) : 1;
@@ -213,7 +292,7 @@ export default function OverviewPage() {
         {/* Headline */}
         <Card className="!p-7 relative">
           <div className="mono text-[11px] uppercase tracking-wider text-[var(--color-pink)] mb-2">
-            · field report · run №{Math.floor(Date.now() / 60000) % 1000} ·
+            · field report · run №{runNo ?? "—"} ·
           </div>
           <h1 className="headline text-6xl">
             eight applications before <em className="not-italic relative inline-block">breakfast<WavyUnderline /></em>,
@@ -221,7 +300,8 @@ export default function OverviewPage() {
             one offer by <span className="text-[var(--color-blue)] italic">friday?</span>
           </h1>
           <p className="text-[var(--color-ink-mute)] mt-4 max-w-xl text-sm leading-relaxed">
-            Daemon woke. Scraping enabled sources. The applier is gated; you approve.
+            Scraper pulls the boards hourly. Tracker reads Gmail every few minutes
+            and files what it finds. You just apply.
           </p>
           <div className="absolute top-6 right-6">
             <Pentagon className="w-10 h-10" />
@@ -270,6 +350,7 @@ export default function OverviewPage() {
       <div className="col-span-12 lg:col-span-4 space-y-6">
         <MasterToggle kind="scraper" />
         <MasterToggle kind="tracker" />
+        <MasterToggle kind="enricher" />
         <SourceHealth />
         <RecentJobs />
       </div>

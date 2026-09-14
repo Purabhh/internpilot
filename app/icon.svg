@@ -1,0 +1,9 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>intern.pilot</title>
+  <!-- brutalist hard offset shadow -->
+  <rect x="62" y="60" width="386" height="386" rx="88" fill="#0a0a0a"/>
+  <!-- hot-pink tile with chunky ink border -->
+  <rect x="46" y="42" width="386" height="386" rx="88" fill="#ff1f6e" stroke="#0a0a0a" stroke-width="14"/>
+  <!-- cream five-point star, centered -->
+  <path d="M239 98 L271 189 L367 191 L290 250 L318 342 L239 287 L160 342 L187 250 L111 191 L207 189 Z" fill="#f4f0e6"/>
+</svg>

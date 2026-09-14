@@ -1,4 +1,4 @@
-export type Status = "applied" | "screen" | "interview" | "offer" | "rejected";
+export type Status = "saved" | "applied" | "screen" | "interview" | "offer" | "rejected";
 
 export interface Job {
   id: number;
@@ -13,6 +13,13 @@ export interface Job {
   dismissedAt: number | null;
   /** JSON-encoded array of term strings — parse with `parseTerms(job.terms)`. */
   terms: string | null;
+  /** Pay string as found on the posting page, or null (N/A). */
+  salaryRaw: string | null;
+  /** Annualized floor / ceiling of the pay range, or null when N/A. */
+  salaryMin: number | null;
+  salaryMax: number | null;
+  /** Unix seconds of the enrichment attempt; null = not yet tried. */
+  salaryEnrichedAt: number | null;
 }
 
 export interface Application {
@@ -63,7 +70,12 @@ export interface Source {
   type: string;
   enabled: number;
   lastRunAt: number | null;
+  /** Total items returned by the scraper on the last run (pre-dedup). */
   lastCount: number | null;
+  /** Truly new rows inserted on the last run — `0` means upstream had nothing new. */
+  lastInserted: number | null;
+  /** Unix seconds of the last run that produced at least one new row. */
+  lastInsertedAt: number | null;
   lastError: string | null;
 }
 
@@ -75,6 +87,17 @@ export interface Settings {
   trackerIntervalMin: number;
   gmailConnectedAt: number | null;
   gmailHistoryId: string | null;
+  /** Unix seconds of the last tracker tick — independent of gmailConnectedAt. */
+  trackerLastRunAt: number | null;
+  /** New emails inserted on the last tick (0 = ran fine, nothing new). */
+  trackerLastInserted: number | null;
+  trackerLastError: string | null;
+  enrichEnabled: number;
+  enrichIntervalMin: number;
+  enrichLastRunAt: number | null;
+  /** Salaries found on the last enricher tick (0 = ran fine, none found). */
+  enrichLastCount: number | null;
+  enrichLastError: string | null;
 }
 
 export interface OverviewResponse {

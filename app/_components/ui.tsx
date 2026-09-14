@@ -141,9 +141,10 @@ export function DashedDivider({ className }: { className?: string }) {
 
 export function StatusPill({ status }: { status: string | null }) {
   if (!status) return <span className="mono text-xs text-[var(--color-ink-mute)]">—</span>;
-  const variant: "pink" | "blue" | "black" =
+  const variant: "pink" | "blue" | "black" | "default" =
     status === "offer" ? "pink" :
-    status === "rejected" ? "black" : "blue";
+    status === "rejected" ? "black" :
+    status === "saved" ? "default" : "blue";
   return (
     <MonoBadge variant={variant} className="uppercase">
       {status}

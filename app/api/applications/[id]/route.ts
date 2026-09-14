@@ -5,9 +5,11 @@ import { dbPath } from "@/lib/paths";
 import { updateApplication, deleteApplication, getApplication } from "@/lib/db/queries/applications";
 
 const patchSchema = z.object({
-  status: z.enum(["applied", "screen", "interview", "offer", "rejected"]).optional(),
+  status: z.enum(["saved", "applied", "screen", "interview", "offer", "rejected"]).optional(),
   notes: z.string().nullable().optional(),
   resumeId: z.number().int().positive().nullable().optional(),
+  company: z.string().min(1).optional(),
+  role: z.string().min(1).optional(),
 });
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {

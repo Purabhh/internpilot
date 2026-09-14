@@ -71,4 +71,23 @@ describe("runScrapers", () => {
     expect(ng?.lastError).toBeNull();
     expect(db.select().from(jobs).all()).toHaveLength(1);
   });
+
+  it("returns a summary: rows inserted, sources attempted, sources failed", async () => {
+    const db = freshDb();
+    const fakes = [
+      new FakeScraper("simplify_summer26_offseason", [], new Error("boom")),
+      new FakeScraper("simplify_newgrad", [
+        { sourceId: "a", company: "C", role: "R", location: null, url: "u", postedAt: null, terms: null },
+        { sourceId: "b", company: "C2", role: "R", location: null, url: "u", postedAt: null, terms: null },
+      ]),
+    ];
+    const first = await runScrapers(db, fakes);
+    expect(first).toEqual({ inserted: 2, ran: 2, failed: 1 });
+
+    // Second pass: same upstream data, so dedup means nothing new was inserted —
+    // this is the "+0 new" the refresh button shows when the boards are quiet.
+    const second = await runScrapers(db, fakes);
+    expect(second.inserted).toBe(0);
+    expect(second.ran).toBe(2);
+  });
 });

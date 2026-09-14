@@ -4,7 +4,9 @@ import { runScrapers } from "@/lib/scrapers";
 
 export async function tickScraper(
   db: DB,
-  runner: (db: DB) => Promise<void> = runScrapers,
+  // Promise<unknown>: runScrapers now returns a ScrapeSummary (for the manual
+  // refresh button); the daemon tick just ignores it.
+  runner: (db: DB) => Promise<unknown> = runScrapers,
 ): Promise<void> {
   const settings = getSettings(db);
   if (!settings.scraperEnabled) return;

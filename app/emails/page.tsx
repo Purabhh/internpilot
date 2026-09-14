@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import { fetchJson, patchJson } from "@/lib/ui/fetcher";
-import type { Email, Application, Status } from "@/lib/ui/types";
+import type { Email, Application, Status, Job } from "@/lib/ui/types";
 import { Card, MonoBadge, DashedDivider, WavyUnderline, StatusPill, ConfidenceBar } from "../_components/ui";
 import { relativeTime } from "@/lib/ui/ats";
 import { Wrench, ChevronDown, ChevronRight } from "lucide-react";
@@ -39,7 +39,23 @@ function FixForm({
   const [status, setStatus] = useState<Status | "">(email.classifiedStatus ?? "");
   const [company, setCompany] = useState(email.classifiedCompany ?? "");
   const [appId, setAppId] = useState<number | null>(email.applicationId);
+  const [jobId, setJobId] = useState<number | null>(null);
   const [applyToApp, setApplyToApp] = useState(true);
+
+  // Job picker: search the board (seeded with the classified company) so the
+  // user can attach the email to a specific posting. Picking a job creates an
+  // application from it — real role/location/url — instead of "(unknown role)".
+  const [jobSearch, setJobSearch] = useState(email.classifiedCompany ?? "");
+  const [debouncedJobSearch, setDebouncedJobSearch] = useState(jobSearch.trim());
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedJobSearch(jobSearch.trim()), 250);
+    return () => clearTimeout(t);
+  }, [jobSearch]);
+  const jobs = useQuery({
+    queryKey: ["jobs-pick", debouncedJobSearch],
+    queryFn: () => fetchJson<Job[]>(`/api/jobs?q=${encodeURIComponent(debouncedJobSearch)}&limit=6`),
+    enabled: debouncedJobSearch.length > 0,
+  });
 
   const m = useMutation({
     mutationFn: () =>
@@ -47,10 +63,12 @@ function FixForm({
         classifiedStatus: status || undefined,
         classifiedCompany: company || undefined,
         applicationId: appId,
+        jobId: jobId ?? undefined,
         applyToApplication: applyToApp,
       }),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["emails"] });
+      qc.invalidateQueries({ queryKey: ["emails"] }); // prefix-matches all pages
+      qc.invalidateQueries({ queryKey: ["emails-count"] });
       qc.invalidateQueries({ queryKey: ["applications"] });
       qc.invalidateQueries({ queryKey: ["overview"] });
       onDone();
@@ -78,6 +96,8 @@ function FixForm({
           <input
             value={company}
             onChange={(e) => setCompany(e.target.value)}
+            autoComplete="off"
+            suppressHydrationWarning
             className="card-hard !p-1.5 w-full text-sm bg-transparent outline-none"
           />
         </div>
@@ -86,7 +106,10 @@ function FixForm({
         <div className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mb-1">link to application</div>
         <select
           value={appId ?? ""}
-          onChange={(e) => setAppId(e.target.value ? Number(e.target.value) : null)}
+          onChange={(e) => {
+            setAppId(e.target.value ? Number(e.target.value) : null);
+            setJobId(null); // app and job links are mutually exclusive
+          }}
           className="card-hard !p-1.5 w-full text-sm mono"
         >
           <option value="">— none —</option>
@@ -96,6 +119,50 @@ function FixForm({
             </option>
           ))}
         </select>
+      </div>
+
+      <div>
+        <div className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mb-1">
+          …or pick the job posting (fills role & company)
+        </div>
+        <input
+          value={jobSearch}
+          onChange={(e) => setJobSearch(e.target.value)}
+          autoComplete="off"
+          suppressHydrationWarning
+          placeholder="search the board…"
+          className="card-hard !p-1.5 w-full text-sm mono bg-transparent outline-none"
+        />
+        {debouncedJobSearch.length > 0 && (
+          <div className="mt-1.5 space-y-1 max-h-44 overflow-y-auto">
+            {jobs.isLoading && (
+              <div className="mono text-[10px] text-[var(--color-ink-mute)] py-1">searching…</div>
+            )}
+            {jobs.data?.length === 0 && (
+              <div className="mono text-[10px] text-[var(--color-ink-mute)] py-1">no matching jobs</div>
+            )}
+            {jobs.data?.map((j) => {
+              const selected = jobId === j.id;
+              return (
+                <button
+                  key={j.id}
+                  onClick={() => {
+                    setJobId(selected ? null : j.id);
+                    if (!selected) setAppId(null); // job and app links are mutually exclusive
+                  }}
+                  className={`w-full text-left px-2 py-1 border-2 border-[var(--color-ink)] text-xs ${
+                    selected ? "bg-[var(--color-pink)] text-white" : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+                  }`}
+                >
+                  <div className="font-bold truncate">{j.company}</div>
+                  <div className="mono text-[10px] uppercase truncate opacity-80">
+                    {j.role}{j.location ? ` · ${j.location}` : ""}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
       <label className="inline-flex items-center gap-2 mono text-xs cursor-pointer">
         <input
@@ -125,21 +192,38 @@ function FixForm({
   );
 }
 
+const PER_PAGE = 50;
+
 export default function EmailsPage() {
   const [expanded, setExpanded] = useState<number | null>(null);
   const [fixing, setFixing] = useState<number | null>(null);
+  const [page, setPage] = useState(0);
 
+  // One page of emails at a time. keepPreviousData keeps the current page on
+  // screen while the next one loads, so flipping doesn't flash empty. Each page
+  // is cached by key, so flipping back is instant.
   const emails = useQuery({
-    queryKey: ["emails"],
-    queryFn: () => fetchJson<Email[]>("/api/emails?limit=200"),
+    queryKey: ["emails", page],
+    queryFn: () => fetchJson<Email[]>(`/api/emails?limit=${PER_PAGE}&offset=${page * PER_PAGE}`),
+    placeholderData: keepPreviousData,
+  });
+  // Totals come from a cheap COUNT, not from counting a fetched array — so the
+  // header and pagination know the full size without loading every row.
+  const counts = useQuery({
+    queryKey: ["emails-count"],
+    queryFn: () => fetchJson<{ total: number; needsReview: number }>("/api/emails/count"),
   });
   const applications = useQuery({
     queryKey: ["applications"],
     queryFn: () => fetchJson<Application[]>("/api/applications"),
   });
 
-  const needsReview = emails.data?.filter((e) => e.needsReview === 1).length ?? 0;
-  const total = emails.data?.length ?? 0;
+  const total = counts.data?.total ?? 0;
+  const needsReview = counts.data?.needsReview ?? 0;
+  const pageRows = emails.data?.length ?? 0;
+  const pageCount = Math.max(1, Math.ceil(total / PER_PAGE));
+  const rangeStart = total === 0 ? 0 : page * PER_PAGE + 1;
+  const rangeEnd = page * PER_PAGE + pageRows;
 
   return (
     <div className="mt-4 space-y-5">
@@ -232,6 +316,30 @@ export default function EmailsPage() {
           );
         })}
       </Card>
+
+      {total > PER_PAGE && (
+        <div className="flex items-center justify-between mono text-sm">
+          <div className="text-[var(--color-ink-mute)]">
+            {rangeStart}–{rangeEnd} of {total} · page {page + 1}/{pageCount}
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => { setPage((p) => Math.max(0, p - 1)); setExpanded(null); setFixing(null); }}
+              disabled={page === 0}
+              className="card-hard px-3 py-1.5 disabled:opacity-30"
+            >
+              ← prev
+            </button>
+            <button
+              onClick={() => { setPage((p) => p + 1); setExpanded(null); setFixing(null); }}
+              disabled={page + 1 >= pageCount}
+              className="card-hard px-3 py-1.5 disabled:opacity-30"
+            >
+              next →
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

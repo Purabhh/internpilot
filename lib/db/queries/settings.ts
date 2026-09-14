@@ -9,6 +9,18 @@ const UPDATABLE_KEYS = [
   "trackerIntervalMin",
   "gmailConnectedAt",
   "gmailHistoryId",
+  // Stamped only by the tracker job; the public PATCH endpoint zod schema
+  // doesn't list these so they can't be set from outside.
+  "trackerLastRunAt",
+  "trackerLastInserted",
+  "trackerLastError",
+  // Enricher daemon. enrichEnabled/enrichIntervalMin are user-settable via the
+  // settings PATCH schema; the rest are stamped only by the enricher tick.
+  "enrichEnabled",
+  "enrichIntervalMin",
+  "enrichLastRunAt",
+  "enrichLastCount",
+  "enrichLastError",
 ] as const;
 
 type UpdatableKey = (typeof UPDATABLE_KEYS)[number];

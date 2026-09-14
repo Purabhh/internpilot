@@ -1,18 +1,20 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Check, X, ArrowUpRight, Search, Plus } from "lucide-react";
+import { Check, X, ArrowUpRight, Search, Plus, Bookmark, RefreshCw } from "lucide-react";
 import { fetchJson, patchJson, postJson } from "@/lib/ui/fetcher";
 import type { Job, Source } from "@/lib/ui/types";
 import { Card, MonoBadge, DashedDivider, Switch, WavyUnderline } from "../_components/ui";
-import { atsFromUrl, relativeTime, parseTerms, termBucket, isFresh } from "@/lib/ui/ats";
+import { atsFromUrl, relativeTime, parseTerms, termBucket, isFresh, formatSalaryRange } from "@/lib/ui/ats";
 
 const SOURCE_DISPLAY: Record<string, { name: string; sub: string }> = {
   simplify_summer26_offseason: { name: "Simplify", sub: "Off-Season Internships" },
   simplify_newgrad: { name: "Simplify", sub: "New Grad" },
   vansh_summer27_offseason: { name: "Vansh", sub: "Off-Season Internships" },
   speedyapply_swe26: { name: "SpeedyApply", sub: "SWE (parser deferred)" },
+  jobright_swe_internship: { name: "Jobright", sub: "SWE Internships" },
+  jobright_swe_newgrad: { name: "Jobright", sub: "SWE New Grad" },
 };
 
 function atsVariant(code: string): "pink" | "blue" | "black" | "default" {
@@ -40,6 +42,33 @@ const TERM_CHIPS: Array<{ label: string; key: TermFilter }> = [
   { label: "new grad", key: "newgrad" },
 ];
 
+// Minimum ANNUAL salary chips. Selecting any value > 0 hides N/A rows (jobs we
+// couldn't find pay for), per the "hide N/A when filtering by pay" rule.
+const SALARY_CHIPS: Array<{ label: string; value: number | null }> = [
+  { label: "any", value: null },
+  { label: "$80k+", value: 80_000 },
+  { label: "$100k+", value: 100_000 },
+  { label: "$120k+", value: 120_000 },
+  { label: "$150k+", value: 150_000 },
+];
+
+// One-click market chips matched as a location substring (server-side `loc`).
+const MARKET_CHIPS: Array<{ label: string; value: string }> = [
+  { label: "NYC", value: "new york" },
+  { label: "SF", value: "san francisco" },
+  { label: "Seattle", value: "seattle" },
+  { label: "Austin", value: "austin" },
+  { label: "Boston", value: "boston" },
+];
+
+// US state codes for the location dropdown (matched as ", XX" in the location).
+const US_STATES = [
+  "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA",
+  "KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ",
+  "NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT",
+  "VA","WA","WV","WI","WY","DC",
+] as const;
+
 function termColor(bucket: ReturnType<typeof termBucket>): "pink" | "blue" | "black" | "default" {
   if (bucket === "fall" || bucket === "winter" || bucket === "spring") return "pink";
   if (bucket === "newgrad") return "blue";
@@ -51,20 +80,54 @@ export default function JobsPage() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
-  const [maxAgeDays, setMaxAgeDays] = useState<number | null>(90); // default 90d
+  const [maxAgeDays, setMaxAgeDays] = useState<number | null>(30); // default 30d — anything older is rarely worth applying to
   const [termFilter, setTermFilter] = useState<TermFilter>("all");
+  const [minSalary, setMinSalary] = useState<number | null>(null);
+  const [market, setMarket] = useState<string | null>(null);
+  const [stateCode, setStateCode] = useState<string>("");
+  const [remoteOnly, setRemoteOnly] = useState(false);
   const PER_PAGE = 30;
 
+  // Debounce the search box so we don't fire a server query per keystroke.
+  // Search is server-side (it filters the whole DB, not just the visible
+  // page), so each change is a real request.
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setDebouncedSearch(search.trim());
+      setPage(0);
+    }, 250);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  // Build the shared filter querystring used by both the page query and the
+  // count query so the "N matching" badge stays in lockstep with what the
+  // server is actually filtering.
+  const filterParams = useMemo(() => {
+    const p = new URLSearchParams();
+    if (maxAgeDays != null) p.set("maxAgeDays", String(maxAgeDays));
+    if (termFilter !== "all") p.set("term", termFilter);
+    if (debouncedSearch) p.set("q", debouncedSearch);
+    if (minSalary) p.set("minSalary", String(minSalary));
+    if (market) p.set("loc", market);
+    if (stateCode) p.set("state", stateCode);
+    if (remoteOnly) p.set("remote", "1");
+    return p;
+  }, [maxAgeDays, termFilter, debouncedSearch, minSalary, market, stateCode, remoteOnly]);
+  const filterKey = filterParams.toString();
+
   const jobsQ = useQuery({
-    queryKey: ["jobs", page, maxAgeDays],
+    queryKey: ["jobs", page, filterKey],
     queryFn: () => {
-      const params = new URLSearchParams({
-        limit: String(PER_PAGE),
-        offset: String(page * PER_PAGE),
-      });
-      if (maxAgeDays != null) params.set("maxAgeDays", String(maxAgeDays));
+      const params = new URLSearchParams(filterParams);
+      params.set("limit", String(PER_PAGE));
+      params.set("offset", String(page * PER_PAGE));
       return fetchJson<Job[]>(`/api/jobs?${params.toString()}`);
     },
+  });
+  const countQ = useQuery({
+    queryKey: ["jobs-count", filterKey],
+    queryFn: () => fetchJson<{ total: number }>(`/api/jobs/count?${filterKey}`),
   });
   const sourcesQ = useQuery({
     queryKey: ["sources"],
@@ -72,11 +135,13 @@ export default function JobsPage() {
   });
 
   const action = useMutation({
-    mutationFn: ({ id, action }: { id: number; action: "applied" | "dismiss" }) =>
+    mutationFn: ({ id, action }: { id: number; action: "applied" | "save" | "dismiss" }) =>
       patchJson<unknown>(`/api/jobs/${id}`, { action }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["jobs"] });
       qc.invalidateQueries({ queryKey: ["overview"] });
+      // "applied" and "save" both create a tracker card, so refresh that too.
+      qc.invalidateQueries({ queryKey: ["applications"] });
     },
   });
 
@@ -86,28 +151,31 @@ export default function JobsPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["sources"] }),
   });
 
-  const filtered = useMemo(() => {
-    if (!jobsQ.data) return [];
-    const q = search.trim().toLowerCase();
-    return jobsQ.data.filter((j) => {
-      // term filter
-      if (termFilter !== "all") {
-        const terms = parseTerms(j.terms);
-        if (!terms.some((t) => termBucket(t) === termFilter)) return false;
-      }
-      // search filter
-      if (q) {
-        if (
-          !j.company.toLowerCase().includes(q) &&
-          !j.role.toLowerCase().includes(q) &&
-          !(j.location ?? "").toLowerCase().includes(q)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, [jobsQ.data, search, termFilter]);
+  // Manual "check all sources now" — the refresh button. Hits an endpoint that
+  // bypasses the scraper daemon's toggle/interval (a click is an explicit ask)
+  // and coalesces concurrent calls server-side, so mashing it is harmless.
+  // The "+N new" result lingers a few seconds, then the label resets.
+  const [refreshResult, setRefreshResult] = useState<number | null>(null);
+  const refresh = useMutation({
+    mutationFn: () => postJson<{ inserted: number; ran: number; failed: number }>("/api/sources/refresh", {}),
+    onSuccess: (r) => {
+      setRefreshResult(r.inserted);
+      qc.invalidateQueries({ queryKey: ["jobs"] });
+      qc.invalidateQueries({ queryKey: ["jobs-count"] });
+      qc.invalidateQueries({ queryKey: ["sources"] });
+      qc.invalidateQueries({ queryKey: ["overview"] });
+    },
+  });
+  useEffect(() => {
+    if (refreshResult == null) return;
+    const t = setTimeout(() => setRefreshResult(null), 6000);
+    return () => clearTimeout(t);
+  }, [refreshResult]);
+
+  // All filters (term, age, search) are server-side now — what the API
+  // returns is exactly what we render, and the count matches the whole DB.
+  const filtered = jobsQ.data ?? [];
+  const totalMatching = countQ.data?.total ?? null;
 
   return (
     <div className="mt-4 grid grid-cols-12 gap-6">
@@ -119,7 +187,7 @@ export default function JobsPage() {
             the <em className="not-italic text-[var(--color-pink)] relative inline-block">job board<WavyUnderline /></em>.
           </h1>
           <p className="text-[var(--color-ink-mute)] mt-3 text-sm">
-            {jobsQ.data?.length ?? 0} jobs on this page · {filtered.length} shown · click → to open
+            {totalMatching ?? "…"} matching · {filtered.length} on this page · click → to open
           </p>
         </div>
 
@@ -131,6 +199,8 @@ export default function JobsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="search company, role, location…"
+              autoComplete="off"
+              suppressHydrationWarning
               className="bg-transparent outline-none flex-1 text-sm mono"
             />
           </div>
@@ -153,7 +223,30 @@ export default function JobsPage() {
               );
             })}
           </div>
-          <MonoBadge>{filtered.length} matching</MonoBadge>
+          <MonoBadge>
+            {totalMatching == null ? "…" : `${totalMatching} matching`}
+          </MonoBadge>
+          <button
+            onClick={() => refresh.mutate()}
+            disabled={refresh.isPending}
+            title="Check all enabled sources for new jobs right now"
+            className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] flex items-center gap-1.5 transition-colors ${
+              refresh.isPending
+                ? "bg-[var(--color-cream-200)] cursor-wait"
+                : refreshResult != null
+                  ? "bg-[var(--color-pink)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                  : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+            }`}
+          >
+            <RefreshCw className={`w-3 h-3 ${refresh.isPending ? "animate-spin" : ""}`} />
+            {refresh.isPending
+              ? "checking…"
+              : refreshResult != null
+                ? `+${refreshResult} new`
+                : refresh.isError
+                  ? "failed · retry"
+                  : "refresh"}
+          </button>
         </div>
 
         {/* Term filter row */}
@@ -164,7 +257,7 @@ export default function JobsPage() {
             return (
               <button
                 key={chip.key}
-                onClick={() => setTermFilter(chip.key)}
+                onClick={() => { setTermFilter(chip.key); setPage(0); }}
                 className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
                   active
                     ? "bg-[var(--color-blue)] text-white shadow-[2px_2px_0_#0a0a0a]"
@@ -177,11 +270,88 @@ export default function JobsPage() {
           })}
         </div>
 
+        {/* Pay filter row */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">min pay</span>
+          {SALARY_CHIPS.map((chip) => {
+            const active = minSalary === chip.value;
+            return (
+              <button
+                key={chip.label}
+                onClick={() => { setMinSalary(chip.value); setPage(0); }}
+                className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
+                  active
+                    ? "bg-[var(--color-pink)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                    : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+                }`}
+              >
+                {chip.label}
+              </button>
+            );
+          })}
+          {minSalary != null && (
+            <span className="mono text-[10px] text-[var(--color-ink-mute)] ml-1">
+              n/a hidden while filtering pay
+            </span>
+          )}
+        </div>
+
+        {/* Location filter row */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">where</span>
+          {MARKET_CHIPS.map((chip) => {
+            const active = market === chip.value;
+            return (
+              <button
+                key={chip.value}
+                onClick={() => { setMarket(active ? null : chip.value); setPage(0); }}
+                className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
+                  active
+                    ? "bg-[var(--color-blue)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                    : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+                }`}
+              >
+                {chip.label}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => { setRemoteOnly((v) => !v); setPage(0); }}
+            className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
+              remoteOnly
+                ? "bg-[var(--color-blue)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+            }`}
+          >
+            remote
+          </button>
+          <select
+            value={stateCode}
+            onChange={(e) => { setStateCode(e.target.value); setPage(0); }}
+            suppressHydrationWarning
+            className="mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] bg-[var(--color-cream-50)] outline-none cursor-pointer"
+          >
+            <option value="">state</option>
+            {US_STATES.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+          {(market || stateCode || remoteOnly) && (
+            <button
+              onClick={() => { setMarket(null); setStateCode(""); setRemoteOnly(false); setPage(0); }}
+              className="mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-dashed border-[var(--color-ink)]/50 hover:bg-[var(--color-cream-200)]"
+            >
+              clear
+            </button>
+          )}
+        </div>
+
         {/* Table */}
         <Card className="!p-0 overflow-hidden">
-          <div className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] mono text-[10px] uppercase tracking-wider text-[var(--color-ink-mute)] px-5 py-3 border-b-2 border-[var(--color-ink)]">
+          <div className="grid grid-cols-[2.3fr_1.1fr_96px_54px_74px_150px] mono text-[10px] uppercase tracking-wider text-[var(--color-ink-mute)] px-5 py-3 border-b-2 border-[var(--color-ink)]">
             <div>Company / Role</div>
             <div>Location</div>
+            <div>Salary</div>
             <div title="Applicant Tracking System">ATS</div>
             <div>Posted</div>
             <div className="text-right">Actions</div>
@@ -197,17 +367,27 @@ export default function JobsPage() {
           {filtered.map((j) => {
             const ats = atsFromUrl(j.url);
             const terms = parseTerms(j.terms);
-            // "Fresh" means newly-discovered by our scraper, so the user can be among
-            // the first to apply once we surface it. We use scrapedAt (not postedAt)
-            // because aggregator postedAt is when SimplifyJobs/Vansh added the row,
-            // not when the company posted — scrapedAt is "new to me" which matches
-            // the recent-jobs panel on the overview.
-            const fresh = isFresh(j.scrapedAt, 6);
+            // "Fresh" means the posting is recent at the company — that's what
+            // matters for an actual job hunt (apply early, beat the queue). We key
+            // off postedAt (when the aggregator says it was posted), falling back
+            // to scrapedAt only when postedAt is missing. Both the overview's
+            // recent-jobs panel and this column use the same clock.
+            const fresh = isFresh(j.postedAt ?? j.scrapedAt, 6);
+            // NYC is the user's target market — tint these rows gold so they're
+            // easy to spot when scanning the list. Fresh (pink) wins if both apply
+            // because timing matters more than location once a row is fresh.
+            const loc = (j.location ?? "").toLowerCase();
+            const isTargetCity = loc.includes("nyc") || loc.includes("new york");
+            const rowStyle = fresh
+              ? { backgroundColor: "rgba(255, 31, 110, 0.08)" }
+              : isTargetCity
+                ? { backgroundColor: "rgba(212, 153, 27, 0.12)" }
+                : undefined;
             return (
               <div
                 key={j.id}
-                className="grid grid-cols-[2.5fr_1.2fr_60px_80px_120px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)]"
-                style={fresh ? { backgroundColor: "rgba(255, 31, 110, 0.08)" } : undefined}
+                className="grid grid-cols-[2.3fr_1.1fr_96px_54px_74px_150px] items-center px-5 py-3 border-b border-dashed border-[var(--color-ink)]/30 hover:bg-[var(--color-cream-200)]"
+                style={rowStyle}
               >
                 <div className="min-w-0">
                   <div className="font-bold truncate flex items-center gap-2">
@@ -230,6 +410,17 @@ export default function JobsPage() {
                   )}
                 </div>
                 <div className="mono text-xs text-[var(--color-ink-mute)] truncate">{j.location ?? "—"}</div>
+                <div className="mono text-xs" title={j.salaryRaw ?? undefined}>
+                  {(() => {
+                    const label = formatSalaryRange(j.salaryMin, j.salaryMax);
+                    if (label) return <span className="font-bold text-[var(--color-ink)]">{label}</span>;
+                    // Not yet checked vs checked-and-none-found: a dim dot means
+                    // "the enricher hasn't gotten to this row"; "N/A" means it
+                    // looked and the posting listed no pay.
+                    if (j.salaryEnrichedAt == null) return <span className="text-[var(--color-ink-mute)]/50">·</span>;
+                    return <span className="text-[var(--color-ink-mute)]">N/A</span>;
+                  })()}
+                </div>
                 <div>
                   <MonoBadge variant={atsVariant(ats.code)}>{ats.code}</MonoBadge>
                 </div>
@@ -243,6 +434,13 @@ export default function JobsPage() {
                   {relativeTime(j.postedAt ?? j.scrapedAt)}
                 </div>
                 <div className="flex items-center justify-end gap-1.5">
+                  <button
+                    onClick={() => action.mutate({ id: j.id, action: "save" })}
+                    className="card-hard !p-1.5 hover:bg-[var(--color-blue)] hover:text-white"
+                    title="Save to apply later"
+                  >
+                    <Bookmark className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={() => action.mutate({ id: j.id, action: "applied" })}
                     className="card-hard !p-1.5 hover:bg-[var(--color-pink)] hover:text-white"
@@ -366,6 +564,8 @@ function ManualAddForm() {
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://posting-url"
           required
+          autoComplete="off"
+          suppressHydrationWarning
           className="card-hard !p-2 mono text-xs w-full bg-transparent outline-none"
         />
         <input
@@ -373,6 +573,8 @@ function ManualAddForm() {
           onChange={(e) => setCompany(e.target.value)}
           placeholder="Company"
           required
+          autoComplete="off"
+          suppressHydrationWarning
           className="card-hard !p-2 text-sm w-full bg-transparent outline-none"
         />
         <input
@@ -380,12 +582,16 @@ function ManualAddForm() {
           onChange={(e) => setRole(e.target.value)}
           placeholder="Role"
           required
+          autoComplete="off"
+          suppressHydrationWarning
           className="card-hard !p-2 text-sm w-full bg-transparent outline-none"
         />
         <input
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="Location (optional)"
+          autoComplete="off"
+          suppressHydrationWarning
           className="card-hard !p-2 text-sm w-full bg-transparent outline-none"
         />
         <button

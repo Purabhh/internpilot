@@ -13,6 +13,7 @@ export function atsFromUrl(url: string | null | undefined): { code: string; full
   if (host.includes("myworkdayjobs.com") || host.includes("workday")) return { code: "WD", full: "Workday" };
   if (host.includes("linkedin.com")) return { code: "LI", full: "LinkedIn" };
   if (host.includes("simplify.jobs")) return { code: "SJ", full: "Simplify" };
+  if (host.includes("jobright.ai")) return { code: "JR", full: "Jobright" };
   return { code: "DIR", full: "Direct" };
 }
 
@@ -56,6 +57,24 @@ export function termBucket(term: string): "summer" | "fall" | "winter" | "spring
   if (t.includes("winter")) return "winter";
   if (t.includes("spring")) return "spring";
   return "other";
+}
+
+/** "$120k" for 120000, "$1.2M" for 1_200_000. Compact annual figure. */
+export function formatAnnual(n: number): string {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+  return `$${Math.round(n / 1000)}k`;
+}
+
+/**
+ * Compact annualized pay label for the salary column, e.g. "$120k–$150k" or
+ * "$140k". Returns null when the job has no salary (renders as "N/A" in the UI).
+ */
+export function formatSalaryRange(
+  min: number | null | undefined,
+  max: number | null | undefined,
+): string | null {
+  if (min == null || max == null) return null;
+  return min === max ? formatAnnual(max) : `${formatAnnual(min)}–${formatAnnual(max)}`;
 }
 
 /**

@@ -1,6 +1,6 @@
 import { and, desc, eq } from "drizzle-orm";
 import type { DB } from "@/lib/db/client";
-import { applications, type Application, type Job, type Status } from "@/lib/db/schema";
+import { applications, emails, type Application, type Job, type Status } from "@/lib/db/schema";
 
 interface CreateInput {
   company: string;
@@ -24,7 +24,12 @@ export function createApplication(db: DB, input: CreateInput): Application {
   }).returning().get();
 }
 
-export function createApplicationFromJob(db: DB, job: Job): Application {
+/**
+ * Create an application row pre-linked to a job. Defaults to "applied" (the
+ * jobs-board check button and the email pipeline); pass "saved" for the
+ * bookmark button so the row lands in the tracker's Saved column instead.
+ */
+export function createApplicationFromJob(db: DB, job: Job, status: Status = "applied"): Application {
   const now = Math.floor(Date.now() / 1000);
   return db.insert(applications).values({
     jobId: job.id,
@@ -32,9 +37,15 @@ export function createApplicationFromJob(db: DB, job: Job): Application {
     role: job.role,
     location: job.location,
     url: job.url,
-    status: "applied",
+    status,
     appliedAt: now,
   }).returning().get();
+}
+
+/** Find the application linked to a given job, if one exists. Used to avoid
+ *  creating duplicate applications when linking an email to a job posting. */
+export function getApplicationByJobId(db: DB, jobId: number): Application | null {
+  return db.select().from(applications).where(eq(applications.jobId, jobId)).get() ?? null;
 }
 
 interface ListFilters {
@@ -60,6 +71,8 @@ export interface AppPatch {
   notes?: string | null;
   lastEmailAt?: number | null;
   resumeId?: number | null;
+  company?: string;
+  role?: string;
 }
 
 export function updateApplication(db: DB, id: number, patch: AppPatch): Application | null {
@@ -68,6 +81,10 @@ export function updateApplication(db: DB, id: number, patch: AppPatch): Applicat
   if (patch.notes !== undefined) filtered.notes = patch.notes;
   if (patch.lastEmailAt !== undefined) filtered.lastEmailAt = patch.lastEmailAt;
   if (patch.resumeId !== undefined) filtered.resumeId = patch.resumeId;
+  // Empty/whitespace-only company or role are ignored — the card's inline edit
+  // can fire a blur with a blank value, and we don't want to wipe the field.
+  if (patch.company !== undefined && patch.company.trim()) filtered.company = patch.company.trim();
+  if (patch.role !== undefined && patch.role.trim()) filtered.role = patch.role.trim();
   if (Object.keys(filtered).length > 0) {
     db.update(applications).set(filtered).where(eq(applications.id, id)).run();
   }
@@ -77,6 +94,15 @@ export function updateApplication(db: DB, id: number, patch: AppPatch): Applicat
 export function deleteApplication(db: DB, id: number): Application | null {
   const existing = getApplication(db, id);
   if (!existing) return null;
+  // Detach any emails that were linked to this application. The FK is RESTRICT
+  // by default so a raw delete throws "FOREIGN KEY constraint failed". Setting
+  // applicationId=null and bumping needsReview=1 turns those emails into
+  // orphans the user can re-triage — better than a cascade-delete which would
+  // silently lose the email history.
+  db.update(emails)
+    .set({ applicationId: null, needsReview: 1 })
+    .where(eq(emails.applicationId, id))
+    .run();
   db.delete(applications).where(eq(applications.id, id)).run();
   return existing;
 }

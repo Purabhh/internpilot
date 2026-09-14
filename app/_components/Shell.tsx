@@ -26,7 +26,9 @@ function useNavCounts() {
   });
   const emails = useQuery({
     queryKey: ["emails-count"],
-    queryFn: () => fetchJson<unknown[]>("/api/emails?limit=1000").then((r) => r.length),
+    // Cheap COUNT endpoint instead of fetching up to 1000 full rows just to
+    // call .length — shares the ["emails-count"] cache with the emails page.
+    queryFn: () => fetchJson<{ total: number }>("/api/emails/count").then((r) => r.total),
   });
   return {
     jobsOpen: overview.data?.jobsOpen,

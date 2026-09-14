@@ -2,7 +2,7 @@ import { count, isNull } from "drizzle-orm";
 import type { DB } from "@/lib/db/client";
 import { applications, jobs, type Status } from "@/lib/db/schema";
 
-const STATUSES: Status[] = ["applied", "screen", "interview", "offer", "rejected"];
+const STATUSES: Status[] = ["saved", "applied", "screen", "interview", "offer", "rejected"];
 
 export interface Overview {
   statusCounts: Record<Status, number>;

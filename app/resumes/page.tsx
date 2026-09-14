@@ -89,6 +89,8 @@ export default function ResumesPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="title — e.g. Embedded SWE"
+                autoComplete="off"
+                suppressHydrationWarning
                 className="card-hard !p-2.5 w-full text-sm bg-transparent outline-none"
               />
               <button

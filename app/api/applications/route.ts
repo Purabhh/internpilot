@@ -12,7 +12,7 @@ const postSchema = z.object({
   resumeId: z.number().int().positive().optional(),
 });
 
-const STATUSES = ["applied", "screen", "interview", "offer", "rejected"] as const;
+const STATUSES = ["saved", "applied", "screen", "interview", "offer", "rejected"] as const;
 
 export async function GET(req: Request) {
   const url = new URL(req.url);

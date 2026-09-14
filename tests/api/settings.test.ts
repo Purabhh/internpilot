@@ -9,7 +9,7 @@ describe("settings queries", () => {
     expect(s.scraperEnabled).toBe(0);
     expect(s.trackerEnabled).toBe(0);
     expect(s.scraperIntervalMin).toBe(60);
-    expect(s.trackerIntervalMin).toBe(10);
+    expect(s.trackerIntervalMin).toBe(3);
   });
 
   it("updates fields and returns the new row", () => {

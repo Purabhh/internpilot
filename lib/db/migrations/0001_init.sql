@@ -10,6 +10,10 @@ CREATE TABLE IF NOT EXISTS jobs (
   scraped_at INTEGER NOT NULL,
   dismissed_at INTEGER,
   terms TEXT,
+  salary_raw TEXT,
+  salary_min INTEGER,
+  salary_max INTEGER,
+  salary_enriched_at INTEGER,
   UNIQUE(source, source_id)
 );
 
@@ -31,7 +35,7 @@ CREATE TABLE IF NOT EXISTS applications (
   role TEXT NOT NULL,
   location TEXT,
   url TEXT,
-  status TEXT NOT NULL CHECK (status IN ('applied','screen','interview','offer','rejected')),
+  status TEXT NOT NULL CHECK (status IN ('saved','applied','screen','interview','offer','rejected')),
   notes TEXT,
   applied_at INTEGER NOT NULL,
   last_email_at INTEGER,
@@ -72,5 +76,10 @@ CREATE TABLE IF NOT EXISTS settings (
   scraper_interval_min INTEGER NOT NULL DEFAULT 60,
   tracker_interval_min INTEGER NOT NULL DEFAULT 10,
   gmail_connected_at INTEGER,
-  gmail_history_id TEXT
+  gmail_history_id TEXT,
+  enrich_enabled INTEGER NOT NULL DEFAULT 0,
+  enrich_interval_min INTEGER NOT NULL DEFAULT 30,
+  enrich_last_run_at INTEGER,
+  enrich_last_count INTEGER,
+  enrich_last_error TEXT
 );

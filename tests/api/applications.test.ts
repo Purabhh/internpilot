@@ -4,6 +4,7 @@ import { createManualJob } from "@/lib/db/queries/jobs";
 import {
   createApplication,
   createApplicationFromJob,
+  getApplicationByJobId,
   listApplications,
   updateApplication,
   deleteApplication,
@@ -47,11 +48,56 @@ describe("applications queries", () => {
     expect(updated?.lastEmailAt).toBe(123);
   });
 
+  it("updateApplication edits company and role but ignores blank values", () => {
+    const db = freshDb();
+    const a = createApplication(db, { company: "Tesla", role: "(unknown role)" });
+    const updated = updateApplication(db, a.id, { company: "Tesla", role: "SWE Intern, Service" });
+    expect(updated?.role).toBe("SWE Intern, Service");
+    // A blank/whitespace value must not wipe the field (inline-edit blur guard).
+    const after = updateApplication(db, a.id, { role: "   " });
+    expect(after?.role).toBe("SWE Intern, Service");
+  });
+
+  it("getApplicationByJobId finds the app created from a job", () => {
+    const db = freshDb();
+    const j = createManualJob(db, {
+      source: "manual", sourceId: "1", company: "Snowflake", role: "SWE Intern", location: null, url: "u", postedAt: null,
+    });
+    expect(getApplicationByJobId(db, j.id)).toBeNull();
+    const a = createApplicationFromJob(db, j);
+    expect(getApplicationByJobId(db, j.id)?.id).toBe(a.id);
+  });
+
   it("deleteApplication returns the deleted row", () => {
     const db = freshDb();
     const a = createApplication(db, { company: "A", role: "R" });
     const d = deleteApplication(db, a.id);
     expect(d?.id).toBe(a.id);
     expect(listApplications(db)).toHaveLength(0);
+  });
+
+  it("deleteApplication detaches linked emails instead of FK-failing", async () => {
+    // Regression: emails.applicationId FK was RESTRICT, so deleting an app
+    // that had a classified email attached threw "FOREIGN KEY constraint
+    // failed" → 500. Now the email survives, its applicationId is nulled,
+    // and needsReview is bumped back so the user can re-triage.
+    const { emails: emailsTable } = await import("@/lib/db/schema");
+    const db = freshDb();
+    const a = createApplication(db, { company: "TikTok", role: "R" });
+    db.insert(emailsTable).values({
+      gmailMsgId: "m_attached",
+      receivedAt: 1000,
+      applicationId: a.id,
+      needsReview: 0,
+    }).run();
+
+    const d = deleteApplication(db, a.id);
+    expect(d?.id).toBe(a.id);
+    expect(listApplications(db)).toHaveLength(0);
+
+    const orphans = db.select().from(emailsTable).all();
+    expect(orphans).toHaveLength(1);
+    expect(orphans[0]?.applicationId).toBeNull();
+    expect(orphans[0]?.needsReview).toBe(1);
   });
 });
