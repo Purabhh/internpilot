@@ -7,6 +7,8 @@ import { fetchJson, patchJson, postJson } from "@/lib/ui/fetcher";
 import type { Job, Source } from "@/lib/ui/types";
 import { Card, MonoBadge, DashedDivider, Switch, WavyUnderline } from "../_components/ui";
 import { atsFromUrl, relativeTime, parseTerms, termBucket, isFresh, formatSalaryRange } from "@/lib/ui/ats";
+import { matchNiche, RESUME_LABEL, RESUME_FILE } from "@/lib/niche/profile";
+import { jobType, JOB_TYPE_LABEL, type JobType } from "@/lib/jobs/job-type";
 
 const SOURCE_DISPLAY: Record<string, { name: string; sub: string }> = {
   simplify_summer26_offseason: { name: "Simplify", sub: "Off-Season Internships" },
@@ -32,13 +34,10 @@ const AGE_CHIPS: Array<{ label: string; days: number | null }> = [
   { label: "all", days: null },
 ];
 
-type TermFilter = "all" | "summer" | "fall" | "winter" | "spring" | "newgrad";
-const TERM_CHIPS: Array<{ label: string; key: TermFilter }> = [
+type TypeFilter = "all" | JobType;
+const TYPE_CHIPS: Array<{ label: string; key: TypeFilter }> = [
   { label: "all", key: "all" },
-  { label: "fall", key: "fall" },
-  { label: "winter", key: "winter" },
-  { label: "spring", key: "spring" },
-  { label: "summer", key: "summer" },
+  { label: "internship", key: "internship" },
   { label: "new grad", key: "newgrad" },
 ];
 
@@ -81,11 +80,13 @@ export default function JobsPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [maxAgeDays, setMaxAgeDays] = useState<number | null>(30); // default 30d — anything older is rarely worth applying to
-  const [termFilter, setTermFilter] = useState<TermFilter>("all");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [minSalary, setMinSalary] = useState<number | null>(null);
   const [market, setMarket] = useState<string | null>(null);
   const [stateCode, setStateCode] = useState<string>("");
   const [remoteOnly, setRemoteOnly] = useState(false);
+  // On by default: fintech / banks / payments / crypto / trading only (lib/niche/profile.ts).
+  const [nicheOnly, setNicheOnly] = useState(true);
   const PER_PAGE = 30;
 
   // Debounce the search box so we don't fire a server query per keystroke.
@@ -106,14 +107,15 @@ export default function JobsPage() {
   const filterParams = useMemo(() => {
     const p = new URLSearchParams();
     if (maxAgeDays != null) p.set("maxAgeDays", String(maxAgeDays));
-    if (termFilter !== "all") p.set("term", termFilter);
+    if (typeFilter !== "all") p.set("type", typeFilter);
     if (debouncedSearch) p.set("q", debouncedSearch);
     if (minSalary) p.set("minSalary", String(minSalary));
     if (market) p.set("loc", market);
     if (stateCode) p.set("state", stateCode);
     if (remoteOnly) p.set("remote", "1");
+    if (nicheOnly) p.set("niche", "1");
     return p;
-  }, [maxAgeDays, termFilter, debouncedSearch, minSalary, market, stateCode, remoteOnly]);
+  }, [maxAgeDays, typeFilter, debouncedSearch, minSalary, market, stateCode, remoteOnly, nicheOnly]);
   const filterKey = filterParams.toString();
 
   const jobsQ = useQuery({
@@ -249,15 +251,34 @@ export default function JobsPage() {
           </button>
         </div>
 
-        {/* Term filter row */}
+        {/* Niche filter row */}
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">term</span>
-          {TERM_CHIPS.map((chip) => {
-            const active = termFilter === chip.key;
+          <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">focus</span>
+          <button
+            onClick={() => { setNicheOnly((v) => !v); setPage(0); }}
+            title="Banks, payments, fintech, crypto, trading firms and exchanges. Senior and hardware roles hidden."
+            className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
+              nicheOnly
+                ? "bg-[var(--color-pink)] text-white shadow-[2px_2px_0_#0a0a0a]"
+                : "bg-[var(--color-cream-50)] hover:bg-[var(--color-cream-200)]"
+            }`}
+          >
+            my niche
+          </button>
+          <span className="mono text-[10px] text-[var(--color-ink-mute)] ml-1">
+            {nicheOnly ? "fintech · banks · payments · crypto · trading" : "showing every job"}
+          </span>
+        </div>
+
+        {/* Type filter row: internship vs new grad (lib/jobs/job-type.ts) */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="mono text-[10px] uppercase text-[var(--color-ink-mute)] mr-1">type</span>
+          {TYPE_CHIPS.map((chip) => {
+            const active = typeFilter === chip.key;
             return (
               <button
                 key={chip.key}
-                onClick={() => { setTermFilter(chip.key); setPage(0); }}
+                onClick={() => { setTypeFilter(chip.key); setPage(0); }}
                 className={`mono text-[11px] uppercase tracking-wider px-2 py-1 border-2 border-[var(--color-ink)] transition-colors ${
                   active
                     ? "bg-[var(--color-blue)] text-white shadow-[2px_2px_0_#0a0a0a]"
@@ -366,7 +387,11 @@ export default function JobsPage() {
           )}
           {filtered.map((j) => {
             const ats = atsFromUrl(j.url);
-            const terms = parseTerms(j.terms);
+            // "New Grad" feed tags are replaced by the computed type badge;
+            // season tags (e.g. "Spring 2027") still show.
+            const terms = parseTerms(j.terms).filter((t) => termBucket(t) !== "newgrad");
+            const type = jobType(j);
+            const niche = matchNiche(j.company, j.role);
             // "Fresh" means the posting is recent at the company — that's what
             // matters for an actual job hunt (apply early, beat the queue). We key
             // off postedAt (when the aggregator says it was posted), falling back
@@ -399,6 +424,23 @@ export default function JobsPage() {
                     )}
                   </div>
                   <div className="mono text-xs text-[var(--color-ink-mute)] uppercase truncate">{j.role}</div>
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    <MonoBadge variant={type === "internship" ? "default" : "blue"} className="!text-[9px] !py-0">
+                      {JOB_TYPE_LABEL[type]}
+                    </MonoBadge>
+                    <MonoBadge
+                      variant={niche.resume === "ai" ? "pink" : "black"}
+                      className="!text-[9px] !py-0"
+                      title={`Apply with ${RESUME_FILE[niche.resume]} — ${niche.resumeReason}`}
+                    >
+                      {RESUME_LABEL[niche.resume]} resume
+                    </MonoBadge>
+                    {niche.inNiche && niche.category && (
+                      <MonoBadge variant="blue" className="!text-[9px] !py-0">
+                        {niche.category === "role" ? "fintech role" : niche.category}
+                      </MonoBadge>
+                    )}
+                  </div>
                   {terms.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-1.5">
                       {terms.map((t, i) => (

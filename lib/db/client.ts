@@ -92,10 +92,17 @@ function createDb(dbPath: string): DB {
   try { sqlite.exec("ALTER TABLE jobs ADD COLUMN salary_enriched_at INTEGER"); } catch { /* already exists */ }
   // Enricher daemon settings.
   try { sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_enabled INTEGER NOT NULL DEFAULT 0"); } catch { /* already exists */ }
-  try { sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_interval_min INTEGER NOT NULL DEFAULT 30"); } catch { /* already exists */ }
+  try { sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_interval_min INTEGER NOT NULL DEFAULT 10"); } catch { /* already exists */ }
   try { sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_last_run_at INTEGER"); } catch { /* already exists */ }
   try { sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_last_count INTEGER"); } catch { /* already exists */ }
   try { sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_last_error TEXT"); } catch { /* already exists */ }
+  // One-time retune of the enricher from every 30 min to every 10 min. The
+  // marker column makes it run once, so a later manual change sticks.
+  try {
+    sqlite.exec("ALTER TABLE settings ADD COLUMN enrich_retuned INTEGER NOT NULL DEFAULT 0");
+    sqlite.exec("UPDATE settings SET enrich_interval_min = 10 WHERE enrich_interval_min = 30");
+    sqlite.exec("UPDATE settings SET enrich_retuned = 1");
+  } catch { /* already retuned */ }
 
   migrateApplicationsStatusCheck(sqlite);
 

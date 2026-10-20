@@ -114,7 +114,7 @@ export const settings = sqliteTable("settings", {
   trackerLastError: text("tracker_last_error"),
   // --- Salary enricher daemon (third background job, alongside scraper/tracker) ---
   enrichEnabled: integer("enrich_enabled").notNull().default(0),
-  enrichIntervalMin: integer("enrich_interval_min").notNull().default(30),
+  enrichIntervalMin: integer("enrich_interval_min").notNull().default(10),
   /** Unix seconds of the last enricher tick (success OR error). */
   enrichLastRunAt: integer("enrich_last_run_at"),
   /** Number of jobs a salary was FOUND for on the last tick (not "attempted"). */

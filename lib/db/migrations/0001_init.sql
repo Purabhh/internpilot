@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS settings (
   gmail_connected_at INTEGER,
   gmail_history_id TEXT,
   enrich_enabled INTEGER NOT NULL DEFAULT 0,
-  enrich_interval_min INTEGER NOT NULL DEFAULT 30,
+  enrich_interval_min INTEGER NOT NULL DEFAULT 10,
   enrich_last_run_at INTEGER,
   enrich_last_count INTEGER,
   enrich_last_error TEXT

@@ -6,7 +6,7 @@ REM   - starts the Next.js production server (UI + API + scrapers, one process)
 REM   - opens the app window (Chrome app-mode: no tabs, no URL bar)
 REM   - supervises: when you CLOSE the app window, the server shuts down too
 REM
-REM   launch.bat         -> normal start (builds only if no build exists yet)
+REM   launch.bat         -> normal start (rebuilds automatically if code changed)
 REM   launch.bat build   -> force a rebuild first (run this after code changes)
 REM
 REM If the server is already running, this just reopens the app window and
@@ -39,6 +39,14 @@ if %errorlevel%==0 (
 REM ---- Fresh start ----
 if /i "%~1"=="build" goto :build
 if not exist ".next\BUILD_ID" goto :build
+REM Auto-rebuild: if any source file is newer than the last build, rebuild
+REM first so the app always runs the latest code. Costs ~1-2 min only on
+REM launches right after a code change; normal launches skip straight to serve.
+powershell -NoProfile -Command "$b = (Get-Item '.next\BUILD_ID').LastWriteTime; $src = @(Get-ChildItem -Path app,lib -Recurse -File -Include *.ts,*.tsx,*.css,*.sql -ErrorAction SilentlyContinue) + @(Get-Item package.json,next.config.ts,tailwind.config.ts,instrumentation.ts -ErrorAction SilentlyContinue); if ($src | Where-Object { $_.LastWriteTime -gt $b }) { exit 1 } else { exit 0 }" >nul 2>&1
+if errorlevel 1 (
+  echo [%date% %time%] source newer than build - auto-rebuilding >> "%LOG%"
+  goto :build
+)
 goto :serve
 
 :build

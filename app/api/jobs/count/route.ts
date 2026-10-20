@@ -31,11 +31,14 @@ export async function GET(req: Request) {
   const location = url.searchParams.get("loc") ?? undefined;
   const state = url.searchParams.get("state") ?? undefined;
   const remoteOnly = url.searchParams.get("remote") === "1";
+  const niche = url.searchParams.get("niche") === "1";
+  const typeRaw = url.searchParams.get("type");
+  const type = typeRaw === "internship" || typeRaw === "newgrad" ? typeRaw : undefined;
   const db = openDb(dbPath());
   return NextResponse.json({
     total: countJobs(db, {
       includeDismissed, source, postedAfter, termBucket, search,
-      minSalary, location, state, remoteOnly,
+      minSalary, location, state, remoteOnly, niche, type,
     }),
   });
 }

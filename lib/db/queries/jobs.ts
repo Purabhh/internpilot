@@ -3,6 +3,8 @@ import type { SQL } from "drizzle-orm";
 import type { DB } from "@/lib/db/client";
 import { jobs, type Job, type NewJob } from "@/lib/db/schema";
 import type { NormalizedJob } from "@/lib/scrapers/base";
+import { ALL_NICHE_COMPANY_KEYWORDS, NICHE_ROLE_KEYWORDS, matchNiche } from "@/lib/niche/profile";
+import { jobType, type JobType } from "@/lib/jobs/job-type";
 
 export type TermBucket = "summer" | "fall" | "winter" | "spring" | "newgrad";
 
@@ -83,6 +85,40 @@ export interface JobFilters {
   state?: string;
   /** When true, keep only postings whose location mentions "remote". */
   remoteOnly?: boolean;
+  /**
+   * When true, keep only postings in the fintech / finance niche
+   * (lib/niche/profile.ts). Filtered in two passes: a broad SQL LIKE
+   * prefilter, then the exact word-boundary matcher in JS, so paging and
+   * counts are applied after the JS pass.
+   */
+  niche?: boolean;
+  /**
+   * Internship vs new grad, decided by lib/jobs/job-type.ts (title first, then
+   * feed tags, then source). Like `niche`, applied in JS before paging.
+   */
+  type?: JobType;
+}
+
+/** True when the filter needs the JS pass (rules SQLite LIKE can't express). */
+function needsJsPass(f: JobFilters): boolean {
+  return Boolean(f.niche || f.type);
+}
+
+function passesJsFilters(j: Job, f: JobFilters): boolean {
+  if (f.niche && !matchNiche(j.company, j.role).inNiche) return false;
+  if (f.type && jobType(j) !== f.type) return false;
+  return true;
+}
+
+/** Broad SQL prefilter for niche mode: company or role contains any keyword. */
+function nichePrefilterCondition(): SQL {
+  const company = sql`LOWER(${jobs.company})`;
+  const role = sql`LOWER(${jobs.role})`;
+  const parts = [
+    ...ALL_NICHE_COMPANY_KEYWORDS.map((kw) => sql`${company} LIKE ${"%" + kw.trim() + "%"}`),
+    ...NICHE_ROLE_KEYWORDS.map((kw) => sql`${role} LIKE ${"%" + kw.trim() + "%"}`),
+  ];
+  return or(...parts)!;
 }
 
 /**
@@ -192,10 +228,27 @@ function buildJobConditions(f: JobFilters): SQL | undefined {
   // US-only is the default unless explicitly opted out (f.includeNonUs = true).
   // The user's job hunt is US-only; non-US postings just create noise.
   if (!f.includeNonUs) conditions.push(usOnlyCondition());
+  if (f.niche) conditions.push(nichePrefilterCondition());
   return conditions.length > 0 ? and(...conditions) : undefined;
 }
 
+/** JS-pass mode: every SQL-filtered row, narrowed by niche/type in JS, newest first. */
+function listJsMatches(db: DB, f: JobFilters): Job[] {
+  const where = buildJobConditions(f);
+  let q = db.select().from(jobs).$dynamic();
+  if (where) q = q.where(where);
+  return q
+    .orderBy(desc(sql`COALESCE(${jobs.postedAt}, ${jobs.scrapedAt})`), desc(jobs.id))
+    .all()
+    .filter((j) => passesJsFilters(j, f));
+}
+
 export function listJobs(db: DB, f: JobFilters = {}): Job[] {
+  if (needsJsPass(f)) {
+    const all = listJsMatches(db, f);
+    const start = f.offset ?? 0;
+    return f.limit ? all.slice(start, start + f.limit) : all.slice(start);
+  }
   const where = buildJobConditions(f);
   let q = db.select().from(jobs).$dynamic();
   if (where) q = q.where(where);
@@ -210,6 +263,7 @@ export function listJobs(db: DB, f: JobFilters = {}): Job[] {
 
 /** Returns total job rows matching the filter — used to power the "N matching" badge. */
 export function countJobs(db: DB, f: JobFilters = {}): number {
+  if (needsJsPass(f)) return listJsMatches(db, f).length;
   const where = buildJobConditions(f);
   let q = db.select({ n: count() }).from(jobs).$dynamic();
   if (where) q = q.where(where);
@@ -238,13 +292,28 @@ export function createManualJob(db: DB, fields: Omit<NewJob, "id" | "scrapedAt">
  * is only ever fetched once.
  */
 export function listJobsToEnrich(db: DB, limit: number): Job[] {
-  return db
+  // Niche postings (fintech, banks, trading...) jump the queue so the jobs
+  // Purabh actually applies to get priced first; the rest fill the batch.
+  const nicheFirst = db
+    .select()
+    .from(jobs)
+    .where(and(isNull(jobs.salaryEnrichedAt), isNull(jobs.dismissedAt), nichePrefilterCondition()))
+    .orderBy(desc(sql`COALESCE(${jobs.postedAt}, ${jobs.scrapedAt})`), desc(jobs.id))
+    .all()
+    .filter((j) => matchNiche(j.company, j.role).inNiche)
+    .slice(0, limit);
+  if (nicheFirst.length >= limit) return nicheFirst;
+  const taken = new Set(nicheFirst.map((j) => j.id));
+  const rest = db
     .select()
     .from(jobs)
     .where(and(isNull(jobs.salaryEnrichedAt), isNull(jobs.dismissedAt)))
     .orderBy(desc(sql`COALESCE(${jobs.postedAt}, ${jobs.scrapedAt})`), desc(jobs.id))
-    .limit(limit)
-    .all();
+    .limit(limit + nicheFirst.length)
+    .all()
+    .filter((j) => !taken.has(j.id))
+    .slice(0, limit - nicheFirst.length);
+  return [...nicheFirst, ...rest];
 }
 
 /** Count of jobs still waiting for a salary attempt — used for the daemon's UI badge. */

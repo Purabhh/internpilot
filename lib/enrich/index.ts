@@ -4,8 +4,8 @@ import { fetchSalary } from "./enricher";
 import type { SalaryParse } from "./salary-parse";
 
 /** How many jobs to price per tick, and how many URLs to fetch at once. */
-const DEFAULT_BATCH_SIZE = 25;
-const DEFAULT_CONCURRENCY = 4;
+const DEFAULT_BATCH_SIZE = 100;
+const DEFAULT_CONCURRENCY = 8;
 
 export interface EnrichOptions {
   batchSize?: number;

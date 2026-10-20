@@ -23,13 +23,16 @@ export function MonoBadge({
   children,
   variant = "default",
   className,
+  title,
 }: {
   children: React.ReactNode;
   variant?: "default" | "pink" | "blue" | "black";
   className?: string;
+  title?: string;
 }) {
   return (
     <span
+      title={title}
       className={clsx(
         "badge-mono inline-flex items-center justify-center",
         variant === "pink" && "badge-mono-pink",
