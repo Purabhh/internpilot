@@ -10,6 +10,7 @@ const patchSchema = z.object({
   resumeId: z.number().int().positive().nullable().optional(),
   company: z.string().min(1).optional(),
   role: z.string().min(1).optional(),
+  priority: z.boolean().optional(),
 });
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {

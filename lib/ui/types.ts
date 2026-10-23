@@ -34,6 +34,7 @@ export interface Application {
   appliedAt: number;
   lastEmailAt: number | null;
   resumeId: number | null;
+  priority: number;
 }
 
 export interface Resume {

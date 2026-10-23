@@ -59,7 +59,7 @@ export function listApplications(db: DB, f: ListFilters = {}): Application[] {
   if (f.company) conds.push(eq(applications.company, f.company));
   let q = db.select().from(applications).$dynamic();
   if (conds.length > 0) q = q.where(and(...conds));
-  return q.orderBy(desc(applications.appliedAt), desc(applications.id)).all();
+  return q.orderBy(desc(applications.priority), desc(applications.appliedAt), desc(applications.id)).all();
 }
 
 export function getApplication(db: DB, id: number): Application | null {
@@ -73,10 +73,12 @@ export interface AppPatch {
   resumeId?: number | null;
   company?: string;
   role?: string;
+  priority?: boolean;
 }
 
 export function updateApplication(db: DB, id: number, patch: AppPatch): Application | null {
   const filtered: Record<string, unknown> = {};
+  if (patch.priority !== undefined) filtered.priority = patch.priority ? 1 : 0;
   if (patch.status !== undefined) filtered.status = patch.status;
   if (patch.notes !== undefined) filtered.notes = patch.notes;
   if (patch.lastEmailAt !== undefined) filtered.lastEmailAt = patch.lastEmailAt;

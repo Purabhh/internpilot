@@ -58,6 +58,9 @@ export const applications = sqliteTable("applications", {
   appliedAt: integer("applied_at").notNull(),
   lastEmailAt: integer("last_email_at"),
   resumeId: integer("resume_id").references(() => resumes.id),
+  // Starred "definitely apply" flag. Just a sort key: starred cards float to
+  // the top of their column; status and the email pipeline ignore it.
+  priority: integer("priority").notNull().default(0),
 });
 
 export const emails = sqliteTable("emails", {

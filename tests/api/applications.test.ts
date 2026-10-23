@@ -100,4 +100,17 @@ describe("applications queries", () => {
     expect(orphans[0]?.applicationId).toBeNull();
     expect(orphans[0]?.needsReview).toBe(1);
   });
+
+  it("starred applications sort first and status changes keep the star", () => {
+    const db = freshDb();
+    const a = createApplication(db, { company: "A", role: "r" });
+    const b = createApplication(db, { company: "B", role: "r" });
+    expect(a.priority).toBe(0);
+    updateApplication(db, a.id, { priority: true });
+    expect(listApplications(db).map((x) => x.company)).toEqual(["A", "B"]);
+    const moved = updateApplication(db, a.id, { status: "screen" });
+    expect(moved?.priority).toBe(1);
+    expect(updateApplication(db, a.id, { priority: false })?.priority).toBe(0);
+    void b;
+  });
 });

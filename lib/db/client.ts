@@ -105,6 +105,8 @@ function createDb(dbPath: string): DB {
   } catch { /* already retuned */ }
 
   migrateApplicationsStatusCheck(sqlite);
+  // After the status rebuild above, which copies an explicit column list.
+  try { sqlite.exec("ALTER TABLE applications ADD COLUMN priority INTEGER NOT NULL DEFAULT 0"); } catch { /* already exists */ }
 
   const db = drizzle(sqlite, { schema });
 

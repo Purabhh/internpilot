@@ -9,7 +9,7 @@
       "source_file": "install-desktop-shortcut.ps1",
       "source_location": "L1",
       "id": "install_desktop_shortcut_ps1",
-      "community": 20,
+      "community": 22,
       "norm_label": "install-desktop-shortcut.ps1"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "install-desktop-shortcut.ps1",
       "source_location": "L26",
       "id": "install_desktop_shortcut_new_ipshortcut",
-      "community": 20,
+      "community": 22,
       "norm_label": "new-ipshortcut()"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "instrumentation.ts",
       "source_location": "L1",
       "id": "instrumentation_ts",
-      "community": 5,
+      "community": 9,
       "norm_label": "instrumentation.ts"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "instrumentation.ts",
       "source_location": "L1",
       "id": "instrumentation_register",
-      "community": 5,
+      "community": 9,
       "norm_label": "register()"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "make-icon.ps1",
       "source_location": "L1",
       "id": "make_icon_ps1",
-      "community": 17,
+      "community": 19,
       "norm_label": "make-icon.ps1"
     },
     {
@@ -54,7 +54,7 @@
       "source_file": "make-icon.ps1",
       "source_location": "L19",
       "id": "make_icon_new_roundrect",
-      "community": 17,
+      "community": 19,
       "norm_label": "new-roundrect()"
     },
     {
@@ -63,7 +63,7 @@
       "source_file": "make-icon.ps1",
       "source_location": "L30",
       "id": "make_icon_new_iconpng",
-      "community": 17,
+      "community": 19,
       "norm_label": "new-iconpng()"
     },
     {
@@ -72,7 +72,7 @@
       "source_file": "next-env.d.ts",
       "source_location": "L1",
       "id": "next_env_d_ts",
-      "community": 30,
+      "community": 32,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -81,7 +81,7 @@
       "source_file": "next.config.ts",
       "source_location": "L1",
       "id": "next_config_ts",
-      "community": 31,
+      "community": 33,
       "norm_label": "next.config.ts"
     },
     {
@@ -90,7 +90,7 @@
       "source_file": "tailwind.config.ts",
       "source_location": "L1",
       "id": "tailwind_config_ts",
-      "community": 32,
+      "community": 34,
       "norm_label": "tailwind.config.ts"
     },
     {
@@ -99,7 +99,7 @@
       "source_file": "vitest.config.ts",
       "source_location": "L1",
       "id": "vitest_config_ts",
-      "community": 33,
+      "community": 35,
       "norm_label": "vitest.config.ts"
     },
     {
@@ -108,7 +108,7 @@
       "source_file": "app\\layout.tsx",
       "source_location": "L1",
       "id": "app_layout_tsx",
-      "community": 34,
+      "community": 36,
       "norm_label": "layout.tsx"
     },
     {
@@ -117,7 +117,7 @@
       "source_file": "app\\page.tsx",
       "source_location": "L1",
       "id": "app_page_tsx",
-      "community": 21,
+      "community": 23,
       "norm_label": "page.tsx"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "app\\page.tsx",
       "source_location": "L3",
       "id": "page_page",
-      "community": 21,
+      "community": 23,
       "norm_label": "page()"
     },
     {
@@ -162,7 +162,7 @@
       "source_file": "app\\api\\applications\\[id]\\route.ts",
       "source_location": "L1",
       "id": "app_api_applications_id_route_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -171,7 +171,7 @@
       "source_file": "app\\api\\sources\\route.ts",
       "source_location": "L17",
       "id": "route_patch",
-      "community": 1,
+      "community": 2,
       "norm_label": "patch()"
     },
     {
@@ -180,7 +180,7 @@
       "source_file": "app\\api\\resumes\\[id]\\route.ts",
       "source_location": "L30",
       "id": "route_delete",
-      "community": 1,
+      "community": 2,
       "norm_label": "delete()"
     },
     {
@@ -225,7 +225,7 @@
       "source_file": "app\\api\\emails\\[id]\\route.ts",
       "source_location": "L1",
       "id": "app_api_emails_id_route_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -261,7 +261,7 @@
       "source_file": "app\\api\\jobs\\[id]\\route.ts",
       "source_location": "L1",
       "id": "app_api_jobs_id_route_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -288,7 +288,7 @@
       "source_file": "app\\api\\resumes\\[id]\\route.ts",
       "source_location": "L1",
       "id": "app_api_resumes_id_route_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -297,7 +297,7 @@
       "source_file": "app\\api\\settings\\route.ts",
       "source_location": "L1",
       "id": "app_api_settings_route_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -306,7 +306,7 @@
       "source_file": "app\\api\\sources\\route.ts",
       "source_location": "L1",
       "id": "app_api_sources_route_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -324,7 +324,7 @@
       "source_file": "app\\emails\\page.tsx",
       "source_location": "L1",
       "id": "app_emails_page_tsx",
-      "community": 18,
+      "community": 20,
       "norm_label": "page.tsx"
     },
     {
@@ -333,7 +333,7 @@
       "source_file": "app\\emails\\page.tsx",
       "source_location": "L13",
       "id": "page_parsefrom",
-      "community": 18,
+      "community": 20,
       "norm_label": "parsefrom()"
     },
     {
@@ -342,7 +342,7 @@
       "source_file": "app\\emails\\page.tsx",
       "source_location": "L20",
       "id": "page_classifierbadge",
-      "community": 18,
+      "community": 20,
       "norm_label": "classifierbadge()"
     },
     {
@@ -351,25 +351,25 @@
       "source_file": "app\\jobs\\page.tsx",
       "source_location": "L1",
       "id": "app_jobs_page_tsx",
-      "community": 19,
+      "community": 21,
       "norm_label": "page.tsx"
     },
     {
       "label": "atsVariant()",
       "file_type": "code",
       "source_file": "app\\jobs\\page.tsx",
-      "source_location": "L20",
+      "source_location": "L22",
       "id": "page_atsvariant",
-      "community": 19,
+      "community": 21,
       "norm_label": "atsvariant()"
     },
     {
       "label": "termColor()",
       "file_type": "code",
       "source_file": "app\\jobs\\page.tsx",
-      "source_location": "L72",
+      "source_location": "L71",
       "id": "page_termcolor",
-      "community": 19,
+      "community": 21,
       "norm_label": "termcolor()"
     },
     {
@@ -378,7 +378,7 @@
       "source_file": "app\\overview\\page.tsx",
       "source_location": "L1",
       "id": "app_overview_page_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -387,7 +387,7 @@
       "source_file": "app\\overview\\page.tsx",
       "source_location": "L10",
       "id": "page_statbox",
-      "community": 4,
+      "community": 3,
       "norm_label": "statbox()"
     },
     {
@@ -396,7 +396,7 @@
       "source_file": "app\\overview\\page.tsx",
       "source_location": "L71",
       "id": "page_mastertoggle",
-      "community": 4,
+      "community": 3,
       "norm_label": "mastertoggle()"
     },
     {
@@ -405,7 +405,7 @@
       "source_file": "app\\overview\\page.tsx",
       "source_location": "L184",
       "id": "page_sourcetooltip",
-      "community": 4,
+      "community": 3,
       "norm_label": "sourcetooltip()"
     },
     {
@@ -414,7 +414,7 @@
       "source_file": "app\\overview\\page.tsx",
       "source_location": "L194",
       "id": "page_sourcehealth",
-      "community": 4,
+      "community": 3,
       "norm_label": "sourcehealth()"
     },
     {
@@ -423,7 +423,7 @@
       "source_file": "app\\resumes\\page.tsx",
       "source_location": "L1",
       "id": "app_resumes_page_tsx",
-      "community": 22,
+      "community": 24,
       "norm_label": "page.tsx"
     },
     {
@@ -432,7 +432,7 @@
       "source_file": "app\\resumes\\page.tsx",
       "source_location": "L167",
       "id": "page_relativetime",
-      "community": 22,
+      "community": 24,
       "norm_label": "relativetime()"
     },
     {
@@ -441,7 +441,7 @@
       "source_file": "app\\tracker\\page.tsx",
       "source_location": "L1",
       "id": "app_tracker_page_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -450,16 +450,16 @@
       "source_file": "app\\tracker\\page.tsx",
       "source_location": "L25",
       "id": "page_applicationcard",
-      "community": 4,
+      "community": 3,
       "norm_label": "applicationcard()"
     },
     {
       "label": "byStatus()",
       "file_type": "code",
       "source_file": "app\\tracker\\page.tsx",
-      "source_location": "L282",
+      "source_location": "L298",
       "id": "page_bystatus",
-      "community": 4,
+      "community": 3,
       "norm_label": "bystatus()"
     },
     {
@@ -468,7 +468,7 @@
       "source_file": "app\\_components\\Providers.tsx",
       "source_location": "L1",
       "id": "app_components_providers_tsx",
-      "community": 23,
+      "community": 25,
       "norm_label": "providers.tsx"
     },
     {
@@ -477,7 +477,7 @@
       "source_file": "app\\_components\\Providers.tsx",
       "source_location": "L6",
       "id": "providers_providers",
-      "community": 23,
+      "community": 25,
       "norm_label": "providers()"
     },
     {
@@ -486,7 +486,7 @@
       "source_file": "app\\_components\\Shell.tsx",
       "source_location": "L1",
       "id": "app_components_shell_tsx",
-      "community": 14,
+      "community": 16,
       "norm_label": "shell.tsx"
     },
     {
@@ -495,7 +495,7 @@
       "source_file": "app\\_components\\Shell.tsx",
       "source_location": "L18",
       "id": "shell_usenavcounts",
-      "community": 14,
+      "community": 16,
       "norm_label": "usenavcounts()"
     },
     {
@@ -504,7 +504,7 @@
       "source_file": "app\\_components\\Shell.tsx",
       "source_location": "L43",
       "id": "shell_tplustimer",
-      "community": 14,
+      "community": 16,
       "norm_label": "tplustimer()"
     },
     {
@@ -513,7 +513,7 @@
       "source_file": "app\\_components\\Shell.tsx",
       "source_location": "L57",
       "id": "shell_livepill",
-      "community": 14,
+      "community": 16,
       "norm_label": "livepill()"
     },
     {
@@ -522,7 +522,7 @@
       "source_file": "app\\_components\\Shell.tsx",
       "source_location": "L75",
       "id": "shell_shell",
-      "community": 14,
+      "community": 16,
       "norm_label": "shell()"
     },
     {
@@ -531,7 +531,7 @@
       "source_file": "app\\_components\\ui.tsx",
       "source_location": "L1",
       "id": "app_components_ui_tsx",
-      "community": 8,
+      "community": 10,
       "norm_label": "ui.tsx"
     },
     {
@@ -540,7 +540,7 @@
       "source_file": "app\\_components\\ui.tsx",
       "source_location": "L6",
       "id": "ui_card",
-      "community": 8,
+      "community": 10,
       "norm_label": "card()"
     },
     {
@@ -549,70 +549,70 @@
       "source_file": "app\\_components\\ui.tsx",
       "source_location": "L22",
       "id": "ui_monobadge",
-      "community": 8,
+      "community": 10,
       "norm_label": "monobadge()"
     },
     {
       "label": "StickyTag()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L46",
+      "source_location": "L49",
       "id": "ui_stickytag",
-      "community": 8,
+      "community": 10,
       "norm_label": "stickytag()"
     },
     {
       "label": "Switch()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L69",
+      "source_location": "L72",
       "id": "ui_switch",
-      "community": 8,
+      "community": 10,
       "norm_label": "switch()"
     },
     {
       "label": "WavyUnderline()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L106",
+      "source_location": "L109",
       "id": "ui_wavyunderline",
-      "community": 8,
+      "community": 10,
       "norm_label": "wavyunderline()"
     },
     {
       "label": "Pentagon()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L125",
+      "source_location": "L128",
       "id": "ui_pentagon",
-      "community": 8,
+      "community": 10,
       "norm_label": "pentagon()"
     },
     {
       "label": "DashedDivider()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L138",
+      "source_location": "L141",
       "id": "ui_dasheddivider",
-      "community": 8,
+      "community": 10,
       "norm_label": "dasheddivider()"
     },
     {
       "label": "StatusPill()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L142",
+      "source_location": "L145",
       "id": "ui_statuspill",
-      "community": 8,
+      "community": 10,
       "norm_label": "statuspill()"
     },
     {
       "label": "ConfidenceBar()",
       "file_type": "code",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L155",
+      "source_location": "L158",
       "id": "ui_confidencebar",
-      "community": 8,
+      "community": 10,
       "norm_label": "confidencebar()"
     },
     {
@@ -621,7 +621,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L1",
       "id": "lib_paths_ts",
-      "community": 5,
+      "community": 9,
       "norm_label": "paths.ts"
     },
     {
@@ -630,7 +630,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L7",
       "id": "paths_datadir",
-      "community": 5,
+      "community": 9,
       "norm_label": "datadir()"
     },
     {
@@ -639,7 +639,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L11",
       "id": "paths_dbpath",
-      "community": 5,
+      "community": 9,
       "norm_label": "dbpath()"
     },
     {
@@ -648,7 +648,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L15",
       "id": "paths_resumesdir",
-      "community": 5,
+      "community": 9,
       "norm_label": "resumesdir()"
     },
     {
@@ -657,7 +657,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L19",
       "id": "paths_credentialspath",
-      "community": 5,
+      "community": 9,
       "norm_label": "credentialspath()"
     },
     {
@@ -666,7 +666,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L23",
       "id": "paths_gmailtokenpath",
-      "community": 5,
+      "community": 9,
       "norm_label": "gmailtokenpath()"
     },
     {
@@ -675,7 +675,7 @@
       "source_file": "lib\\paths.ts",
       "source_location": "L27",
       "id": "paths_ensuredatadirs",
-      "community": 5,
+      "community": 9,
       "norm_label": "ensuredatadirs()"
     },
     {
@@ -684,7 +684,7 @@
       "source_file": "lib\\db\\client.ts",
       "source_location": "L1",
       "id": "lib_db_client_ts",
-      "community": 11,
+      "community": 8,
       "norm_label": "client.ts"
     },
     {
@@ -693,7 +693,7 @@
       "source_file": "lib\\db\\client.ts",
       "source_location": "L61",
       "id": "client_opendb",
-      "community": 11,
+      "community": 8,
       "norm_label": "opendb()"
     },
     {
@@ -702,34 +702,34 @@
       "source_file": "lib\\db\\client.ts",
       "source_location": "L71",
       "id": "client_createdb",
-      "community": 11,
+      "community": 8,
       "norm_label": "createdb()"
     },
     {
       "label": "migrateApplicationsStatusCheck()",
       "file_type": "code",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L121",
+      "source_location": "L130",
       "id": "client_migrateapplicationsstatuscheck",
-      "community": 11,
+      "community": 8,
       "norm_label": "migrateapplicationsstatuscheck()"
     },
     {
       "label": "seedSettings()",
       "file_type": "code",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L159",
+      "source_location": "L168",
       "id": "client_seedsettings",
-      "community": 11,
+      "community": 8,
       "norm_label": "seedsettings()"
     },
     {
       "label": "seedSources()",
       "file_type": "code",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L166",
+      "source_location": "L175",
       "id": "client_seedsources",
-      "community": 11,
+      "community": 8,
       "norm_label": "seedsources()"
     },
     {
@@ -738,7 +738,7 @@
       "source_file": "lib\\db\\schema.ts",
       "source_location": "L1",
       "id": "lib_db_schema_ts",
-      "community": 35,
+      "community": 37,
       "norm_label": "schema.ts"
     },
     {
@@ -747,7 +747,7 @@
       "source_file": "lib\\db\\queries\\applications.ts",
       "source_location": "L1",
       "id": "lib_db_queries_applications_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "applications.ts"
     },
     {
@@ -756,7 +756,7 @@
       "source_file": "lib\\db\\queries\\applications.ts",
       "source_location": "L13",
       "id": "applications_createapplication",
-      "community": 7,
+      "community": 6,
       "norm_label": "createapplication()"
     },
     {
@@ -765,7 +765,7 @@
       "source_file": "lib\\db\\queries\\applications.ts",
       "source_location": "L32",
       "id": "applications_createapplicationfromjob",
-      "community": 7,
+      "community": 6,
       "norm_label": "createapplicationfromjob()"
     },
     {
@@ -774,7 +774,7 @@
       "source_file": "lib\\db\\queries\\applications.ts",
       "source_location": "L47",
       "id": "applications_getapplicationbyjobid",
-      "community": 1,
+      "community": 2,
       "norm_label": "getapplicationbyjobid()"
     },
     {
@@ -783,7 +783,7 @@
       "source_file": "lib\\db\\queries\\applications.ts",
       "source_location": "L56",
       "id": "applications_listapplications",
-      "community": 1,
+      "community": 2,
       "norm_label": "listapplications()"
     },
     {
@@ -792,25 +792,25 @@
       "source_file": "lib\\db\\queries\\applications.ts",
       "source_location": "L65",
       "id": "applications_getapplication",
-      "community": 1,
+      "community": 2,
       "norm_label": "getapplication()"
     },
     {
       "label": "updateApplication()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\applications.ts",
-      "source_location": "L78",
+      "source_location": "L79",
       "id": "applications_updateapplication",
-      "community": 1,
+      "community": 2,
       "norm_label": "updateapplication()"
     },
     {
       "label": "deleteApplication()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\applications.ts",
-      "source_location": "L94",
+      "source_location": "L96",
       "id": "applications_deleteapplication",
-      "community": 1,
+      "community": 2,
       "norm_label": "deleteapplication()"
     },
     {
@@ -873,86 +873,122 @@
       "source_file": "lib\\db\\queries\\jobs.ts",
       "source_location": "L1",
       "id": "lib_db_queries_jobs_ts",
-      "community": 3,
+      "community": 4,
       "norm_label": "jobs.ts"
     },
     {
       "label": "upsertJobs()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "id": "jobs_upsertjobs",
-      "community": 3,
+      "community": 13,
       "norm_label": "upsertjobs()"
+    },
+    {
+      "label": "needsJsPass()",
+      "file_type": "code",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L103",
+      "id": "jobs_needsjspass",
+      "community": 4,
+      "norm_label": "needsjspass()"
+    },
+    {
+      "label": "passesJsFilters()",
+      "file_type": "code",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L107",
+      "id": "jobs_passesjsfilters",
+      "community": 7,
+      "norm_label": "passesjsfilters()"
+    },
+    {
+      "label": "nichePrefilterCondition()",
+      "file_type": "code",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L114",
+      "id": "jobs_nicheprefiltercondition",
+      "community": 4,
+      "norm_label": "nicheprefiltercondition()"
     },
     {
       "label": "termBucketCondition()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L93",
+      "source_location": "L129",
       "id": "jobs_termbucketcondition",
-      "community": 3,
+      "community": 4,
       "norm_label": "termbucketcondition()"
     },
     {
       "label": "usOnlyCondition()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L131",
+      "source_location": "L167",
       "id": "jobs_usonlycondition",
-      "community": 3,
+      "community": 4,
       "norm_label": "usonlycondition()"
     },
     {
       "label": "buildJobConditions()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L147",
+      "source_location": "L183",
       "id": "jobs_buildjobconditions",
-      "community": 3,
+      "community": 4,
       "norm_label": "buildjobconditions()"
+    },
+    {
+      "label": "listJsMatches()",
+      "file_type": "code",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L236",
+      "id": "jobs_listjsmatches",
+      "community": 4,
+      "norm_label": "listjsmatches()"
     },
     {
       "label": "listJobs()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L198",
+      "source_location": "L246",
       "id": "jobs_listjobs",
-      "community": 3,
+      "community": 4,
       "norm_label": "listjobs()"
     },
     {
       "label": "countJobs()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L212",
+      "source_location": "L265",
       "id": "jobs_countjobs",
-      "community": 3,
+      "community": 4,
       "norm_label": "countjobs()"
     },
     {
       "label": "getJob()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L219",
+      "source_location": "L273",
       "id": "jobs_getjob",
-      "community": 1,
+      "community": 4,
       "norm_label": "getjob()"
     },
     {
       "label": "dismissJob()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L223",
+      "source_location": "L277",
       "id": "jobs_dismissjob",
-      "community": 1,
+      "community": 4,
       "norm_label": "dismissjob()"
     },
     {
       "label": "createManualJob()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L229",
+      "source_location": "L283",
       "id": "jobs_createmanualjob",
       "community": 0,
       "norm_label": "createmanualjob()"
@@ -961,27 +997,27 @@
       "label": "listJobsToEnrich()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L240",
+      "source_location": "L294",
       "id": "jobs_listjobstoenrich",
-      "community": 3,
+      "community": 4,
       "norm_label": "listjobstoenrich()"
     },
     {
       "label": "countJobsToEnrich()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L251",
+      "source_location": "L320",
       "id": "jobs_countjobstoenrich",
-      "community": 3,
+      "community": 4,
       "norm_label": "countjobstoenrich()"
     },
     {
       "label": "setJobSalary()",
       "file_type": "code",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L266",
+      "source_location": "L335",
       "id": "jobs_setjobsalary",
-      "community": 3,
+      "community": 4,
       "norm_label": "setjobsalary()"
     },
     {
@@ -1008,7 +1044,7 @@
       "source_file": "lib\\db\\queries\\resumes-fs.ts",
       "source_location": "L1",
       "id": "lib_db_queries_resumes_fs_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "resumes-fs.ts"
     },
     {
@@ -1017,7 +1053,7 @@
       "source_file": "lib\\db\\queries\\resumes-fs.ts",
       "source_location": "L11",
       "id": "resumes_fs_saveresumefile",
-      "community": 1,
+      "community": 2,
       "norm_label": "saveresumefile()"
     },
     {
@@ -1026,7 +1062,7 @@
       "source_file": "lib\\db\\queries\\resumes-fs.ts",
       "source_location": "L26",
       "id": "resumes_fs_deleteresumefile",
-      "community": 1,
+      "community": 2,
       "norm_label": "deleteresumefile()"
     },
     {
@@ -1035,7 +1071,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L1",
       "id": "lib_db_queries_resumes_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "resumes.ts"
     },
     {
@@ -1044,7 +1080,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L7",
       "id": "resumes_createresume",
-      "community": 1,
+      "community": 0,
       "norm_label": "createresume()"
     },
     {
@@ -1053,7 +1089,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L18",
       "id": "resumes_listresumes",
-      "community": 1,
+      "community": 2,
       "norm_label": "listresumes()"
     },
     {
@@ -1062,7 +1098,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L22",
       "id": "resumes_getresume",
-      "community": 1,
+      "community": 2,
       "norm_label": "getresume()"
     },
     {
@@ -1071,7 +1107,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L26",
       "id": "resumes_setdefaultresume",
-      "community": 1,
+      "community": 2,
       "norm_label": "setdefaultresume()"
     },
     {
@@ -1080,7 +1116,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L32",
       "id": "resumes_renameresume",
-      "community": 1,
+      "community": 2,
       "norm_label": "renameresume()"
     },
     {
@@ -1089,7 +1125,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L37",
       "id": "resumes_deleteresume",
-      "community": 1,
+      "community": 2,
       "norm_label": "deleteresume()"
     },
     {
@@ -1098,7 +1134,7 @@
       "source_file": "lib\\db\\queries\\resumes.ts",
       "source_location": "L44",
       "id": "resumes_incrementusedcount",
-      "community": 1,
+      "community": 2,
       "norm_label": "incrementusedcount()"
     },
     {
@@ -1107,7 +1143,7 @@
       "source_file": "lib\\db\\queries\\settings.ts",
       "source_location": "L1",
       "id": "lib_db_queries_settings_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "settings.ts"
     },
     {
@@ -1116,7 +1152,7 @@
       "source_file": "lib\\db\\queries\\settings.ts",
       "source_location": "L29",
       "id": "settings_getsettings",
-      "community": 2,
+      "community": 1,
       "norm_label": "getsettings()"
     },
     {
@@ -1125,7 +1161,7 @@
       "source_file": "lib\\db\\queries\\settings.ts",
       "source_location": "L35",
       "id": "settings_updatesettings",
-      "community": 2,
+      "community": 1,
       "norm_label": "updatesettings()"
     },
     {
@@ -1161,7 +1197,7 @@
       "source_file": "lib\\enrich\\enricher.ts",
       "source_location": "L1",
       "id": "lib_enrich_enricher_ts",
-      "community": 9,
+      "community": 11,
       "norm_label": "enricher.ts"
     },
     {
@@ -1170,7 +1206,7 @@
       "source_file": "lib\\enrich\\enricher.ts",
       "source_location": "L22",
       "id": "enricher_fetchsalary",
-      "community": 9,
+      "community": 11,
       "norm_label": "fetchsalary()"
     },
     {
@@ -1179,7 +1215,7 @@
       "source_file": "lib\\enrich\\index.ts",
       "source_location": "L1",
       "id": "lib_enrich_index_ts",
-      "community": 3,
+      "community": 4,
       "norm_label": "index.ts"
     },
     {
@@ -1188,7 +1224,7 @@
       "source_file": "lib\\enrich\\index.ts",
       "source_location": "L26",
       "id": "index_runenricher",
-      "community": 3,
+      "community": 4,
       "norm_label": "runenricher()"
     },
     {
@@ -1197,7 +1233,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L1",
       "id": "lib_enrich_salary_parse_ts",
-      "community": 9,
+      "community": 11,
       "norm_label": "salary-parse.ts"
     },
     {
@@ -1206,7 +1242,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L29",
       "id": "salary_parse_parseamount",
-      "community": 9,
+      "community": 11,
       "norm_label": "parseamount()"
     },
     {
@@ -1215,7 +1251,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L41",
       "id": "salary_parse_detectunit",
-      "community": 9,
+      "community": 11,
       "norm_label": "detectunit()"
     },
     {
@@ -1224,7 +1260,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L49",
       "id": "salary_parse_annualize",
-      "community": 9,
+      "community": 11,
       "norm_label": "annualize()"
     },
     {
@@ -1233,7 +1269,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L68",
       "id": "salary_parse_parsesalary",
-      "community": 9,
+      "community": 11,
       "norm_label": "parsesalary()"
     },
     {
@@ -1242,7 +1278,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L78",
       "id": "salary_parse_matchrange",
-      "community": 9,
+      "community": 11,
       "norm_label": "matchrange()"
     },
     {
@@ -1251,7 +1287,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L93",
       "id": "salary_parse_matchsingle",
-      "community": 9,
+      "community": 11,
       "norm_label": "matchsingle()"
     },
     {
@@ -1260,7 +1296,7 @@
       "source_file": "lib\\enrich\\salary-parse.ts",
       "source_location": "L110",
       "id": "salary_parse_plausibleannual",
-      "community": 9,
+      "community": 11,
       "norm_label": "plausibleannual()"
     },
     {
@@ -1269,7 +1305,7 @@
       "source_file": "lib\\jobs\\enrich-job.ts",
       "source_location": "L1",
       "id": "lib_jobs_enrich_job_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "enrich-job.ts"
     },
     {
@@ -1278,7 +1314,7 @@
       "source_file": "lib\\jobs\\enrich-job.ts",
       "source_location": "L12",
       "id": "enrich_job_tickenrich",
-      "community": 2,
+      "community": 1,
       "norm_label": "tickenrich()"
     },
     {
@@ -1287,7 +1323,7 @@
       "source_file": "lib\\jobs\\heartbeat.ts",
       "source_location": "L1",
       "id": "lib_jobs_heartbeat_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "heartbeat.ts"
     },
     {
@@ -1296,8 +1332,35 @@
       "source_file": "lib\\jobs\\heartbeat.ts",
       "source_location": "L33",
       "id": "heartbeat_heartbeat",
-      "community": 2,
+      "community": 1,
       "norm_label": "heartbeat()"
+    },
+    {
+      "label": "job-type.ts",
+      "file_type": "code",
+      "source_file": "lib\\jobs\\job-type.ts",
+      "source_location": "L1",
+      "id": "lib_jobs_job_type_ts",
+      "community": 7,
+      "norm_label": "job-type.ts"
+    },
+    {
+      "label": "parseTermsJson()",
+      "file_type": "code",
+      "source_file": "lib\\jobs\\job-type.ts",
+      "source_location": "L48",
+      "id": "job_type_parsetermsjson",
+      "community": 7,
+      "norm_label": "parsetermsjson()"
+    },
+    {
+      "label": "jobType()",
+      "file_type": "code",
+      "source_file": "lib\\jobs\\job-type.ts",
+      "source_location": "L58",
+      "id": "job_type_jobtype",
+      "community": 7,
+      "norm_label": "jobtype()"
     },
     {
       "label": "scheduler.ts",
@@ -1305,7 +1368,7 @@
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L1",
       "id": "lib_jobs_scheduler_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "scheduler.ts"
     },
     {
@@ -1314,7 +1377,7 @@
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L15",
       "id": "scheduler_startschedulers",
-      "community": 2,
+      "community": 9,
       "norm_label": "startschedulers()"
     },
     {
@@ -1323,7 +1386,7 @@
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L25",
       "id": "scheduler_stopschedulers",
-      "community": 2,
+      "community": 1,
       "norm_label": "stopschedulers()"
     },
     {
@@ -1332,7 +1395,7 @@
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L37",
       "id": "scheduler_runscrapernow",
-      "community": 2,
+      "community": 1,
       "norm_label": "runscrapernow()"
     },
     {
@@ -1341,7 +1404,7 @@
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L41",
       "id": "scheduler_runtrackernow",
-      "community": 2,
+      "community": 1,
       "norm_label": "runtrackernow()"
     },
     {
@@ -1350,7 +1413,7 @@
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L45",
       "id": "scheduler_runenrichnow",
-      "community": 2,
+      "community": 1,
       "norm_label": "runenrichnow()"
     },
     {
@@ -1359,7 +1422,7 @@
       "source_file": "lib\\jobs\\scraper-job.ts",
       "source_location": "L1",
       "id": "lib_jobs_scraper_job_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "scraper-job.ts"
     },
     {
@@ -1368,7 +1431,7 @@
       "source_file": "lib\\jobs\\scraper-job.ts",
       "source_location": "L5",
       "id": "scraper_job_tickscraper",
-      "community": 2,
+      "community": 1,
       "norm_label": "tickscraper()"
     },
     {
@@ -1377,7 +1440,7 @@
       "source_file": "lib\\jobs\\tracker-job.ts",
       "source_location": "L1",
       "id": "lib_jobs_tracker_job_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "tracker-job.ts"
     },
     {
@@ -1386,8 +1449,80 @@
       "source_file": "lib\\jobs\\tracker-job.ts",
       "source_location": "L16",
       "id": "tracker_job_ticktracker",
-      "community": 2,
+      "community": 1,
       "norm_label": "ticktracker()"
+    },
+    {
+      "label": "profile.ts",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L1",
+      "id": "lib_niche_profile_ts",
+      "community": 7,
+      "norm_label": "profile.ts"
+    },
+    {
+      "label": "normalizeCompany()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L67",
+      "id": "profile_normalizecompany",
+      "community": 7,
+      "norm_label": "normalizecompany()"
+    },
+    {
+      "label": "escapeRegex()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L126",
+      "id": "profile_escaperegex",
+      "community": 7,
+      "norm_label": "escaperegex()"
+    },
+    {
+      "label": "wordRe()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L136",
+      "id": "profile_wordre",
+      "community": 7,
+      "norm_label": "wordre()"
+    },
+    {
+      "label": "companyCategory()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L159",
+      "id": "profile_companycategory",
+      "community": 7,
+      "norm_label": "companycategory()"
+    },
+    {
+      "label": "isExcludedRole()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L168",
+      "id": "profile_isexcludedrole",
+      "community": 7,
+      "norm_label": "isexcludedrole()"
+    },
+    {
+      "label": "pickResume()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L172",
+      "id": "profile_pickresume",
+      "community": 7,
+      "norm_label": "pickresume()"
+    },
+    {
+      "label": "matchNiche()",
+      "file_type": "code",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L185",
+      "id": "profile_matchniche",
+      "community": 7,
+      "norm_label": "matchniche()"
     },
     {
       "label": "base.ts",
@@ -1395,7 +1530,7 @@
       "source_file": "lib\\scrapers\\base.ts",
       "source_location": "L1",
       "id": "lib_scrapers_base_ts",
-      "community": 24,
+      "community": 26,
       "norm_label": "base.ts"
     },
     {
@@ -1404,7 +1539,7 @@
       "source_file": "lib\\scrapers\\base.ts",
       "source_location": "L23",
       "id": "base_fetchjson",
-      "community": 24,
+      "community": 26,
       "norm_label": "fetchjson()"
     },
     {
@@ -1413,7 +1548,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L1",
       "id": "lib_scrapers_github_jobright_ts",
-      "community": 6,
+      "community": 5,
       "norm_label": "github-jobright.ts"
     },
     {
@@ -1422,7 +1557,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L15",
       "id": "github_jobright_parselink",
-      "community": 6,
+      "community": 5,
       "norm_label": "parselink()"
     },
     {
@@ -1431,7 +1566,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L21",
       "id": "github_jobright_jobrightid",
-      "community": 6,
+      "community": 5,
       "norm_label": "jobrightid()"
     },
     {
@@ -1440,7 +1575,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L27",
       "id": "github_jobright_extractterms",
-      "community": 6,
+      "community": 5,
       "norm_label": "extractterms()"
     },
     {
@@ -1449,7 +1584,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L37",
       "id": "github_jobright_cleanrole",
-      "community": 6,
+      "community": 5,
       "norm_label": "cleanrole()"
     },
     {
@@ -1458,7 +1593,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L50",
       "id": "github_jobright_parsepostedat",
-      "community": 6,
+      "community": 5,
       "norm_label": "parsepostedat()"
     },
     {
@@ -1467,7 +1602,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L65",
       "id": "github_jobright_normalizejobrightrows",
-      "community": 6,
+      "community": 5,
       "norm_label": "normalizejobrightrows()"
     },
     {
@@ -1476,7 +1611,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L96",
       "id": "github_jobright_jobrightscraper",
-      "community": 6,
+      "community": 5,
       "norm_label": "jobrightscraper"
     },
     {
@@ -1485,7 +1620,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L97",
       "id": "github_jobright_jobrightscraper_constructor",
-      "community": 6,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -1494,7 +1629,7 @@
       "source_file": "lib\\scrapers\\github-jobright.ts",
       "source_location": "L99",
       "id": "github_jobright_jobrightscraper_fetchandnormalize",
-      "community": 6,
+      "community": 5,
       "norm_label": ".fetchandnormalize()"
     },
     {
@@ -1503,7 +1638,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L1",
       "id": "lib_scrapers_github_simplify_ts",
-      "community": 10,
+      "community": 12,
       "norm_label": "github-simplify.ts"
     },
     {
@@ -1512,7 +1647,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L20",
       "id": "github_simplify_normalize",
-      "community": 10,
+      "community": 12,
       "norm_label": "normalize()"
     },
     {
@@ -1521,7 +1656,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L32",
       "id": "github_simplify_isactivevisible",
-      "community": 10,
+      "community": 12,
       "norm_label": "isactivevisible()"
     },
     {
@@ -1530,7 +1665,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L36",
       "id": "github_simplify_isoffseason",
-      "community": 10,
+      "community": 12,
       "norm_label": "isoffseason()"
     },
     {
@@ -1539,7 +1674,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L43",
       "id": "github_simplify_simplifyoffseasonscraper",
-      "community": 10,
+      "community": 12,
       "norm_label": "simplifyoffseasonscraper"
     },
     {
@@ -1548,7 +1683,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L45",
       "id": "github_simplify_simplifyoffseasonscraper_constructor",
-      "community": 10,
+      "community": 12,
       "norm_label": ".constructor()"
     },
     {
@@ -1557,7 +1692,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L47",
       "id": "github_simplify_simplifyoffseasonscraper_fetchandnormalize",
-      "community": 10,
+      "community": 12,
       "norm_label": ".fetchandnormalize()"
     },
     {
@@ -1566,7 +1701,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L53",
       "id": "github_simplify_simplifynewgradscraper",
-      "community": 10,
+      "community": 12,
       "norm_label": "simplifynewgradscraper"
     },
     {
@@ -1575,7 +1710,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L55",
       "id": "github_simplify_simplifynewgradscraper_constructor",
-      "community": 10,
+      "community": 12,
       "norm_label": ".constructor()"
     },
     {
@@ -1584,7 +1719,7 @@
       "source_file": "lib\\scrapers\\github-simplify.ts",
       "source_location": "L57",
       "id": "github_simplify_simplifynewgradscraper_fetchandnormalize",
-      "community": 10,
+      "community": 12,
       "norm_label": ".fetchandnormalize()"
     },
     {
@@ -1593,7 +1728,7 @@
       "source_file": "lib\\scrapers\\github-speedy.ts",
       "source_location": "L1",
       "id": "lib_scrapers_github_speedy_ts",
-      "community": 16,
+      "community": 18,
       "norm_label": "github-speedy.ts"
     },
     {
@@ -1602,7 +1737,7 @@
       "source_file": "lib\\scrapers\\github-speedy.ts",
       "source_location": "L8",
       "id": "github_speedy_speedyswescraper",
-      "community": 16,
+      "community": 18,
       "norm_label": "speedyswescraper"
     },
     {
@@ -1611,7 +1746,7 @@
       "source_file": "lib\\scrapers\\github-speedy.ts",
       "source_location": "L10",
       "id": "github_speedy_speedyswescraper_constructor",
-      "community": 16,
+      "community": 18,
       "norm_label": ".constructor()"
     },
     {
@@ -1620,7 +1755,7 @@
       "source_file": "lib\\scrapers\\github-speedy.ts",
       "source_location": "L12",
       "id": "github_speedy_speedyswescraper_fetchandnormalize",
-      "community": 16,
+      "community": 18,
       "norm_label": ".fetchandnormalize()"
     },
     {
@@ -1629,7 +1764,7 @@
       "source_file": "lib\\scrapers\\github-vansh.ts",
       "source_location": "L1",
       "id": "lib_scrapers_github_vansh_ts",
-      "community": 13,
+      "community": 15,
       "norm_label": "github-vansh.ts"
     },
     {
@@ -1638,7 +1773,7 @@
       "source_file": "lib\\scrapers\\github-vansh.ts",
       "source_location": "L17",
       "id": "github_vansh_normalize",
-      "community": 13,
+      "community": 15,
       "norm_label": "normalize()"
     },
     {
@@ -1647,7 +1782,7 @@
       "source_file": "lib\\scrapers\\github-vansh.ts",
       "source_location": "L29",
       "id": "github_vansh_isoffseason",
-      "community": 13,
+      "community": 15,
       "norm_label": "isoffseason()"
     },
     {
@@ -1656,7 +1791,7 @@
       "source_file": "lib\\scrapers\\github-vansh.ts",
       "source_location": "L33",
       "id": "github_vansh_vanshoffseasonscraper",
-      "community": 13,
+      "community": 15,
       "norm_label": "vanshoffseasonscraper"
     },
     {
@@ -1665,7 +1800,7 @@
       "source_file": "lib\\scrapers\\github-vansh.ts",
       "source_location": "L35",
       "id": "github_vansh_vanshoffseasonscraper_constructor",
-      "community": 13,
+      "community": 15,
       "norm_label": ".constructor()"
     },
     {
@@ -1674,7 +1809,7 @@
       "source_file": "lib\\scrapers\\github-vansh.ts",
       "source_location": "L37",
       "id": "github_vansh_vanshoffseasonscraper_fetchandnormalize",
-      "community": 13,
+      "community": 15,
       "norm_label": ".fetchandnormalize()"
     },
     {
@@ -1683,7 +1818,7 @@
       "source_file": "lib\\scrapers\\index.ts",
       "source_location": "L1",
       "id": "lib_scrapers_index_ts",
-      "community": 3,
+      "community": 13,
       "norm_label": "index.ts"
     },
     {
@@ -1692,7 +1827,7 @@
       "source_file": "lib\\scrapers\\index.ts",
       "source_location": "L21",
       "id": "index_runscrapers",
-      "community": 3,
+      "community": 13,
       "norm_label": "runscrapers()"
     },
     {
@@ -1701,7 +1836,7 @@
       "source_file": "lib\\scrapers\\index.ts",
       "source_location": "L60",
       "id": "index_builddefaultscrapers",
-      "community": 3,
+      "community": 13,
       "norm_label": "builddefaultscrapers()"
     },
     {
@@ -1710,7 +1845,7 @@
       "source_file": "lib\\scrapers\\markdown-table.ts",
       "source_location": "L1",
       "id": "lib_scrapers_markdown_table_ts",
-      "community": 6,
+      "community": 5,
       "norm_label": "markdown-table.ts"
     },
     {
@@ -1719,7 +1854,7 @@
       "source_file": "lib\\scrapers\\markdown-table.ts",
       "source_location": "L12",
       "id": "markdown_table_parsemarkdowntable",
-      "community": 6,
+      "community": 5,
       "norm_label": "parsemarkdowntable()"
     },
     {
@@ -1728,7 +1863,7 @@
       "source_file": "lib\\scrapers\\markdown-table.ts",
       "source_location": "L23",
       "id": "markdown_table_isseparatorrow",
-      "community": 6,
+      "community": 5,
       "norm_label": "isseparatorrow()"
     },
     {
@@ -1737,7 +1872,7 @@
       "source_file": "lib\\scrapers\\markdown-table.ts",
       "source_location": "L27",
       "id": "markdown_table_splitrow",
-      "community": 6,
+      "community": 5,
       "norm_label": "splitrow()"
     },
     {
@@ -1746,7 +1881,7 @@
       "source_file": "lib\\tracker\\classifier-llm.ts",
       "source_location": "L1",
       "id": "lib_tracker_classifier_llm_ts",
-      "community": 7,
+      "community": 6,
       "norm_label": "classifier-llm.ts"
     },
     {
@@ -1755,7 +1890,7 @@
       "source_file": "lib\\tracker\\classifier-llm.ts",
       "source_location": "L24",
       "id": "classifier_llm_classifybyllm",
-      "community": 7,
+      "community": 6,
       "norm_label": "classifybyllm()"
     },
     {
@@ -1764,7 +1899,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L1",
       "id": "lib_tracker_classifier_rules_ts",
-      "community": 12,
+      "community": 14,
       "norm_label": "classifier-rules.ts"
     },
     {
@@ -1773,7 +1908,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L47",
       "id": "classifier_rules_matcheskeywordgroups",
-      "community": 12,
+      "community": 14,
       "norm_label": "matcheskeywordgroups()"
     },
     {
@@ -1782,7 +1917,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L63",
       "id": "classifier_rules_classifybyrules",
-      "community": 12,
+      "community": 14,
       "norm_label": "classifybyrules()"
     },
     {
@@ -1791,7 +1926,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L114",
       "id": "classifier_rules_trimstopwords",
-      "community": 12,
+      "community": 14,
       "norm_label": "trimstopwords()"
     },
     {
@@ -1800,7 +1935,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L126",
       "id": "classifier_rules_extractcompany",
-      "community": 12,
+      "community": 14,
       "norm_label": "extractcompany()"
     },
     {
@@ -1809,7 +1944,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L152",
       "id": "classifier_rules_companyfromsender",
-      "community": 12,
+      "community": 14,
       "norm_label": "companyfromsender()"
     },
     {
@@ -1818,7 +1953,7 @@
       "source_file": "lib\\tracker\\classifier-rules.ts",
       "source_location": "L172",
       "id": "classifier_rules_detectcompany",
-      "community": 12,
+      "community": 14,
       "norm_label": "detectcompany()"
     },
     {
@@ -1827,7 +1962,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L1",
       "id": "lib_tracker_gmail_client_ts",
-      "community": 5,
+      "community": 1,
       "norm_label": "gmail-client.ts"
     },
     {
@@ -1836,7 +1971,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L23",
       "id": "gmail_client_readtoken",
-      "community": 5,
+      "community": 1,
       "norm_label": "readtoken()"
     },
     {
@@ -1845,7 +1980,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L28",
       "id": "gmail_client_writetoken",
-      "community": 5,
+      "community": 1,
       "norm_label": "writetoken()"
     },
     {
@@ -1854,7 +1989,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L33",
       "id": "gmail_client_loadoauthclient",
-      "community": 5,
+      "community": 1,
       "norm_label": "loadoauthclient()"
     },
     {
@@ -1863,7 +1998,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L46",
       "id": "gmail_client_getauthurl",
-      "community": 5,
+      "community": 1,
       "norm_label": "getauthurl()"
     },
     {
@@ -1872,7 +2007,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L50",
       "id": "gmail_client_exchangecode",
-      "community": 5,
+      "community": 1,
       "norm_label": "exchangecode()"
     },
     {
@@ -1881,7 +2016,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L67",
       "id": "gmail_client_parsereceivedat",
-      "community": 2,
+      "community": 1,
       "norm_label": "parsereceivedat()"
     },
     {
@@ -1890,7 +2025,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L79",
       "id": "gmail_client_isstalehistoryerror",
-      "community": 2,
+      "community": 1,
       "norm_label": "isstalehistoryerror()"
     },
     {
@@ -1899,7 +2034,7 @@
       "source_file": "lib\\tracker\\gmail-client.ts",
       "source_location": "L86",
       "id": "gmail_client_fetchnewmessages",
-      "community": 2,
+      "community": 1,
       "norm_label": "fetchnewmessages()"
     },
     {
@@ -1908,7 +2043,7 @@
       "source_file": "lib\\tracker\\matcher.ts",
       "source_location": "L1",
       "id": "lib_tracker_matcher_ts",
-      "community": 7,
+      "community": 6,
       "norm_label": "matcher.ts"
     },
     {
@@ -1917,7 +2052,7 @@
       "source_file": "lib\\tracker\\matcher.ts",
       "source_location": "L7",
       "id": "matcher_normalizecompany",
-      "community": 7,
+      "community": 6,
       "norm_label": "normalizecompany()"
     },
     {
@@ -1926,7 +2061,7 @@
       "source_file": "lib\\tracker\\matcher.ts",
       "source_location": "L24",
       "id": "matcher_parsesenderdomain",
-      "community": 7,
+      "community": 6,
       "norm_label": "parsesenderdomain()"
     },
     {
@@ -1935,7 +2070,7 @@
       "source_file": "lib\\tracker\\matcher.ts",
       "source_location": "L39",
       "id": "matcher_domainstem",
-      "community": 7,
+      "community": 6,
       "norm_label": "domainstem()"
     },
     {
@@ -1944,7 +2079,7 @@
       "source_file": "lib\\tracker\\matcher.ts",
       "source_location": "L57",
       "id": "matcher_matchemailtoapplication",
-      "community": 7,
+      "community": 6,
       "norm_label": "matchemailtoapplication()"
     },
     {
@@ -1953,7 +2088,7 @@
       "source_file": "lib\\tracker\\matcher.ts",
       "source_location": "L102",
       "id": "matcher_matchemailtojob",
-      "community": 7,
+      "community": 6,
       "norm_label": "matchemailtojob()"
     },
     {
@@ -1962,7 +2097,7 @@
       "source_file": "lib\\tracker\\pipeline.ts",
       "source_location": "L1",
       "id": "lib_tracker_pipeline_ts",
-      "community": 7,
+      "community": 6,
       "norm_label": "pipeline.ts"
     },
     {
@@ -1971,7 +2106,7 @@
       "source_file": "lib\\tracker\\pipeline.ts",
       "source_location": "L22",
       "id": "pipeline_processemails",
-      "community": 7,
+      "community": 6,
       "norm_label": "processemails()"
     },
     {
@@ -1980,7 +2115,7 @@
       "source_file": "lib\\tracker\\resolve-application.ts",
       "source_location": "L1",
       "id": "lib_tracker_resolve_application_ts",
-      "community": 7,
+      "community": 6,
       "norm_label": "resolve-application.ts"
     },
     {
@@ -1989,7 +2124,7 @@
       "source_file": "lib\\tracker\\resolve-application.ts",
       "source_location": "L28",
       "id": "resolve_application_resolveapplicationforemail",
-      "community": 7,
+      "community": 6,
       "norm_label": "resolveapplicationforemail()"
     },
     {
@@ -1998,7 +2133,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L1",
       "id": "lib_ui_ats_ts",
-      "community": 4,
+      "community": 3,
       "norm_label": "ats.ts"
     },
     {
@@ -2007,7 +2142,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L2",
       "id": "ats_atsfromurl",
-      "community": 4,
+      "community": 3,
       "norm_label": "atsfromurl()"
     },
     {
@@ -2016,7 +2151,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L20",
       "id": "ats_relativetime",
-      "community": 4,
+      "community": 3,
       "norm_label": "relativetime()"
     },
     {
@@ -2025,7 +2160,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L32",
       "id": "ats_dayssince",
-      "community": 4,
+      "community": 3,
       "norm_label": "dayssince()"
     },
     {
@@ -2034,7 +2169,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L38",
       "id": "ats_parseterms",
-      "community": 4,
+      "community": 3,
       "norm_label": "parseterms()"
     },
     {
@@ -2043,7 +2178,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L52",
       "id": "ats_termbucket",
-      "community": 4,
+      "community": 3,
       "norm_label": "termbucket()"
     },
     {
@@ -2052,7 +2187,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L63",
       "id": "ats_formatannual",
-      "community": 4,
+      "community": 3,
       "norm_label": "formatannual()"
     },
     {
@@ -2061,7 +2196,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L72",
       "id": "ats_formatsalaryrange",
-      "community": 4,
+      "community": 3,
       "norm_label": "formatsalaryrange()"
     },
     {
@@ -2070,7 +2205,7 @@
       "source_file": "lib\\ui\\ats.ts",
       "source_location": "L84",
       "id": "ats_isfresh",
-      "community": 4,
+      "community": 3,
       "norm_label": "isfresh()"
     },
     {
@@ -2079,7 +2214,7 @@
       "source_file": "lib\\ui\\fetcher.ts",
       "source_location": "L1",
       "id": "lib_ui_fetcher_ts",
-      "community": 15,
+      "community": 17,
       "norm_label": "fetcher.ts"
     },
     {
@@ -2088,7 +2223,7 @@
       "source_file": "lib\\ui\\fetcher.ts",
       "source_location": "L1",
       "id": "fetcher_fetchjson",
-      "community": 15,
+      "community": 17,
       "norm_label": "fetchjson()"
     },
     {
@@ -2097,7 +2232,7 @@
       "source_file": "lib\\ui\\fetcher.ts",
       "source_location": "L16",
       "id": "fetcher_patchjson",
-      "community": 15,
+      "community": 17,
       "norm_label": "patchjson()"
     },
     {
@@ -2106,7 +2241,7 @@
       "source_file": "lib\\ui\\fetcher.ts",
       "source_location": "L20",
       "id": "fetcher_postjson",
-      "community": 15,
+      "community": 17,
       "norm_label": "postjson()"
     },
     {
@@ -2115,7 +2250,7 @@
       "source_file": "lib\\ui\\fetcher.ts",
       "source_location": "L24",
       "id": "fetcher_deletejson",
-      "community": 15,
+      "community": 17,
       "norm_label": "deletejson()"
     },
     {
@@ -2124,7 +2259,7 @@
       "source_file": "lib\\ui\\types.ts",
       "source_location": "L1",
       "id": "lib_ui_types_ts",
-      "community": 36,
+      "community": 38,
       "norm_label": "types.ts"
     },
     {
@@ -2133,7 +2268,7 @@
       "source_file": "tests\\boot.test.ts",
       "source_location": "L1",
       "id": "tests_boot_test_ts",
-      "community": 37,
+      "community": 39,
       "norm_label": "boot.test.ts"
     },
     {
@@ -2142,7 +2277,7 @@
       "source_file": "tests\\paths.test.ts",
       "source_location": "L1",
       "id": "tests_paths_test_ts",
-      "community": 38,
+      "community": 40,
       "norm_label": "paths.test.ts"
     },
     {
@@ -2151,7 +2286,7 @@
       "source_file": "tests\\smoke.test.ts",
       "source_location": "L1",
       "id": "tests_smoke_test_ts",
-      "community": 39,
+      "community": 41,
       "norm_label": "smoke.test.ts"
     },
     {
@@ -2160,7 +2295,7 @@
       "source_file": "tests\\api\\applications.test.ts",
       "source_location": "L1",
       "id": "tests_api_applications_test_ts",
-      "community": 40,
+      "community": 42,
       "norm_label": "applications.test.ts"
     },
     {
@@ -2187,7 +2322,7 @@
       "source_file": "tests\\api\\jobs.test.ts",
       "source_location": "L1",
       "id": "tests_api_jobs_test_ts",
-      "community": 41,
+      "community": 43,
       "norm_label": "jobs.test.ts"
     },
     {
@@ -2196,7 +2331,7 @@
       "source_file": "tests\\api\\overview.test.ts",
       "source_location": "L1",
       "id": "tests_api_overview_test_ts",
-      "community": 42,
+      "community": 44,
       "norm_label": "overview.test.ts"
     },
     {
@@ -2205,7 +2340,7 @@
       "source_file": "tests\\api\\resumes-fs.test.ts",
       "source_location": "L1",
       "id": "tests_api_resumes_fs_test_ts",
-      "community": 43,
+      "community": 45,
       "norm_label": "resumes-fs.test.ts"
     },
     {
@@ -2214,7 +2349,7 @@
       "source_file": "tests\\api\\resumes-queries.test.ts",
       "source_location": "L1",
       "id": "tests_api_resumes_queries_test_ts",
-      "community": 44,
+      "community": 46,
       "norm_label": "resumes-queries.test.ts"
     },
     {
@@ -2223,7 +2358,7 @@
       "source_file": "tests\\api\\settings.test.ts",
       "source_location": "L1",
       "id": "tests_api_settings_test_ts",
-      "community": 45,
+      "community": 47,
       "norm_label": "settings.test.ts"
     },
     {
@@ -2232,7 +2367,7 @@
       "source_file": "tests\\api\\sources.test.ts",
       "source_location": "L1",
       "id": "tests_api_sources_test_ts",
-      "community": 46,
+      "community": 48,
       "norm_label": "sources.test.ts"
     },
     {
@@ -2241,7 +2376,7 @@
       "source_file": "tests\\db\\client.test.ts",
       "source_location": "L1",
       "id": "tests_db_client_test_ts",
-      "community": 47,
+      "community": 49,
       "norm_label": "client.test.ts"
     },
     {
@@ -2268,7 +2403,7 @@
       "source_file": "tests\\db\\schema.test.ts",
       "source_location": "L1",
       "id": "tests_db_schema_test_ts",
-      "community": 48,
+      "community": 50,
       "norm_label": "schema.test.ts"
     },
     {
@@ -2277,7 +2412,7 @@
       "source_file": "tests\\enrich\\runner.test.ts",
       "source_location": "L1",
       "id": "tests_enrich_runner_test_ts",
-      "community": 25,
+      "community": 27,
       "norm_label": "runner.test.ts"
     },
     {
@@ -2286,7 +2421,7 @@
       "source_file": "tests\\enrich\\runner.test.ts",
       "source_location": "L6",
       "id": "runner_test_fakefetch",
-      "community": 25,
+      "community": 27,
       "norm_label": "fakefetch()"
     },
     {
@@ -2295,7 +2430,7 @@
       "source_file": "tests\\enrich\\salary-parse.test.ts",
       "source_location": "L1",
       "id": "tests_enrich_salary_parse_test_ts",
-      "community": 49,
+      "community": 51,
       "norm_label": "salary-parse.test.ts"
     },
     {
@@ -2304,7 +2439,7 @@
       "source_file": "tests\\helpers\\mock-anthropic.ts",
       "source_location": "L1",
       "id": "tests_helpers_mock_anthropic_ts",
-      "community": 26,
+      "community": 28,
       "norm_label": "mock-anthropic.ts"
     },
     {
@@ -2313,7 +2448,7 @@
       "source_file": "tests\\helpers\\mock-anthropic.ts",
       "source_location": "L3",
       "id": "mock_anthropic_fakeanthropic",
-      "community": 26,
+      "community": 28,
       "norm_label": "fakeanthropic()"
     },
     {
@@ -2322,7 +2457,7 @@
       "source_file": "tests\\helpers\\test-db.ts",
       "source_location": "L1",
       "id": "tests_helpers_test_db_ts",
-      "community": 11,
+      "community": 8,
       "norm_label": "test-db.ts"
     },
     {
@@ -2331,8 +2466,26 @@
       "source_file": "tests\\helpers\\test-db.ts",
       "source_location": "L3",
       "id": "test_db_freshdb",
-      "community": 11,
+      "community": 8,
       "norm_label": "freshdb()"
+    },
+    {
+      "label": "job-type.test.ts",
+      "file_type": "code",
+      "source_file": "tests\\jobs\\job-type.test.ts",
+      "source_location": "L1",
+      "id": "tests_jobs_job_type_test_ts",
+      "community": 8,
+      "norm_label": "job-type.test.ts"
+    },
+    {
+      "label": "seed()",
+      "file_type": "code",
+      "source_file": "tests\\jobs\\job-type.test.ts",
+      "source_location": "L47",
+      "id": "job_type_test_seed",
+      "community": 8,
+      "norm_label": "seed()"
     },
     {
       "label": "scheduler.test.ts",
@@ -2340,8 +2493,26 @@
       "source_file": "tests\\jobs\\scheduler.test.ts",
       "source_location": "L1",
       "id": "tests_jobs_scheduler_test_ts",
-      "community": 50,
+      "community": 52,
       "norm_label": "scheduler.test.ts"
+    },
+    {
+      "label": "profile.test.ts",
+      "file_type": "code",
+      "source_file": "tests\\niche\\profile.test.ts",
+      "source_location": "L1",
+      "id": "tests_niche_profile_test_ts",
+      "community": 8,
+      "norm_label": "profile.test.ts"
+    },
+    {
+      "label": "seed()",
+      "file_type": "code",
+      "source_file": "tests\\niche\\profile.test.ts",
+      "source_location": "L86",
+      "id": "profile_test_seed",
+      "community": 8,
+      "norm_label": "seed()"
     },
     {
       "label": "base.test.ts",
@@ -2349,7 +2520,7 @@
       "source_file": "tests\\scrapers\\base.test.ts",
       "source_location": "L1",
       "id": "tests_scrapers_base_test_ts",
-      "community": 51,
+      "community": 53,
       "norm_label": "base.test.ts"
     },
     {
@@ -2358,7 +2529,7 @@
       "source_file": "tests\\scrapers\\github-simplify.test.ts",
       "source_location": "L1",
       "id": "tests_scrapers_github_simplify_test_ts",
-      "community": 27,
+      "community": 29,
       "norm_label": "github-simplify.test.ts"
     },
     {
@@ -2367,7 +2538,7 @@
       "source_file": "tests\\scrapers\\github-simplify.test.ts",
       "source_location": "L10",
       "id": "github_simplify_test_fakefetch",
-      "community": 27,
+      "community": 29,
       "norm_label": "fakefetch()"
     },
     {
@@ -2376,7 +2547,7 @@
       "source_file": "tests\\scrapers\\github-speedy.test.ts",
       "source_location": "L1",
       "id": "tests_scrapers_github_speedy_test_ts",
-      "community": 52,
+      "community": 54,
       "norm_label": "github-speedy.test.ts"
     },
     {
@@ -2385,7 +2556,7 @@
       "source_file": "tests\\scrapers\\github-vansh.test.ts",
       "source_location": "L1",
       "id": "tests_scrapers_github_vansh_test_ts",
-      "community": 28,
+      "community": 30,
       "norm_label": "github-vansh.test.ts"
     },
     {
@@ -2394,7 +2565,7 @@
       "source_file": "tests\\scrapers\\github-vansh.test.ts",
       "source_location": "L10",
       "id": "github_vansh_test_fakefetch",
-      "community": 28,
+      "community": 30,
       "norm_label": "fakefetch()"
     },
     {
@@ -2403,7 +2574,7 @@
       "source_file": "tests\\scrapers\\jobright.test.ts",
       "source_location": "L1",
       "id": "tests_scrapers_jobright_test_ts",
-      "community": 53,
+      "community": 55,
       "norm_label": "jobright.test.ts"
     },
     {
@@ -2412,7 +2583,7 @@
       "source_file": "tests\\scrapers\\orchestrator.test.ts",
       "source_location": "L1",
       "id": "tests_scrapers_orchestrator_test_ts",
-      "community": 3,
+      "community": 13,
       "norm_label": "orchestrator.test.ts"
     },
     {
@@ -2421,7 +2592,7 @@
       "source_file": "tests\\scrapers\\orchestrator.test.ts",
       "source_location": "L8",
       "id": "orchestrator_test_fakescraper",
-      "community": 3,
+      "community": 13,
       "norm_label": "fakescraper"
     },
     {
@@ -2430,7 +2601,7 @@
       "source_file": "tests\\scrapers\\orchestrator.test.ts",
       "source_location": "L9",
       "id": "orchestrator_test_fakescraper_constructor",
-      "community": 3,
+      "community": 13,
       "norm_label": ".constructor()"
     },
     {
@@ -2439,7 +2610,7 @@
       "source_file": "tests\\scrapers\\orchestrator.test.ts",
       "source_location": "L10",
       "id": "orchestrator_test_fakescraper_fetchandnormalize",
-      "community": 3,
+      "community": 13,
       "norm_label": ".fetchandnormalize()"
     },
     {
@@ -2448,7 +2619,7 @@
       "source_file": "tests\\tracker\\classifier-llm.test.ts",
       "source_location": "L1",
       "id": "tests_tracker_classifier_llm_test_ts",
-      "community": 54,
+      "community": 56,
       "norm_label": "classifier-llm.test.ts"
     },
     {
@@ -2457,7 +2628,7 @@
       "source_file": "tests\\tracker\\classifier-rules.test.ts",
       "source_location": "L1",
       "id": "tests_tracker_classifier_rules_test_ts",
-      "community": 29,
+      "community": 31,
       "norm_label": "classifier-rules.test.ts"
     },
     {
@@ -2466,7 +2637,7 @@
       "source_file": "tests\\tracker\\classifier-rules.test.ts",
       "source_location": "L6",
       "id": "classifier_rules_test_load",
-      "community": 29,
+      "community": 31,
       "norm_label": "load()"
     },
     {
@@ -2475,7 +2646,7 @@
       "source_file": "tests\\tracker\\gmail-client.test.ts",
       "source_location": "L1",
       "id": "tests_tracker_gmail_client_test_ts",
-      "community": 55,
+      "community": 57,
       "norm_label": "gmail-client.test.ts"
     },
     {
@@ -2484,7 +2655,7 @@
       "source_file": "tests\\tracker\\matcher.test.ts",
       "source_location": "L1",
       "id": "tests_tracker_matcher_test_ts",
-      "community": 56,
+      "community": 58,
       "norm_label": "matcher.test.ts"
     },
     {
@@ -2493,7 +2664,7 @@
       "source_file": "tests\\tracker\\pipeline.test.ts",
       "source_location": "L1",
       "id": "tests_tracker_pipeline_test_ts",
-      "community": 57,
+      "community": 59,
       "norm_label": "pipeline.test.ts"
     },
     {
@@ -2502,7 +2673,7 @@
       "source_file": "tests\\tracker\\resolve-application.test.ts",
       "source_location": "L1",
       "id": "tests_tracker_resolve_application_test_ts",
-      "community": 58,
+      "community": 60,
       "norm_label": "resolve-application.test.ts"
     }
   ],
@@ -3147,6 +3318,18 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L160",
+      "weight": 1.0,
+      "_src": "profile_companycategory",
+      "_tgt": "route_get",
+      "source": "route_get",
+      "target": "profile_companycategory"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "lib\\scrapers\\index.ts",
       "source_location": "L46",
       "weight": 1.0,
@@ -3171,7 +3354,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\api\\jobs\\route.ts",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "_src": "app_api_jobs_route_ts",
       "_tgt": "route_post",
@@ -3315,7 +3498,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\api\\applications\\[id]\\route.ts",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_src": "app_api_applications_id_route_ts",
       "_tgt": "route_patch",
@@ -3327,7 +3510,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\api\\applications\\[id]\\route.ts",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_src": "app_api_applications_id_route_ts",
       "_tgt": "route_delete",
@@ -3795,7 +3978,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\jobs\\page.tsx",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1.0,
       "_src": "app_jobs_page_tsx",
       "_tgt": "page_atsvariant",
@@ -3807,7 +3990,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\jobs\\page.tsx",
-      "source_location": "L72",
+      "source_location": "L71",
       "weight": 1.0,
       "_src": "app_jobs_page_tsx",
       "_tgt": "page_termcolor",
@@ -3903,7 +4086,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\tracker\\page.tsx",
-      "source_location": "L282",
+      "source_location": "L298",
       "weight": 1.0,
       "_src": "app_tracker_page_tsx",
       "_tgt": "page_bystatus",
@@ -4023,7 +4206,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L46",
+      "source_location": "L49",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_stickytag",
@@ -4035,7 +4218,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L69",
+      "source_location": "L72",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_switch",
@@ -4047,7 +4230,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L106",
+      "source_location": "L109",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_wavyunderline",
@@ -4059,7 +4242,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L125",
+      "source_location": "L128",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_pentagon",
@@ -4071,7 +4254,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L138",
+      "source_location": "L141",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_dasheddivider",
@@ -4083,7 +4266,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L142",
+      "source_location": "L145",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_statuspill",
@@ -4095,7 +4278,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app\\_components\\ui.tsx",
-      "source_location": "L155",
+      "source_location": "L158",
       "weight": 1.0,
       "_src": "app_components_ui_tsx",
       "_tgt": "ui_confidencebar",
@@ -4311,7 +4494,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L121",
+      "source_location": "L130",
       "weight": 1.0,
       "_src": "lib_db_client_ts",
       "_tgt": "client_migrateapplicationsstatuscheck",
@@ -4323,7 +4506,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L159",
+      "source_location": "L168",
       "weight": 1.0,
       "_src": "lib_db_client_ts",
       "_tgt": "client_seedsettings",
@@ -4335,7 +4518,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L166",
+      "source_location": "L175",
       "weight": 1.0,
       "_src": "lib_db_client_ts",
       "_tgt": "client_seedsources",
@@ -4371,7 +4554,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L100",
+      "source_location": "L107",
       "weight": 1.0,
       "_src": "client_createdb",
       "_tgt": "client_migrateapplicationsstatuscheck",
@@ -4383,7 +4566,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L104",
+      "source_location": "L113",
       "weight": 1.0,
       "_src": "client_createdb",
       "_tgt": "client_seedsettings",
@@ -4395,7 +4578,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\client.ts",
-      "source_location": "L105",
+      "source_location": "L114",
       "weight": 1.0,
       "_src": "client_createdb",
       "_tgt": "client_seedsources",
@@ -4467,7 +4650,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\applications.ts",
-      "source_location": "L78",
+      "source_location": "L79",
       "weight": 1.0,
       "_src": "lib_db_queries_applications_ts",
       "_tgt": "applications_updateapplication",
@@ -4479,7 +4662,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\applications.ts",
-      "source_location": "L94",
+      "source_location": "L96",
       "weight": 1.0,
       "_src": "lib_db_queries_applications_ts",
       "_tgt": "applications_deleteapplication",
@@ -4539,7 +4722,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\applications.ts",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1.0,
       "_src": "applications_updateapplication",
       "_tgt": "applications_getapplication",
@@ -4551,7 +4734,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\applications.ts",
-      "source_location": "L95",
+      "source_location": "L97",
       "weight": 1.0,
       "_src": "applications_deleteapplication",
       "_tgt": "applications_getapplication",
@@ -4683,7 +4866,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_upsertjobs",
@@ -4695,7 +4878,43 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L93",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_src": "lib_db_queries_jobs_ts",
+      "_tgt": "jobs_needsjspass",
+      "source": "lib_db_queries_jobs_ts",
+      "target": "jobs_needsjspass",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "_src": "lib_db_queries_jobs_ts",
+      "_tgt": "jobs_passesjsfilters",
+      "source": "lib_db_queries_jobs_ts",
+      "target": "jobs_passesjsfilters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L114",
+      "weight": 1.0,
+      "_src": "lib_db_queries_jobs_ts",
+      "_tgt": "jobs_nicheprefiltercondition",
+      "source": "lib_db_queries_jobs_ts",
+      "target": "jobs_nicheprefiltercondition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L129",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_termbucketcondition",
@@ -4707,7 +4926,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L131",
+      "source_location": "L167",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_usonlycondition",
@@ -4719,7 +4938,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L147",
+      "source_location": "L183",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_buildjobconditions",
@@ -4731,7 +4950,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L198",
+      "source_location": "L236",
+      "weight": 1.0,
+      "_src": "lib_db_queries_jobs_ts",
+      "_tgt": "jobs_listjsmatches",
+      "source": "lib_db_queries_jobs_ts",
+      "target": "jobs_listjsmatches",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L246",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_listjobs",
@@ -4743,7 +4974,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L212",
+      "source_location": "L265",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_countjobs",
@@ -4755,7 +4986,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L219",
+      "source_location": "L273",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_getjob",
@@ -4767,7 +4998,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L223",
+      "source_location": "L277",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_dismissjob",
@@ -4779,7 +5010,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L229",
+      "source_location": "L283",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_createmanualjob",
@@ -4791,7 +5022,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L240",
+      "source_location": "L294",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_listjobstoenrich",
@@ -4803,7 +5034,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L251",
+      "source_location": "L320",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_countjobstoenrich",
@@ -4815,7 +5046,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L266",
+      "source_location": "L335",
       "weight": 1.0,
       "_src": "lib_db_queries_jobs_ts",
       "_tgt": "jobs_setjobsalary",
@@ -4839,7 +5070,79 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L155",
+      "source_location": "L247",
+      "weight": 1.0,
+      "_src": "jobs_listjobs",
+      "_tgt": "jobs_needsjspass",
+      "source": "jobs_needsjspass",
+      "target": "jobs_listjobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L266",
+      "weight": 1.0,
+      "_src": "jobs_countjobs",
+      "_tgt": "jobs_needsjspass",
+      "source": "jobs_needsjspass",
+      "target": "jobs_countjobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L108",
+      "weight": 1.0,
+      "_src": "jobs_passesjsfilters",
+      "_tgt": "profile_matchniche",
+      "source": "jobs_passesjsfilters",
+      "target": "profile_matchniche"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L109",
+      "weight": 1.0,
+      "_src": "jobs_passesjsfilters",
+      "_tgt": "job_type_jobtype",
+      "source": "jobs_passesjsfilters",
+      "target": "job_type_jobtype"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L231",
+      "weight": 1.0,
+      "_src": "jobs_buildjobconditions",
+      "_tgt": "jobs_nicheprefiltercondition",
+      "source": "jobs_nicheprefiltercondition",
+      "target": "jobs_buildjobconditions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L300",
+      "weight": 1.0,
+      "_src": "jobs_listjobstoenrich",
+      "_tgt": "jobs_nicheprefiltercondition",
+      "source": "jobs_nicheprefiltercondition",
+      "target": "jobs_listjobstoenrich",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L191",
       "weight": 1.0,
       "_src": "jobs_buildjobconditions",
       "_tgt": "jobs_termbucketcondition",
@@ -4851,7 +5154,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L194",
+      "source_location": "L230",
       "weight": 1.0,
       "_src": "jobs_buildjobconditions",
       "_tgt": "jobs_usonlycondition",
@@ -4863,7 +5166,19 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L199",
+      "source_location": "L237",
+      "weight": 1.0,
+      "_src": "jobs_listjsmatches",
+      "_tgt": "jobs_buildjobconditions",
+      "source": "jobs_buildjobconditions",
+      "target": "jobs_listjsmatches",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L252",
       "weight": 1.0,
       "_src": "jobs_listjobs",
       "_tgt": "jobs_buildjobconditions",
@@ -4875,7 +5190,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L213",
+      "source_location": "L267",
       "weight": 1.0,
       "_src": "jobs_countjobs",
       "_tgt": "jobs_buildjobconditions",
@@ -4887,7 +5202,31 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "lib\\db\\queries\\jobs.ts",
-      "source_location": "L226",
+      "source_location": "L248",
+      "weight": 1.0,
+      "_src": "jobs_listjobs",
+      "_tgt": "jobs_listjsmatches",
+      "source": "jobs_listjsmatches",
+      "target": "jobs_listjobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L266",
+      "weight": 1.0,
+      "_src": "jobs_countjobs",
+      "_tgt": "jobs_listjsmatches",
+      "source": "jobs_listjsmatches",
+      "target": "jobs_countjobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\db\\queries\\jobs.ts",
+      "source_location": "L280",
       "weight": 1.0,
       "_src": "jobs_dismissjob",
       "_tgt": "jobs_getjob",
@@ -5582,6 +5921,42 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "lib\\jobs\\job-type.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "lib_jobs_job_type_ts",
+      "_tgt": "job_type_parsetermsjson",
+      "source": "lib_jobs_job_type_ts",
+      "target": "job_type_parsetermsjson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\jobs\\job-type.ts",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_src": "lib_jobs_job_type_ts",
+      "_tgt": "job_type_jobtype",
+      "source": "lib_jobs_job_type_ts",
+      "target": "job_type_jobtype",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\jobs\\job-type.ts",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "job_type_jobtype",
+      "_tgt": "job_type_parsetermsjson",
+      "source": "job_type_parsetermsjson",
+      "target": "job_type_jobtype",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "lib\\jobs\\scheduler.ts",
       "source_location": "L15",
       "weight": 1.0,
@@ -5722,6 +6097,150 @@
       "_tgt": "pipeline_processemails",
       "source": "tracker_job_ticktracker",
       "target": "pipeline_processemails"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_normalizecompany",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_normalizecompany",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L126",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_escaperegex",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_escaperegex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_wordre",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_wordre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L159",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_companycategory",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_companycategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L168",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_isexcludedrole",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_isexcludedrole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L172",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_pickresume",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_pickresume",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L185",
+      "weight": 1.0,
+      "_src": "lib_niche_profile_ts",
+      "_tgt": "profile_matchniche",
+      "source": "lib_niche_profile_ts",
+      "target": "profile_matchniche",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L160",
+      "weight": 1.0,
+      "_src": "profile_companycategory",
+      "_tgt": "profile_normalizecompany",
+      "source": "profile_normalizecompany",
+      "target": "profile_companycategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L176",
+      "weight": 1.0,
+      "_src": "profile_pickresume",
+      "_tgt": "profile_companycategory",
+      "source": "profile_companycategory",
+      "target": "profile_pickresume",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L190",
+      "weight": 1.0,
+      "_src": "profile_matchniche",
+      "_tgt": "profile_companycategory",
+      "source": "profile_companycategory",
+      "target": "profile_matchniche",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L187",
+      "weight": 1.0,
+      "_src": "profile_matchniche",
+      "_tgt": "profile_isexcludedrole",
+      "source": "profile_isexcludedrole",
+      "target": "profile_matchniche",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "lib\\niche\\profile.ts",
+      "source_location": "L186",
+      "weight": 1.0,
+      "_src": "profile_matchniche",
+      "_tgt": "profile_pickresume",
+      "source": "profile_pickresume",
+      "target": "profile_matchniche",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -6969,6 +7488,54 @@
       "_tgt": "test_db_freshdb",
       "source": "tests_helpers_test_db_ts",
       "target": "test_db_freshdb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests\\jobs\\job-type.test.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "job_type_test_seed",
+      "_tgt": "test_db_freshdb",
+      "source": "test_db_freshdb",
+      "target": "job_type_test_seed"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests\\niche\\profile.test.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "profile_test_seed",
+      "_tgt": "test_db_freshdb",
+      "source": "test_db_freshdb",
+      "target": "profile_test_seed"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\jobs\\job-type.test.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "tests_jobs_job_type_test_ts",
+      "_tgt": "job_type_test_seed",
+      "source": "tests_jobs_job_type_test_ts",
+      "target": "job_type_test_seed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\niche\\profile.test.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_src": "tests_niche_profile_test_ts",
+      "_tgt": "profile_test_seed",
+      "source": "tests_niche_profile_test_ts",
+      "target": "profile_test_seed",
       "confidence_score": 1.0
     },
     {

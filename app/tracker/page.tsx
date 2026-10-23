@@ -6,7 +6,7 @@ import { fetchJson, patchJson, deleteJson } from "@/lib/ui/fetcher";
 import type { Application, Status } from "@/lib/ui/types";
 import { Card, MonoBadge, DashedDivider, WavyUnderline } from "../_components/ui";
 import { atsFromUrl, daysSince } from "@/lib/ui/ats";
-import { Trash2, ArrowUpRight, Search } from "lucide-react";
+import { Trash2, ArrowUpRight, Search, Star } from "lucide-react";
 
 // "saved" sits leftmost: it's the pre-application stage (bookmarked from the
 // jobs board to apply to later). The email pipeline flips a saved card to
@@ -31,7 +31,7 @@ function ApplicationCard({
   app: Application;
   onMove: (id: number, status: Status) => void;
   onDelete: (id: number) => void;
-  onEdit: (id: number, patch: { company?: string; role?: string; notes?: string | null }) => void;
+  onEdit: (id: number, patch: { company?: string; role?: string; notes?: string | null; priority?: boolean }) => void;
 }) {
   const ats = atsFromUrl(app.url);
   const isOffer = app.status === "offer";
@@ -133,6 +133,16 @@ function ApplicationCard({
           the card remains the drag handle.
         */}
         <div className="flex items-center gap-1.5">
+          {app.status === "saved" && (
+            <button
+              onClick={() => onEdit(app.id, { priority: !app.priority })}
+              {...noDrag}
+              className={`p-1 -m-1 ${app.priority ? "text-[var(--color-pink)]" : "hover:text-[var(--color-pink)]"}`}
+              title={app.priority ? "Unstar" : "Star: definitely apply"}
+            >
+              <Star className="w-3.5 h-3.5" fill={app.priority ? "currentColor" : "none"} />
+            </button>
+          )}
           {app.url && (
             <a
               href={app.url}
@@ -246,13 +256,17 @@ export default function TrackerPage() {
   });
 
   const edit = useMutation({
-    mutationFn: ({ id, patch }: { id: number; patch: { company?: string; role?: string; notes?: string | null } }) =>
+    mutationFn: ({ id, patch }: { id: number; patch: { company?: string; role?: string; notes?: string | null; priority?: boolean } }) =>
       patchJson<Application>(`/api/applications/${id}`, patch),
     onMutate: async ({ id, patch }) => {
       await qc.cancelQueries({ queryKey: ["applications"] });
       const prev = qc.getQueryData<Application[]>(["applications"]);
       qc.setQueryData<Application[]>(["applications"], (old) =>
-        (old ?? []).map((a) => (a.id === id ? { ...a, ...patch } : a)),
+        (old ?? []).map((a) => {
+          if (a.id !== id) return a;
+          const { priority, ...rest } = patch;
+          return { ...a, ...rest, ...(priority !== undefined ? { priority: priority ? 1 : 0 } : {}) };
+        }),
       );
       return { prev };
     },
@@ -279,7 +293,10 @@ export default function TrackerPage() {
     );
   }, [apps.data, search]);
 
-  const byStatus = (status: Status) => filteredApps.filter((a) => a.status === status);
+  // Starred cards first; the stable sort keeps the server's newest-first order
+  // within each group, and re-sorts instantly on an optimistic star toggle.
+  const byStatus = (status: Status) =>
+    filteredApps.filter((a) => a.status === status).sort((a, b) => b.priority - a.priority);
   // "Letters out" means applications actually sent — saved bookmarks aren't
   // out the door yet, so they don't count toward the headline.
   const total = apps.data?.filter((a) => a.status !== "saved").length ?? 0;
@@ -363,14 +380,22 @@ export default function TrackerPage() {
                 the list is short, so all 6 columns stay aligned.
               */}
               <div className="mt-3 flex-1 max-h-[calc(100vh-340px)] overflow-y-auto pr-1 -mr-1">
-                {items.map((app) => (
-                  <ApplicationCard
-                    key={app.id}
-                    app={app}
-                    onMove={(id, status) => move.mutate({ id, status })}
-                    onDelete={(id) => del.mutate(id)}
-                    onEdit={(id, patch) => edit.mutate({ id, patch })}
-                  />
+                {items.map((app, i) => (
+                  <div key={app.id}>
+                    {/* Saved column splits into "priority" (starred) and the rest. */}
+                    {c.status === "saved" && app.priority === 1 && i === 0 && (
+                      <div className="mono text-[10px] uppercase tracking-wider text-[var(--color-pink)] mb-2">★ priority</div>
+                    )}
+                    {c.status === "saved" && app.priority === 0 && i > 0 && items[i - 1].priority === 1 && (
+                      <div className="mono text-[10px] uppercase tracking-wider text-[var(--color-ink-mute)] mt-1 mb-2">the rest</div>
+                    )}
+                    <ApplicationCard
+                      app={app}
+                      onMove={(id, status) => move.mutate({ id, status })}
+                      onDelete={(id) => del.mutate(id)}
+                      onEdit={(id, patch) => edit.mutate({ id, patch })}
+                    />
+                  </div>
                 ))}
                 {items.length === 0 && (
                   <div className="mono text-[10px] text-[var(--color-ink-mute)] py-6 text-center">
