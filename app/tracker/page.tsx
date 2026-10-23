@@ -22,6 +22,8 @@ const COLUMNS: Array<{ status: Status; label: string; pink?: boolean }> = [
 
 type EditField = "company" | "role" | "notes";
 
+const postingAgeDays = (unixSec: number) => Math.floor((Date.now() / 1000 - unixSec) / 86400);
+
 function ApplicationCard({
   app,
   onMove,
@@ -123,7 +125,18 @@ function ApplicationCard({
       <DashedDivider className="my-2" />
 
       <div className="flex items-center justify-between mono text-[10px]">
-        <span className="text-[var(--color-ink-mute)]">{daysSince(app.appliedAt)}</span>
+        <span className="text-[var(--color-ink-mute)]">
+          {daysSince(app.appliedAt)}
+          {/* Saved only: how long the posting has been up, so stale ones stand out. */}
+          {app.status === "saved" && app.jobPostedAt && (
+            <span
+              className={postingAgeDays(app.jobPostedAt) >= 21 ? "text-[var(--color-pink)] font-bold" : ""}
+              title="How long the job posting has been open"
+            >
+              {" · open "}{daysSince(app.jobPostedAt)}
+            </span>
+          )}
+        </span>
         {/*
           stopPropagation on mousedown + draggable={false} prevents the parent
           card's drag-and-drop from eating the click. Without these, any

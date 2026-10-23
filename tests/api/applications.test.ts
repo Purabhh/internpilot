@@ -113,4 +113,15 @@ describe("applications queries", () => {
     expect(updateApplication(db, a.id, { priority: false })?.priority).toBe(0);
     void b;
   });
+
+  it("listApplications includes the linked job's posted date", () => {
+    const db = freshDb();
+    const j = createManualJob(db, {
+      source: "manual", sourceId: "p", company: "C", role: "r", location: null, url: "u2", postedAt: 1700000000,
+    });
+    createApplicationFromJob(db, j, "saved");
+    createApplication(db, { company: "Manual", role: "r" });
+    const byCompany = Object.fromEntries(listApplications(db).map((a) => [a.company, a.jobPostedAt]));
+    expect(byCompany).toEqual({ C: 1700000000, Manual: null });
+  });
 });

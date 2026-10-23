@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-10-22)
 
 ## Corpus Check
-- 103 files · ~54,458 words
+- 103 files · ~54,683 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 297 nodes · 411 edges · 61 communities detected
+- 299 nodes · 413 edges · 60 communities detected
 - Extraction: 70% EXTRACTED · 30% INFERRED · 0% AMBIGUOUS · INFERRED: 124 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -70,7 +70,6 @@
 - [[_COMMUNITY_Community 57|Community 57]]
 - [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Community 59|Community 59]]
-- [[_COMMUNITY_Community 60|Community 60]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `GET()` - 45 edges
@@ -104,39 +103,39 @@ Nodes (15): correctEmail(), countEmails(), getEmail(), insertEmailIfNew(), listE
 
 ### Community 1 - "Community 1"
 Cohesion: 0.13
-Nodes (17): tickEnrich(), exchangeCode(), fetchNewMessages(), getAuthUrl(), isStaleHistoryError(), loadOAuthClient(), parseReceivedAt(), readToken() (+9 more)
+Nodes (16): createApplicationFromJob(), deleteApplication(), getApplication(), getApplicationByJobId(), listApplications(), updateApplication(), deleteResume(), deleteResumeFile() (+8 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.13
-Nodes (15): deleteApplication(), getApplication(), getApplicationByJobId(), listApplications(), updateApplication(), deleteResume(), deleteResumeFile(), saveResumeFile() (+7 more)
+Cohesion: 0.17
+Nodes (15): createApplication(), classifyByLlm(), classifyByRules(), companyFromSender(), detectCompany(), extractCompany(), matchesKeywordGroups(), trimStopWords() (+7 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.12
-Nodes (6): atsFromUrl(), formatAnnual(), formatSalaryRange(), relativeTime(), ApplicationCard(), MasterToggle()
+Cohesion: 0.16
+Nodes (13): tickEnrich(), fetchNewMessages(), isStaleHistoryError(), parseReceivedAt(), heartbeat(), runEnrichNow(), runScraperNow(), runTrackerNow() (+5 more)
 
 ### Community 4 - "Community 4"
+Cohesion: 0.11
+Nodes (6): atsFromUrl(), formatAnnual(), formatSalaryRange(), relativeTime(), ApplicationCard(), MasterToggle()
+
+### Community 5 - "Community 5"
 Cohesion: 0.23
 Nodes (14): runEnricher(), buildJobConditions(), countJobs(), countJobsToEnrich(), dismissJob(), getJob(), listJobs(), listJobsToEnrich() (+6 more)
 
-### Community 5 - "Community 5"
+### Community 6 - "Community 6"
+Cohesion: 0.24
+Nodes (12): exchangeCode(), getAuthUrl(), loadOAuthClient(), readToken(), writeToken(), register(), credentialsPath(), dataDir() (+4 more)
+
+### Community 7 - "Community 7"
 Cohesion: 0.21
 Nodes (8): cleanRole(), extractTerms(), jobrightId(), JobrightScraper, normalizeJobrightRows(), parseLink(), parsePostedAt(), parseMarkdownTable()
 
-### Community 6 - "Community 6"
-Cohesion: 0.24
-Nodes (10): createApplication(), createApplicationFromJob(), classifyByLlm(), domainStem(), matchEmailToApplication(), matchEmailToJob(), normalizeCompany(), parseSenderDomain() (+2 more)
-
-### Community 7 - "Community 7"
+### Community 8 - "Community 8"
 Cohesion: 0.26
 Nodes (8): jobType(), parseTermsJson(), passesJsFilters(), companyCategory(), isExcludedRole(), matchNiche(), normalizeCompany(), pickResume()
 
-### Community 8 - "Community 8"
+### Community 9 - "Community 9"
 Cohesion: 0.23
 Nodes (8): createDb(), migrateApplicationsStatusCheck(), openDb(), seedSettings(), seedSources(), seed(), seed(), freshDb()
-
-### Community 9 - "Community 9"
-Cohesion: 0.36
-Nodes (8): register(), credentialsPath(), dataDir(), dbPath(), ensureDataDirs(), gmailTokenPath(), resumesDir(), startSchedulers()
 
 ### Community 10 - "Community 10"
 Cohesion: 0.2
@@ -155,35 +154,35 @@ Cohesion: 0.29
 Nodes (4): buildDefaultScrapers(), runScrapers(), upsertJobs(), FakeScraper
 
 ### Community 14 - "Community 14"
-Cohesion: 0.52
-Nodes (6): classifyByRules(), companyFromSender(), detectCompany(), extractCompany(), matchesKeywordGroups(), trimStopWords()
-
-### Community 15 - "Community 15"
 Cohesion: 0.33
 Nodes (1): VanshOffSeasonScraper
 
-### Community 16 - "Community 16"
+### Community 15 - "Community 15"
 Cohesion: 0.5
 Nodes (2): Shell(), useNavCounts()
 
-### Community 17 - "Community 17"
+### Community 16 - "Community 16"
 Cohesion: 0.7
 Nodes (4): deleteJson(), fetchJson(), patchJson(), postJson()
 
-### Community 18 - "Community 18"
+### Community 17 - "Community 17"
 Cohesion: 0.5
 Nodes (1): SpeedySweScraper
 
-### Community 19 - "Community 19"
+### Community 18 - "Community 18"
 Cohesion: 1.0
 Nodes (2): New-IconPng(), New-RoundRect()
+
+### Community 19 - "Community 19"
+Cohesion: 0.67
+Nodes (0): 
 
 ### Community 20 - "Community 20"
 Cohesion: 0.67
 Nodes (0): 
 
 ### Community 21 - "Community 21"
-Cohesion: 0.67
+Cohesion: 1.0
 Nodes (0): 
 
 ### Community 22 - "Community 22"
@@ -338,98 +337,94 @@ Nodes (0):
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 60 - "Community 60"
-Cohesion: 1.0
-Nodes (0): 
-
 ## Knowledge Gaps
-- **Thin community `Community 22`** (2 nodes): `New-IpShortcut()`, `install-desktop-shortcut.ps1`
+- **Thin community `Community 21`** (2 nodes): `New-IpShortcut()`, `install-desktop-shortcut.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 23`** (2 nodes): `page.tsx`, `Page()`
+- **Thin community `Community 22`** (2 nodes): `page.tsx`, `Page()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 24`** (2 nodes): `page.tsx`, `relativeTime()`
+- **Thin community `Community 23`** (2 nodes): `page.tsx`, `relativeTime()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 25`** (2 nodes): `Providers.tsx`, `Providers()`
+- **Thin community `Community 24`** (2 nodes): `Providers.tsx`, `Providers()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 26`** (2 nodes): `fetchJson()`, `base.ts`
+- **Thin community `Community 25`** (2 nodes): `fetchJson()`, `base.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 27`** (2 nodes): `fakeFetch()`, `runner.test.ts`
+- **Thin community `Community 26`** (2 nodes): `fakeFetch()`, `runner.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 28`** (2 nodes): `fakeAnthropic()`, `mock-anthropic.ts`
+- **Thin community `Community 27`** (2 nodes): `fakeAnthropic()`, `mock-anthropic.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 29`** (2 nodes): `fakeFetch()`, `github-simplify.test.ts`
+- **Thin community `Community 28`** (2 nodes): `fakeFetch()`, `github-simplify.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 30`** (2 nodes): `fakeFetch()`, `github-vansh.test.ts`
+- **Thin community `Community 29`** (2 nodes): `fakeFetch()`, `github-vansh.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 31`** (2 nodes): `load()`, `classifier-rules.test.ts`
+- **Thin community `Community 30`** (2 nodes): `load()`, `classifier-rules.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 32`** (1 nodes): `next-env.d.ts`
+- **Thin community `Community 31`** (1 nodes): `next-env.d.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 33`** (1 nodes): `next.config.ts`
+- **Thin community `Community 32`** (1 nodes): `next.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 34`** (1 nodes): `tailwind.config.ts`
+- **Thin community `Community 33`** (1 nodes): `tailwind.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 35`** (1 nodes): `vitest.config.ts`
+- **Thin community `Community 34`** (1 nodes): `vitest.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 36`** (1 nodes): `layout.tsx`
+- **Thin community `Community 35`** (1 nodes): `layout.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 37`** (1 nodes): `schema.ts`
+- **Thin community `Community 36`** (1 nodes): `schema.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 38`** (1 nodes): `types.ts`
+- **Thin community `Community 37`** (1 nodes): `types.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 39`** (1 nodes): `boot.test.ts`
+- **Thin community `Community 38`** (1 nodes): `boot.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 40`** (1 nodes): `paths.test.ts`
+- **Thin community `Community 39`** (1 nodes): `paths.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 41`** (1 nodes): `smoke.test.ts`
+- **Thin community `Community 40`** (1 nodes): `smoke.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 42`** (1 nodes): `applications.test.ts`
+- **Thin community `Community 41`** (1 nodes): `applications.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 43`** (1 nodes): `jobs.test.ts`
+- **Thin community `Community 42`** (1 nodes): `jobs.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 44`** (1 nodes): `overview.test.ts`
+- **Thin community `Community 43`** (1 nodes): `overview.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 45`** (1 nodes): `resumes-fs.test.ts`
+- **Thin community `Community 44`** (1 nodes): `resumes-fs.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 46`** (1 nodes): `resumes-queries.test.ts`
+- **Thin community `Community 45`** (1 nodes): `resumes-queries.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 47`** (1 nodes): `settings.test.ts`
+- **Thin community `Community 46`** (1 nodes): `settings.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 48`** (1 nodes): `sources.test.ts`
+- **Thin community `Community 47`** (1 nodes): `sources.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 49`** (1 nodes): `client.test.ts`
+- **Thin community `Community 48`** (1 nodes): `client.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 50`** (1 nodes): `schema.test.ts`
+- **Thin community `Community 49`** (1 nodes): `schema.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 51`** (1 nodes): `salary-parse.test.ts`
+- **Thin community `Community 50`** (1 nodes): `salary-parse.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 52`** (1 nodes): `scheduler.test.ts`
+- **Thin community `Community 51`** (1 nodes): `scheduler.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 53`** (1 nodes): `base.test.ts`
+- **Thin community `Community 52`** (1 nodes): `base.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 54`** (1 nodes): `github-speedy.test.ts`
+- **Thin community `Community 53`** (1 nodes): `github-speedy.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 55`** (1 nodes): `jobright.test.ts`
+- **Thin community `Community 54`** (1 nodes): `jobright.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 56`** (1 nodes): `classifier-llm.test.ts`
+- **Thin community `Community 55`** (1 nodes): `classifier-llm.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 57`** (1 nodes): `gmail-client.test.ts`
+- **Thin community `Community 56`** (1 nodes): `gmail-client.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 58`** (1 nodes): `matcher.test.ts`
+- **Thin community `Community 57`** (1 nodes): `matcher.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 59`** (1 nodes): `pipeline.test.ts`
+- **Thin community `Community 58`** (1 nodes): `pipeline.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 60`** (1 nodes): `resolve-application.test.ts`
+- **Thin community `Community 59`** (1 nodes): `resolve-application.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GET()` connect `Community 0` to `Community 1`, `Community 2`, `Community 4`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 13`?**
-  _High betweenness centrality (0.155) - this node is a cross-community bridge._
-- **Why does `PATCH()` connect `Community 2` to `Community 0`, `Community 1`, `Community 4`, `Community 6`, `Community 8`, `Community 9`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
-- **Why does `processEmails()` connect `Community 6` to `Community 0`, `Community 1`, `Community 2`, `Community 14`?**
+- **Why does `GET()` connect `Community 0` to `Community 1`, `Community 2`, `Community 3`, `Community 5`, `Community 6`, `Community 8`, `Community 9`, `Community 13`?**
+  _High betweenness centrality (0.153) - this node is a cross-community bridge._
+- **Why does `PATCH()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`, `Community 5`, `Community 6`, `Community 9`?**
+  _High betweenness centrality (0.058) - this node is a cross-community bridge._
+- **Why does `processEmails()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **Are the 32 inferred relationships involving `GET()` (e.g. with `openDb()` and `dbPath()`) actually correct?**
   _`GET()` has 32 INFERRED edges - model-reasoned connections that need verification._

@@ -1,6 +1,6 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, getTableColumns, sql } from "drizzle-orm";
 import type { DB } from "@/lib/db/client";
-import { applications, emails, type Application, type Job, type Status } from "@/lib/db/schema";
+import { applications, emails, jobs, type Application, type Job, type Status } from "@/lib/db/schema";
 
 interface CreateInput {
   company: string;
@@ -53,11 +53,22 @@ interface ListFilters {
   company?: string;
 }
 
-export function listApplications(db: DB, f: ListFilters = {}): Application[] {
+/** An application plus when its linked job was posted (falling back to when we
+ *  first scraped it). Null for manual applications with no job. */
+export type ApplicationListItem = Application & { jobPostedAt: number | null };
+
+export function listApplications(db: DB, f: ListFilters = {}): ApplicationListItem[] {
   const conds = [];
   if (f.status) conds.push(eq(applications.status, f.status));
   if (f.company) conds.push(eq(applications.company, f.company));
-  let q = db.select().from(applications).$dynamic();
+  let q = db
+    .select({
+      ...getTableColumns(applications),
+      jobPostedAt: sql<number | null>`coalesce(${jobs.postedAt}, ${jobs.scrapedAt})`,
+    })
+    .from(applications)
+    .leftJoin(jobs, eq(applications.jobId, jobs.id))
+    .$dynamic();
   if (conds.length > 0) q = q.where(and(...conds));
   return q.orderBy(desc(applications.priority), desc(applications.appliedAt), desc(applications.id)).all();
 }
