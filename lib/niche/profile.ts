@@ -94,11 +94,11 @@ export const RESUME_LABEL: Record<ResumePick, string> = {
 
 /** Which file each pick means, for tooltips. */
 export const RESUME_FILE: Record<ResumePick, string> = {
-  ai: "Resume_PURABHSINGH_A.pdf (vaultdb + Anomalyy)",
-  backend: "Resume_PURABHSINGH.pdf (FastRust)",
+  ai: "Resume_PurabhSingh_AI.pdf (vaultdb + Mochee)",
+  backend: "Resume_PurabhSingh_backend.pdf (FastRust + Mochee)",
 };
 
-/** Role keywords that call for the AI resume (vaultdb / Anomalyy). */
+/** Role keywords that call for the AI resume (vaultdb / Mochee). */
 const AI_ROLE_KEYWORDS = [
   "ai", "a.i.", "ml", "machine learning", "llm", "genai", "gen ai", "generative", "deep learning",
   "nlp", "data scien", "data engineer", "data analyst", "analytics", "research", "applied scien",
